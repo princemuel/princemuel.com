@@ -1,5 +1,6 @@
 // Control Props
-// http://localhost:3000/isolated/exercise/06.js
+// 💯 don't warn in production
+// http://localhost:3000/isolated/final/06.extra-4.js
 
 import * as React from 'react'
 import warning from 'warning'
@@ -29,6 +30,54 @@ function toggleReducer(state, action) {
   }
 }
 
+function useControlledSwitchWarning(
+  controlPropValue,
+  controlPropName,
+  componentName,
+) {
+  const isControlled = controlPropValue != null
+  const {current: wasControlled} = React.useRef(isControlled)
+
+  React.useEffect(() => {
+    warning(
+      !(isControlled && !wasControlled),
+      `\`${componentName}\` is changing from uncontrolled to be controlled. Components should not switch from uncontrolled to controlled (or vice versa). Decide between using a controlled or uncontrolled \`${componentName}\` for the lifetime of the component. Check the \`${controlPropName}\` prop.`,
+    )
+    warning(
+      !(!isControlled && wasControlled),
+      `\`${componentName}\` is changing from controlled to be uncontrolled. Components should not switch from controlled to uncontrolled (or vice versa). Decide between using a controlled or uncontrolled \`${componentName}\` for the lifetime of the component. Check the \`${controlPropName}\` prop.`,
+    )
+  }, [componentName, controlPropName, isControlled, wasControlled])
+}
+
+function useOnChangeReadOnlyWarning(
+  controlPropValue,
+  controlPropName,
+  componentName,
+  hasOnChange,
+  readOnly,
+  readOnlyProp,
+  initialValueProp,
+  onChangeProp,
+) {
+  const isControlled = controlPropValue != null
+  React.useEffect(() => {
+    warning(
+      !(!hasOnChange && isControlled && !readOnly),
+      `A \`${controlPropName}\` prop was provided to \`${componentName}\` without an \`${onChangeProp}\` handler. This will result in a read-only \`${controlPropName}\` value. If you want it to be mutable, use \`${initialValueProp}\`. Otherwise, set either \`${onChangeProp}\` or \`${readOnlyProp}\`.`,
+    )
+  }, [
+    componentName,
+    controlPropName,
+    isControlled,
+    hasOnChange,
+    readOnly,
+    onChangeProp,
+    initialValueProp,
+    readOnlyProp,
+  ])
+}
+
 function useToggle({
   initialOn = false,
   reducer = toggleReducer,
@@ -39,22 +88,29 @@ function useToggle({
   const {current: initialState} = React.useRef({on: initialOn})
   const [state, dispatch] = React.useReducer(reducer, initialState)
 
+  if (process.env.NODE_ENV !== 'production') {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    useControlledSwitchWarning(controlledOn, 'on', 'useToggle')
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    useOnChangeReadOnlyWarning(
+      controlledOn,
+      'on',
+      'useToggle',
+      Boolean(onChange),
+      readOnly,
+      'readOnly',
+      'initialOn',
+      'onChange',
+    )
+  }
+
   const onIsControlled = controlledOn != null
   const on = onIsControlled ? controlledOn : state.on
 
-  // coerces the value to a boolean one
-  // const hasOnChange = Boolean(onChange)
-  const hasOnChange = !!onChange
-
-  React.useEffect(() => {
-    warning(
-      !(!hasOnChange && onIsControlled && !readOnly),
-      `An \`on\` prop was provided to useToggle without an \`onChange\` handler. This will render a read-only toggle. If you want it to be mutable, use \`initialOn\`. Otherwise, set either \`onChange\` or \`readOnly\`.`,
-    )
-  }, [hasOnChange, onIsControlled, readOnly])
-
   function dispatchWithOnChange(action) {
-    if (!onIsControlled) dispatch(action)
+    if (!onIsControlled) {
+      dispatch(action)
+    }
     onChange?.(reducer({...state, on}, action), action)
   }
 
@@ -101,8 +157,9 @@ function App() {
   const [timesClicked, setTimesClicked] = React.useState(0)
 
   function handleToggleChange(state, action) {
-    if (action.type === actionTypes.toggle && timesClicked > 4) return
-
+    if (action.type === actionTypes.toggle && timesClicked > 4) {
+      return
+    }
     setBothOn(state.on)
     setTimesClicked(c => c + 1)
   }
@@ -115,7 +172,7 @@ function App() {
   return (
     <div>
       <div>
-        <Toggle on={bothOn} readOnly={true} />
+        <Toggle on={bothOn} onChange={handleToggleChange} />
         <Toggle on={bothOn} onChange={handleToggleChange} />
       </div>
       {timesClicked > 4 ? (
@@ -146,5 +203,5 @@ export {Toggle}
 
 /*
 eslint
-  no-unused-vars: "off",
+  no-unused-expressions: "off",
 */
