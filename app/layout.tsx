@@ -1,3 +1,5 @@
+import { BaseLayout } from '@/components';
+import { cn } from '@/helpers';
 import { fonts } from './fonts';
 import './globals.css';
 
@@ -13,7 +15,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang='en'>
-      <body className={'' + fonts}>{children}</body>
+      <body className={cn(fonts, '')}>
+        <BaseLayout>{children}</BaseLayout>
+      </body>
     </html>
   );
 }

@@ -1,5 +1,17 @@
-import { Inter } from 'next/font/google';
+import { cn } from '@/helpers';
+import { Montserrat } from 'next/font/google';
+import localFont from 'next/font/local';
 
-const inter = Inter({ subsets: ['latin'] });
+const FontSans = Montserrat({
+  subsets: ['latin'],
+  variable: '--font-sans',
+  display: 'swap',
+});
 
-export const fonts = inter.className + '';
+const FontAccent = localFont({
+  src: './clash-display.ttf',
+  variable: '--font-accent',
+  display: 'swap',
+});
+
+export const fonts = cn(FontAccent.variable, FontSans.variable);
