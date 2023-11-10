@@ -1,0 +1,10 @@
+node_modules
+dist
+coverage
+build
+.cache
+.env
+*.local.*
+*.local
+*.config.*
+*.cjs
