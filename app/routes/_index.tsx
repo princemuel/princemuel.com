@@ -1,4 +1,3 @@
-import { envVars } from '@/env.dto.mjs';
 import type { MetaFunction } from '@remix-run/node';
 
 export const meta: MetaFunction = () => {
@@ -9,14 +8,6 @@ export const meta: MetaFunction = () => {
 };
 
 export default function Index() {
-  console.log(import.meta.env.VITE_SOME_KEY); // 123
-  console.log(import.meta.env.SERVER_URL); // undefined
-  console.log(
-    typeof window !== 'undefined' && window.env?.REMIX_PUBLIC_SITE_URL
-  ); // undefined
-
-  console.log('VERCEL_URL', envVars.VITE_VERCEL_URL);
-
   return (
     <div>
       <h1 className='text-3xl font-bold underline'>Welcome to Remix</h1>

@@ -1,3 +1,4 @@
+import { cssBundleHref } from '@remix-run/css-bundle';
 import {
   Links,
   LiveReload,
@@ -7,21 +8,19 @@ import {
   ScrollRestoration,
   useLoaderData,
 } from '@remix-run/react';
-import './globals.css';
-import { json } from '@remix-run/node';
-import type { LinksFunction } from '@remix-run/node';
+import { json, type LinksFunction } from '@vercel/remix';
+import styles from './globals.css';
 
 export async function loader() {
-  console.log('SERVER_URL', process.env.SERVER_URL);
-
   return json({
     ENV: {
-      REMIX_PUBLIC_SITE_URL: process.env.SERVER_URL,
+      REMIX_PUBLIC_VERCEL_URL: process.env.REMIX_PUBLIC_VERCEL_URL,
     },
   });
 }
 
 export const links: LinksFunction = () => [
+  { rel: 'stylesheet', href: styles },
   { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
   {
     rel: 'preconnect',
@@ -32,12 +31,11 @@ export const links: LinksFunction = () => [
     rel: 'stylesheet',
     href: 'https://fonts.googleapis.com/css2?family=Balsamiq+Sans:wght@400;700&display=swap',
   },
+  ...(cssBundleHref ? [{ rel: 'stylesheet', href: cssBundleHref }] : []),
 ];
 
 function App() {
   const data = useLoaderData<typeof loader>();
-
-  console.log(data);
 
   return (
     <html lang='en'>

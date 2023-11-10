@@ -1,13 +1,13 @@
 import { z } from 'zod';
 
-const BaseUrlSchema = z.preprocess(
-  // This prevents Vercel deployments from failing
-  // if you don't set the base url,
-  // it automatically uses the VERCEL_URL if present.
-  (value) => process.env.VERCEL_URL ?? value,
-  // VERCEL_URL doesn't include `https` so it cant be validated as a URL
-  process.env.VERCEL ? z.string().min(1) : z.string().url()
-);
+// const BaseUrlSchema = z.preprocess(
+//   // This prevents Vercel deployments from failing
+//   // if you don't set the base url,
+//   // it automatically uses the VERCEL_URL if present.
+//   (value) => process.env.VERCEL_URL ?? value,
+//   // VERCEL_URL doesn't include `https` so it cant be validated as a URL
+//   process.env.VERCEL ? z.string().min(1) : z.string().url()
+// );
 
 /**
  * Specify your server-side environment variables schema here.
@@ -19,7 +19,7 @@ const server = z.object({
     .enum(['development', 'test', 'production'])
     .default('development'),
 
-  DATABASE_URL: z.string().url(),
+  // DATABASE_URL: z.string().url(),
 });
 
 /**
@@ -28,7 +28,7 @@ const server = z.object({
  * To expose them to the client, prefix them with `VITE_`.
  */
 const client = z.object({
-  VITE_VERCEL_URL: z.string().min(1).optional(),
+  REMIX_PUBLIC_VERCEL_URL: z.string().min(1).optional(),
   // VITE_CLIENTVAR: z.string().min(1),
 });
 
@@ -43,9 +43,8 @@ const processEnv = {
   PORT: process.env.PORT,
   NODE_ENV: process.env.NODE_ENV,
 
-  DATABASE_URL: process.env.DATABASE_URL,
-
-  VITE_VERCEL_URL: import.meta.env?.VITE_VERCEL_URL,
+  // DATABASE_URL: process.env.DATABASE_URL,
+  REMIX_PUBLIC_VERCEL_URL: process.env.REMIX_PUBLIC_VERCEL_URL,
 };
 
 // ------------------------------------
@@ -60,12 +59,10 @@ const merged = server.merge(client);
 /** @typedef {z.infer<typeof merged>} MergedOutput */
 /** @typedef {z.SafeParseReturnType<MergedInput, MergedOutput>} MergedSafeParseReturn */
 
-let envVars = /** @type {MergedOutput} */ (
-  Object.assign({}, process.env, import.meta.env)
-);
+let envVars = /** @type {MergedOutput} */ (Object.assign({}, process.env));
 
-if (!!process.env.SKIP_ENV_VALIDATION == false) {
-  const isServer = typeof window === 'undefined';
+if (Boolean(process.env.SKIP_ENV_VALIDATION) == false) {
+  const isServer = typeof document === 'undefined';
 
   const parsed = /** @type {MergedSafeParseReturn} */ (
     isServer
@@ -73,7 +70,7 @@ if (!!process.env.SKIP_ENV_VALIDATION == false) {
       : client.safeParse(processEnv) // on client we can only validate the ones that are exposed
   );
 
-  if (parsed.success === false) {
+  if (!parsed.success) {
     console.error(
       '❌ Invalid environment variables:',
       parsed.error.flatten().fieldErrors
@@ -86,7 +83,7 @@ if (!!process.env.SKIP_ENV_VALIDATION == false) {
       if (typeof prop !== 'string') return undefined;
       // Throw a descriptive error if a server-side env var is accessed on the client
       // Otherwise it would just be returning `undefined` and be annoying to debug
-      if (!isServer && !prop.startsWith('VITE_'))
+      if (!isServer && !prop.startsWith('REMIX_PUBLIC_'))
         throw new Error(
           process.env.NODE_ENV === 'production'
             ? '❌ Attempted to access a server-side environment variable on the client'
