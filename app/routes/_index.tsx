@@ -1,3 +1,4 @@
+import { envVars } from '@/env.dto.mjs';
 import type { MetaFunction } from '@remix-run/node';
 
 export const meta: MetaFunction = () => {
@@ -14,8 +15,10 @@ export default function Index() {
     typeof window !== 'undefined' && window.env?.REMIX_PUBLIC_SITE_URL
   ); // undefined
 
+  console.log('VERCEL_URL', envVars.VITE_VERCEL_URL);
+
   return (
-    <div style={{ fontFamily: 'system-ui, sans-serif', lineHeight: '1.8' }}>
+    <div>
       <h1 className='text-3xl font-bold underline'>Welcome to Remix</h1>
       <ul>
         <li>
@@ -29,9 +32,11 @@ export default function Index() {
         </li>
         <li>
           <a
+            data-state='open'
             target='_blank'
             href='https://remix.run/tutorials/jokes'
             rel='noreferrer'
+            className='data-[state=open]:zoom-in-95'
           >
             Deep Dive Jokes App Tutorial
           </a>

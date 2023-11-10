@@ -47,6 +47,7 @@ function App() {
         <Meta />
         <Links />
       </head>
+
       <body>
         <Outlet />
         <script
