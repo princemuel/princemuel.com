@@ -8,6 +8,7 @@ import {
   ScrollRestoration,
   useLoaderData,
 } from '@remix-run/react';
+import { Analytics } from '@vercel/analytics/react';
 import { json, type LinksFunction } from '@vercel/remix';
 import styles from './globals.css';
 
@@ -50,6 +51,7 @@ export default function App() {
         <ScrollRestoration />
         <Scripts />
         <LiveReload />
+        <Analytics />
         <script
           dangerouslySetInnerHTML={{
             __html: `window.env = ${JSON.stringify(data.ENV)}`,
