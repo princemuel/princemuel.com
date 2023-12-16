@@ -1,4 +1,7 @@
+import { ClerkApp, ClerkErrorBoundary } from '@clerk/remix';
+import { rootAuthLoader } from '@clerk/remix/ssr.server';
 import { cssBundleHref } from '@remix-run/css-bundle';
+import type { LinksFunction, LoaderFunctionArgs } from '@remix-run/node';
 import {
   Links,
   LiveReload,
@@ -6,19 +9,9 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
-  useLoaderData,
 } from '@remix-run/react';
 import { Analytics } from '@vercel/analytics/react';
-import { json, type LinksFunction } from '@vercel/remix';
 import styles from './globals.css';
-
-export async function loader() {
-  return json({
-    ENV: {
-      REMIX_PUBLIC_VERCEL_URL: process.env.REMIX_PUBLIC_VERCEL_URL,
-    },
-  });
-}
 
 export const links: LinksFunction = () => [
   { rel: 'stylesheet', href: styles },
@@ -35,9 +28,11 @@ export const links: LinksFunction = () => [
   ...(cssBundleHref ? [{ rel: 'stylesheet', href: cssBundleHref }] : []),
 ];
 
-export default function App() {
-  const data = useLoaderData<typeof loader>();
+export const loader = (args: LoaderFunctionArgs) => rootAuthLoader(args);
 
+export const ErrorBoundary = ClerkErrorBoundary();
+
+function App() {
   return (
     <html lang='en'>
       <head>
@@ -52,12 +47,9 @@ export default function App() {
         <Scripts />
         <LiveReload />
         <Analytics />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `window.env = ${JSON.stringify(data.ENV)}`,
-          }}
-        />
       </body>
     </html>
   );
 }
+
+export default ClerkApp(App);

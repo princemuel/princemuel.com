@@ -1,4 +1,12 @@
-import type { MetaFunction } from '@vercel/remix';
+import {
+  RedirectToSignIn,
+  SignedIn,
+  SignedOut,
+  UserButton,
+} from '@clerk/remix';
+import { getAuth } from '@clerk/remix/ssr.server';
+import type { LoaderFunction, MetaFunction } from '@remix-run/node';
+import { redirect } from '@remix-run/node';
 
 export const meta: MetaFunction = () => {
   return [
@@ -10,14 +18,25 @@ export const meta: MetaFunction = () => {
   ];
 };
 
+export const loader: LoaderFunction = async (args) => {
+  const { userId } = await getAuth(args);
+  if (!userId) {
+    return redirect('/sign-in');
+  }
+  return {};
+};
+
 export default function Index() {
   return (
-    <div className='font-sans leading-relaxed'>
-      <h1 className='text-2xl font-medium'>
-        <span className='text-black'>Welcome to the</span>&nbsp;
-        <span className='text-yellow-400'>Drip With Pryde</span>&nbsp;
-        <span className='text-black'>Ecommerce Store</span>
-      </h1>
+    <div>
+      <SignedIn>
+        <h1>Index route</h1>
+        <p>You are signed in!</p>
+        <UserButton />
+      </SignedIn>
+      <SignedOut>
+        <RedirectToSignIn />
+      </SignedOut>
     </div>
   );
 }
