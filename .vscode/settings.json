@@ -7,8 +7,7 @@
   "editor.codeActionsOnSave": {
     "source.organizeImports": "explicit",
     "source.addMissingImports": "explicit",
-    "source.fixAll": "explicit",
-    "source.fixAll.eslint": "never"
+    "source.fixAll": "explicit"
   },
 
   "eslint.codeAction.showDocumentation": {
