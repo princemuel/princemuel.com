@@ -4,9 +4,7 @@ import {
   SignedOut,
   UserButton,
 } from '@clerk/remix';
-import { getAuth } from '@clerk/remix/ssr.server';
-import type { LoaderFunction, MetaFunction } from '@remix-run/node';
-import { redirect } from '@remix-run/node';
+import type { MetaFunction } from '@remix-run/node';
 
 export const meta: MetaFunction = () => {
   return [
@@ -18,13 +16,13 @@ export const meta: MetaFunction = () => {
   ];
 };
 
-export const loader: LoaderFunction = async (args) => {
-  const { userId } = await getAuth(args);
-  if (!userId) {
-    return redirect('/sign-in');
-  }
-  return {};
-};
+// export const loader: LoaderFunction = async (args) => {
+//   const { userId } = await getAuth(args);
+//   if (!userId) {
+//     return redirect('/sign-in');
+//   }
+//   return {};
+// };
 
 export default function Index() {
   return (

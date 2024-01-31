@@ -1,8 +1,5 @@
-import { cx, type CxOptions } from 'cva';
-import { extendTailwindMerge } from 'tailwind-merge';
+import type { ClassValue } from "tailwind-variants";
+import { cn } from "tailwind-variants";
 
-const customTwMerge = extendTailwindMerge({});
-
-export function cn(...args: CxOptions) {
-  return customTwMerge(cx(args));
-}
+export const tw = (...args: ClassValue[]) =>
+  cn(...args)({ twMerge: true });
