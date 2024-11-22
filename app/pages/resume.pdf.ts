@@ -26,6 +26,7 @@ export const GET = handler(async () => {
     headers: {
       "Content-Type": "application/pdf",
       "Content-Disposition": "inline; filename=resume",
+      "Cache-Control": "public, max-age=604800, immutable",
     },
   });
 });
