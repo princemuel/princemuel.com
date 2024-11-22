@@ -6,11 +6,11 @@ author: "Prince Muel"
 publishedAt: 2024-04-23T14:25:32.000Z
 ---
 
-princemuel.com (&apos;we&apos;, &apos;us&apos;, or &apos;our&apos;)
+princemuel.netlify.app (&apos;we&apos;, &apos;us&apos;, or &apos;our&apos;)
 provides this Privacy Policy to inform you of our policies and
 procedures regarding the collection, use and disclosure of personal
 information we may receive from users of our website (&apos;Site&apos;),
-accessible from <https://princemuel.com>, and any other services
+accessible from <https://princemuel.netlify.app>, and any other services
 offered by us in connection with our site (any and all of the foregoing
 the &apos;Services&apos;).
 
@@ -18,7 +18,7 @@ If you have additional questions or require more information about our
 Privacy Policy, do not hesitate to contact us at <vansomecsam@gmail.com>.
 This Privacy Policy applies only to our
 online activities and is valid for visitors to our website with regards
-to the information that they shared and/or collect in princemuel.com.
+to the information that they shared and/or collect in princemuel.netlify.app.
 This policy is not applicable to any information collected offline or
 via channels other than this website
 

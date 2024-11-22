@@ -49,7 +49,7 @@ body:
     attributes:
       label: Resource Url
       description: A link to the relevant resource, or the content that needs to be fixed. If not applicable, describe where to look for your suggestion
-      placeholder: ex. https://www.princemuel.com/blog/just-another-blog-post
+      placeholder: ex. https://www.princemuel.netlify.app/blog/just-another-blog-post
     validations:
       required: true
 

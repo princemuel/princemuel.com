@@ -1,47 +1,41 @@
-<p align="center">
-  <img alt="princemuel.com" src="public/static/favicons/favicon.svg" width="80" />
-</p>
-<h1 align="center">princemuel.com</h1>
-<p align="center">
-  <img alt="Checked with Biome" src="https://img.shields.io/badge/Checked_with-Biome-60a5fa?style=flat&logo=biome"  />
-  <img alt="Linted with Biome" src="https://img.shields.io/badge/Linted_with-Biome-60a5fa?style=flat&logo=biome"  />
-  <img alt="Formatted with Biome" src="https://img.shields.io/badge/Formatted_with-Biome-60a5fa?style=flat&logo=biome"  />
-  <img alt="Formatted with Biome" src="https://img.shields.io/badge/Formatted_with-Biome-60a5fa?style=flat&logo=biome"  />
-</p>
+# princemuel.netlify.app
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/43950cce-2ed3-434f-b933-5b514313e843/deploy-status)](https://app.netlify.com/sites/chukwuzube/deploys)
+Source code for my website, [princemuel.netlify.app](https://princemuel.netlify.app)
 
-## About Me
+This is my personal space on the internet. It is to serve as a portfolio website,
+blog, and a way for other like-minded devs who want to reach out to communicate with me.
 
-Hiya! I'm Samuel, a self-taught _**(or community-taught, take your pick)**_ software engineer based in Lagos, Nigeria.
+The website contains [articles I wrote](https://princemuel.netlify.app/blog),
+a [list of projects](https://princemuel.netlify.app/projects) I made, and finally,
+[a wiki about various things](https://princemuel.netlify.app/wiki) among other stuff.
 
-> **Favorite Quote**
->
-> Your scientists were so preoccupied with whether or not they could, they didn't stop to think if they should.
+## Tech stack
 
-If you like my material consider following me on:
+Made using [Astro](https://astro.build), styled using [Tailwind](https://tailwindcss.com/)
+and the interactive parts are written in [Typescript](https://www.typescriptlang.org/)
 
-- [Twitter @iamprincemuel](https://twitter.com/iamprincemuel)
-- [GitHub princemuel](https://github.com/princemuel)
-- [LinkedIn princemuel](https://linkedin.com/in/princemuel)
+### Technical motivations
 
-I am currently updating all my projects and it's a work in progress.
+While I don't necessarily have big ambitions for this website, I'm still trying
+to make it a great experience.
+As such, here are a few rules that I _(try my best)_ follow for that purpose:
 
-<!--
-Here are some ideas to get you started:
+#### Performance
 
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+- Pages should be as lightweight as possible. A page shouldn't initially weigh
+  more than 2mb. Heavy content such as images or embeds should be lazy-loaded
+  when possible, otherwise, only loaded on interaction or through a link.
+  Pages should load under 200-300ms on a fast internet and under 2s on much
+  slower internet connections. All in all, that means that:
+- Javascript should only be ever used for progressive enhancements or if
+  there's no alternative. The website should work with Javascript disabled or
+  not loaded yet.
+- In cases where that isn't possible, an alternative experience albeit
+  not as complete should be provided
 
-<!-- ## Blog Posts -->
+#### Accessibility
 
-<!-- BLOG-POST-LIST:START -->
-
-<!-- BLOG-POST-LIST:END -->
+- The website should be as accessible as possible, while I unfortunately
+  probably cannot fulfill every needs, low-hanging fruits such as accessible colors,
+  alt texts on images, proper usage of headings are all fairly doable
+  and should be done
