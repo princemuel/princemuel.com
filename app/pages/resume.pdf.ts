@@ -15,7 +15,7 @@ export const GET = handler(async () => {
       `export?${searchParams.toString()}`,
       `https://www.googleapis.com/drive/v3/files/${fileId}/`,
     ),
-    { signal: AbortSignal.timeout(10000) },
+    { signal: AbortSignal.timeout(20000) },
   );
 
   if (!response.ok) throw RequestError.unavailable("Failed to fetch resource");

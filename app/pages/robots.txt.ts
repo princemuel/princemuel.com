@@ -1,14 +1,31 @@
 import { handler } from "@/helpers/api-handler";
+import { DARK_VISITORS_TOKEN } from "astro:env/server";
 
 const defaultAgents = ["User-agent: ChatGPT-User", "User-agent: PerplexityBot"];
 const matcher = /^User-agent:.*/iu;
 
 export const GET = handler(async (ctx) => {
-  const text = await fetch("https://darkvisitors.com/robots-txt-builder", {
-    signal: AbortSignal.timeout(5000),
-  })
-    .then((response) => (response.ok ? response.text() : ""))
-    .catch(() => "");
+  const response = await fetch("https://api.darkvisitors.com/robots-txts", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${DARK_VISITORS_TOKEN}`,
+      "Content-Type": "application/json",
+    },
+    signal: AbortSignal.timeout(20000),
+    body: JSON.stringify({
+      disallow: "/",
+      agent_types: [
+        "AI Data Scraper",
+        "Undocumented AI Agent",
+        "AI Assistant",
+        "AI Search Crawler",
+      ],
+    }),
+  });
+
+  const text = response.ok ? await response.text() : "";
+
+  console.log(text);
 
   const agents = [
     ...new Set([

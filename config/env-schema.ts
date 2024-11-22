@@ -9,6 +9,7 @@ const z = envField;
 
 export const envSchema: Schema = {
   ASTRO_KEY: z.string({ context: "server", access: "secret" }),
+  DARK_VISITORS_TOKEN: z.string({ context: "server", access: "secret" }),
   DATABASE_TOKEN: z.string({ context: "server", access: "secret" }),
   DATABASE_URL: z.string({ context: "server", access: "secret" }),
 

@@ -1,4 +1,4 @@
-import avatar from "@/assets/images/placeholder.avif";
+import { avatar } from "@/assets";
 
 import { published_date } from "@/config/settings";
 import { withBaseUrl } from "@/helpers/with-base-url";
