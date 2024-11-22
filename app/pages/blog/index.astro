@@ -24,7 +24,7 @@ const entries = collection.sort((a, b) => {
   description="A space where I talk about web development and other programming related (or not) things."
 >
   <Container class="mt-12">
-    <div class="grid grid-cols-1 gap-4 md:gap-6 lg:grid-cols-[5rem,1fr] lg:gap-12">
+    <div class="grid grid-cols-1 gap-4 md:gap-6 lg:grid-cols-[5rem_1fr] lg:gap-12">
       <Article class="flex flex-col gap-4 lg:col-start-2">
         <h1 id="headline" class="text-3xl font-extrabold text-gray-800">Blog</h1>
         <Markdown>
@@ -38,7 +38,7 @@ const entries = collection.sort((a, b) => {
                 <h3>
                   <Link
                     href={`/blog/${id}`}
-                    class="text-lg font-bold text-gray-800 hocus:underline"
+                    class="hocus:underline text-lg font-bold text-gray-800"
                   >
                     {data.title}
                   </Link>
@@ -46,7 +46,7 @@ const entries = collection.sort((a, b) => {
                 <p class="text-base text-gray-600">{data.summary}</p>
                 <Link
                   href={`/blog/${id}`}
-                  class="mt-2 flex text-sm text-gray-500 hocus:text-gray-700 hocus:underline"
+                  class="hocus:text-gray-700 hocus:underline mt-2 flex text-sm text-gray-500"
                 >
                   Read this article &RightArrow;
                 </Link>

@@ -31,7 +31,7 @@ const entries = page.data;
   description="A list of projects I've worked on, or am currently working on. Mostly web development"
 >
   <Container class="mt-12">
-    <div class="grid grid-cols-1 gap-4 md:gap-6 lg:grid-cols-[5rem,1fr] lg:gap-12">
+    <div class="grid grid-cols-1 gap-4 md:gap-6 lg:grid-cols-[5rem_1fr] lg:gap-12">
       <Article class="flex flex-col gap-4 lg:col-start-2">
         <h1 id="headline" class="text-3xl font-extrabold text-gray-800">Projects</h1>
         <Markdown>
@@ -46,7 +46,7 @@ const entries = page.data;
                   <h3>
                     <Link
                       href={`/projects/${id}`}
-                      class="text-lg font-bold text-gray-800 hocus:underline"
+                      class="hocus:underline text-lg font-bold text-gray-800"
                     >
                       {data.title}
                     </Link>
@@ -64,7 +64,7 @@ const entries = page.data;
                 <p class="text-base text-gray-600">{data.summary}</p>
                 <Link
                   href={`/projects/${id}`}
-                  class="mt-2 flex text-sm text-gray-500 hocus:text-gray-800 hocus:underline"
+                  class="hocus:text-gray-800 hocus:underline mt-2 flex text-sm text-gray-500"
                 >
                   View project details &RightArrow;
                 </Link>

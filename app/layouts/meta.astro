@@ -105,11 +105,6 @@ const img = await generated;
 {/* Permalink / Sitemap / Feed / Changelog */}
 <link rel="canonical" href={linkCanonical} />
 <link
-  rel="prefetch"
-  href={new URL("/api/visits", Astro.site)}
-  crossorigin="anonymous"
-/>
-<link
   rel="sitemap"
   type="application/xml"
   href={new URL("/sitemap-index.xml", Astro.site)}
