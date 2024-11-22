@@ -15,6 +15,9 @@ export const GET = handler(async (ctx) => {
 
   return new Response(humansText.join("\n\n").trim(), {
     status: 200,
-    headers: { "Content-Type": "text/plain; charset=UTF-8" },
+    headers: {
+      "Content-Type": "text/plain; charset=UTF-8",
+      "Cache-Control": "public, max-age=31536000, immutable",
+    },
   });
 });

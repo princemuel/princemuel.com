@@ -13,7 +13,7 @@
 <!--
 If this PR closes an open issue in this repo, replace the XXXXX below with the issue number, e.g. Closes #2013.
 
-If this PR closes an open issue in another TOP repo, replace the #XXXXX with the URL of the issue, e.g. Closes https://github.com/Princemuel/princemuel.com/issues/XXXXX
+If this PR closes an open issue in another TOP repo, replace the #XXXXX with the URL of the issue, e.g. Closes https://github.com/princemuel/princemuel.com/issues/XXXXX
 
 If this PR does not close, but is related to another issue or PR, you can link it as above without the 'Closes' keyword, e.g. 'Related to #2013'.
 
@@ -35,5 +35,5 @@ Closes #XXXXX
 - [ ] The `Because` section summarizes the reason for this PR
 - [ ] The `This PR` section has a bullet point list describing the changes in this PR
 - [ ] If this PR addresses an open issue, it is linked in the `Issue` section
-- [ ] If any lesson files are included in this PR, they have been previewed with the [Markdown preview tool](https://www.princemuel.com/blog/preview) to ensure it is formatted correctly
+- [ ] If any lesson files are included in this PR, they have been previewed with the [Markdown preview tool](https://www.princemuel.netlify.app/blog/preview) to ensure it is formatted correctly
 - [ ] If any lesson files are included in this PR, they follow the [Layout Style Guide](https://github.com/princemuel/princemuel.com/blob/main/LAYOUT_STYLE_GUIDE.md)

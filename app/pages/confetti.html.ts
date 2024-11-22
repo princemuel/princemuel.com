@@ -19,7 +19,7 @@ export const GET = handler(async () => {
 
   const [_, confetti] = await Promise.all([
     new Promise((resolve) => setTimeout(resolve, timeout)),
-    fetch(CONFETTI_URL, { signal: AbortSignal.timeout(5000) }).then((r) => r.text()),
+    fetch(CONFETTI_URL, { signal: AbortSignal.timeout(20000) }).then((r) => r.text()),
   ]);
 
   writer.write(`

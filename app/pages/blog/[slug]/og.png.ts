@@ -10,7 +10,7 @@ import satori from "satori";
 import { html } from "satori-html";
 import sharp from "sharp";
 
-import cover from "@/assets/images/blog-placeholder-5.jpg";
+import { blog_cover_5 } from "@/assets";
 
 import type { InferGetStaticPropsType } from "astro";
 
@@ -32,7 +32,7 @@ export const GET = handler<Props>(async (ctx) => {
   const entry = ctx.props.entry;
 
   const generated = (async () => {
-    const image_src = entry.data.media?.cover?.src || cover;
+    const image_src = entry.data.media?.cover?.src || blog_cover_5;
     return getImage({ src: image_src, format: "png", width: 1200, height: 630 });
   })();
 

@@ -1,5 +1,5 @@
 ---
-import LinkedSVG from "@/assets/icons/linked.svg";
+import { linked } from "@/assets";
 
 import type { HTMLAttributes } from "astro/types";
 
@@ -12,4 +12,4 @@ const { class: className, ...attrs } = Astro.props;
   <slot />
 </article>
 
-<style define:vars={{ linked: `url(${LinkedSVG.src})` }}></style>
+<style define:vars={{ linked: `url(${linked.src})` }}></style>

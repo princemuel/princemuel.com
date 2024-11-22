@@ -1,4 +1,4 @@
-# princemuel.com
+# princemuel.netlify.app
 
 This is my personal space on the internet. It is to serve as a portfolio website, blog, and a way for other like-minded devs who want to reach out to communicate with me
 

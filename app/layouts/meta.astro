@@ -9,7 +9,7 @@ import { ClientRouter } from "astro:transitions";
 import { pwaAssetsHead } from "virtual:pwa-assets/head";
 import { pwaInfo } from "virtual:pwa-info";
 
-import avatar from "@/assets/images/princemuel-open-graph-image-2024.jpg";
+import { avatar } from "@/assets";
 
 import italic from "@fontsource-variable/ubuntu-sans/files/ubuntu-sans-latin-wght-italic.woff2";
 import normal from "@fontsource-variable/ubuntu-sans/files/ubuntu-sans-latin-wght-normal.woff2";
@@ -104,6 +104,11 @@ const img = await generated;
 
 {/* Permalink / Sitemap / Feed / Changelog */}
 <link rel="canonical" href={linkCanonical} />
+<link
+  rel="prefetch"
+  href={new URL("/api/visits", Astro.site)}
+  crossorigin="anonymous"
+/>
 <link
   rel="sitemap"
   type="application/xml"
@@ -203,8 +208,8 @@ const img = await generated;
 <link rel="prefetch" as="font" type="font/woff2" href={mono} crossorigin="anonymous" />
 
 {/* Webmentions */}
-<link rel="webmention" href="https://webmention.io/princemuel.com/webmention" />
-<link rel="pingback" href="https://webmention.io/princemuel.com/xmlrpc" />
+<link rel="webmention" href="https://webmention.io/princemuel.netlify.app/webmention" />
+<link rel="pingback" href="https://webmention.io/princemuel.netlify.app/xmlrpc" />
 
 {/* <meta name="format-detection" content="telephone=no, address=no, email=no" /> */}
 {/* <meta name="google-site-verification" content="google" /> */}
