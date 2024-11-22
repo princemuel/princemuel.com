@@ -22,7 +22,7 @@ const entries = collection.sort((a, b) => {
 
 <Root title={["Journal"]} description="journal">
   <Container class="mt-12">
-    <div class="grid grid-cols-1 gap-4 md:gap-6 lg:grid-cols-[5rem,1fr] lg:gap-12">
+    <div class="grid grid-cols-1 gap-4 md:gap-6 lg:grid-cols-[5rem_1fr] lg:gap-12">
       <Article class="flex flex-col gap-4 lg:col-start-2">
         <h1 id="headline" class="text-3xl font-extrabold text-gray-800">
           Work Journal
@@ -39,12 +39,12 @@ const entries = collection.sort((a, b) => {
                 <article class="flex flex-col gap-1">
                   <Time
                     datetime={data.publishedAt}
-                    class="text-xs font-bold uppercase tracking-wider text-gray-500"
+                    class="text-xs font-bold tracking-wider text-gray-500 uppercase"
                   />
                   <h3>
                     <Link
                       href={`/journal/${id}`}
-                      class="text-lg font-bold text-gray-800 hocus:underline"
+                      class="hocus:underline text-lg font-bold text-gray-800"
                     >
                       {data.title}
                     </Link>

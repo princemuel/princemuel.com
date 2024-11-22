@@ -1,17 +1,73 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@source "../../pages/**/*.{astro,md}";
+@source "../../layouts/**/*.astro";
+@source "../../components/**/*.astro";
+@source "../../content/**/*.{md,mdx,json}";
+
+@plugin "@tailwindcss/typography";
+@plugin "@tailwindcss/forms";
+
+@theme {
+  --text-2xs: 0.625rem;
+  --text-2xs--line-height: 0.875rem;
+
+  --font-sans: "Ubuntu Sans Variable", ui-sans-serif, system-ui, sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-mono: "Cascadia Code", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", "Courier New", monospace;
+
+  --breakpoint-3xs: 24em; /*  (min-width: 384px) */
+  --breakpoint-2xs: 30em; /*  (min-width: 480px) */
+  --breakpoint-xs: 36em; /*  (min-width: 576px) */
+  --breakpoint-sm: 40em; /*  (min-width: 640px) */
+  --breakpoint-md: 48em; /*  (min-width: 768px) */
+  --breakpoint-lg: 64em; /*  (min-width: 1024px) */
+  --breakpoint-xl: 80em; /*  (min-width: 1280px) */
+  --breakpoint-2xl: 96em; /*  (min-width: 1536px) */
+  --breakpoint-3xl: 112.5em; /*  (min-width: 1800px) */
+
+  --color-slate-*: initial;
+  /* --color-gray-*: initial; */
+  --color-zinc-*: initial;
+  --color-neutral-*: initial;
+  --color-stone-*: initial;
+  --color-red-*: initial;
+  --color-orange-*: initial;
+  --color-amber-*: initial;
+  --color-yellow-*: initial;
+  --color-lime-*: initial;
+  --color-green-*: initial;
+  --color-emerald-*: initial;
+  --color-teal-*: initial;
+  --color-cyan-*: initial;
+  --color-sky-*: initial;
+  --color-blue-*: initial;
+  --color-indigo-*: initial;
+  --color-violet-*: initial;
+  --color-purple-*: initial;
+  --color-fuchsia-*: initial;
+  --color-pink-*: initial;
+  --color-rose-*: initial;
+
+  --radius-pill: 100vmax;
+
+  --cursor-pointer: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAAUCAYAAABvVQZ0AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAI6SURBVHgBnZRBaxNBGIYnu9uNSW1NlkgMVAl4Cyg5CAUPJlYFTyaX3CohePKUn5BcBA9CfkAvAf+B4sVLBC8eChv05ClKVaQIiUKjabOO77s7E8bUBpsXnrwzu9lvvvm+2bXFccWADRw1XlpWJpNZg+8ACV4kEomNVqtliSW0Am2mUik5HA5luVxmwEe5XC4pltBZ27a38/m8pHq9HoP54KI47ZbT6fQ52H1mRjE7jnFtK5vNrjJzhSuiui5cYA2Z3YN/HwwGYcBischgH8En8BLsKZ5w8VqtdiwoJ5bneeuO49zGeBdFD4OVSqVwu77vh1nS9VgF3SoUCq4ZiJObzAgcgK8sPtVsNqWWvka1221d011wgckI9cPJ5263K7k9NkDXbZH4Xzz3DRRVLcPDycmYBTe6KPV8kUR0Hm+AM0JFvA4+6DpRnU5nNq5UKn85A5jBUOdb8ITO7CrY4dZ0F+dX/5cbmd0Fq6zXb7CPI/F6NBq9bTQa4n/V7/dpI2QmZxfZWugKhm3eNLdI6S5q1/VkozB+BjZB3Dwe6+COZVlP4Ufs7CLV63UGeg8egksieiNmspPJZA6+DZ6DX/MZVqvVMDt1JA6w8GP4NV38ebnxePwy/IEK+FMVWHMIhmr8BnWuwj2hDqwzF+xwMpnsIeCr6XQ6DoJgIKIvhhuLxaZIjm/IEZgAH/ffwX+IqIknvvU8e+fBBlb38JALDxBwrLKTWGwf/gWMzcKfJP3pXjGuBcqlyjAwH/gDZjDKatJ5fJYAAAAASUVORK5CYII="),
+    pointer;
+}
+
+@variant dark (&:where([data-mode="dark"], [data-mode="dark"] *));
 
 :is(a, button, label, option, details) {
   @apply cursor-pointer;
 }
 
 .linked {
-  @apply relative text-[0.8em] font-extrabold leading-none text-inherit no-underline;
+  @apply relative text-[0.8em] leading-none font-extrabold text-inherit no-underline;
 
   &:hover::before {
     content: "";
     mask-image: var(--linked);
-    @apply absolute -left-5 top-1/2 size-4 -translate-y-1/2 bg-gray-500 sm:block;
+    @apply absolute top-1/2 -left-5 size-4 -translate-y-1/2 bg-gray-500 sm:block;
   }
 }

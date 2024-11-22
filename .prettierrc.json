@@ -13,7 +13,6 @@
   "experimentalTernaries": false,
   "singleAttributePerLine": false,
 
-  "tailwindConfig": "tailwind.config.js",
   "tailwindFunctions": ["tw", "cn", "tv"],
   "tailwindAttributes": ["tw"],
   "plugins": [

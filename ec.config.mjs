@@ -12,6 +12,8 @@ export default defineEcConfig({
   },
   plugins: [pluginCollapsibleSections(), pluginLineNumbers()],
   useThemedSelectionColors: false,
-  themeCssSelector: (theme) => `[data-theme='${theme.name}']`,
+  useThemedScrollbars: true,
+  cascadeLayer: "code",
   defaultProps: { showLineNumbers: false },
+  emitExternalStylesheet: false,
 });
