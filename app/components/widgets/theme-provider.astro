@@ -2,49 +2,49 @@
 import { Icon } from "astro-icon/components";
 ---
 
-<template data-id="x-theme-icons">
+<template id="x-icons">
   <Icon
     name="lucide:sun"
-    data-id="x-light"
+    id="x-light"
     role="presentation"
-    class="animate-rotate"
+    class="rotate-90 transition-transform duration-200"
   />
   <Icon
     name="lucide:moon-star"
-    data-id="x-dark"
+    id="x-dark"
     role="presentation"
-    class="animate-rotate"
+    class="rotate-90 transition-transform duration-200"
   />
-  <Icon name="lucide:zap" data-id="x-auto" role="presentation" class="animate-rotate" />
+  <Icon
+    name="lucide:zap"
+    id="x-auto"
+    role="presentation"
+    class="rotate-90 transition-transform duration-200"
+  />
 </template>
 
 {/* This is intentionally inlined to avoid FOUC. */}
 <script is:inline>
-  if (!window.ThemeProvider) {
+  if (!window.ThemeProvider)
     window.ThemeProvider = (function () {
       const storedTheme =
         typeof localStorage !== "undefined" && localStorage.getItem("x-theme");
       const mql = window.matchMedia("(prefers-color-scheme: light)");
       const theme = storedTheme || (mql.matches ? "light" : "dark");
-      document.documentElement.dataset.theme = theme;
-      document.documentElement.dataset.readerTheme =
-        theme === "light" ? "github-light-default" : "github-dark-default";
-
+      document.documentElement.dataset.mode = theme;
+      document.documentElement.dataset.theme = `github-${theme}-default`;
       return {
-        updateWidget(theme = storedTheme || "auto") {
-          const widget = document.querySelector("astro-theme");
+        updatePicker(theme = storedTheme || "auto") {
+          const picker = document.querySelector("theme-picker");
           /** @type {HTMLTemplateElement | null} */
-          const tmpl = document.querySelector(`[data-id="x-theme-icons"]`);
-          const themeIcon =
-            tmpl && tmpl.content.querySelector(`[data-id="x-${theme}"]`);
-          widget.querySelector("svg")?.remove();
-          if (themeIcon) {
-            widget
-              .querySelector("span")
+          const tmpl = document.getElementById("x-icons");
+          const themeIcon = tmpl?.content?.getElementById(`x-${theme}`);
+          picker?.querySelector("svg")?.remove();
+          themeIcon &&
+            picker
+              ?.querySelector("span")
               ?.insertAdjacentElement("afterend", themeIcon.cloneNode(true));
-          }
         },
       };
     })();
-  }
 </script>

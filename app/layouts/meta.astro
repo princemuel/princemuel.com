@@ -1,4 +1,5 @@
 ---
+
 import { defaultKeywords, delimiter, getSiteSettings } from "@/config/settings";
 import { formatCanonicalURL } from "@/helpers/format-canonical";
 import { pluralize } from "@/utilities/strings";
@@ -11,13 +12,13 @@ import { pwaInfo } from "virtual:pwa-info";
 
 import { avatar } from "@/assets";
 
-import italic from "@fontsource-variable/ubuntu-sans/files/ubuntu-sans-latin-wght-italic.woff2";
-import normal from "@fontsource-variable/ubuntu-sans/files/ubuntu-sans-latin-wght-normal.woff2";
+import italic from "@fontsource-variable/open-sans/files/open-sans-latin-wght-italic.woff2";
+import normal from "@fontsource-variable/open-sans/files/open-sans-latin-wght-normal.woff2";
 import mono from "/static/fonts/cascadia.woff2";
 
 // import "@/assets/styles/debug.css"; // uncomment this to debug your styles
 import "@/assets/styles/fonts.css";
-import "@/assets/styles/global.css";
+import "@/global.css";
 
 type Props = Meta & { og?: OpenGraph; twitter?: Twitter };
 
@@ -198,8 +199,20 @@ const img = await generated;
 }
 
 {/* Font Loaders */}
-<link rel="preload" as="font" type="font/woff2" href={normal} crossorigin="anonymous" />
-<link rel="preload" as="font" type="font/woff2" href={italic} crossorigin="anonymous" />
+<link
+  rel="prefetch"
+  as="font"
+  type="font/woff2"
+  href={normal}
+  crossorigin="anonymous"
+/>
+<link
+  rel="prefetch"
+  as="font"
+  type="font/woff2"
+  href={italic}
+  crossorigin="anonymous"
+/>
 <link rel="prefetch" as="font" type="font/woff2" href={mono} crossorigin="anonymous" />
 
 {/* Webmentions */}
@@ -216,4 +229,3 @@ const img = await generated;
 
 <ClientRouter />
 <slot name="head" />
-{/* <ThemeProvider />  */}

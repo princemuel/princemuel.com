@@ -54,9 +54,9 @@ export const GET = handler<Props>(async (ctx) => {
   const markup = html`
   <div tw="flex h-[40rem] bg-white w-[75rem] flex-col items-center justify-center px-6"
   >
-  <h1 tw="text-6xl font-bold text-gray-900">${author.data.name}</h1>
-  <h2 tw="text-5xl font-bold text-gray-500">${entry.data.title}</h2>
-  <h3 tw="text-2xl font-normal text-gray-500">${entry.data.summary}</h3>
+  <h1 tw="text-6xl font-bold text-zinc-900">${author.data.name}</h1>
+  <h2 tw="text-5xl font-bold text-zinc-500">${entry.data.title}</h2>
+  <h3 tw="text-2xl font-normal text-zinc-500">${entry.data.summary}</h3>
 
 
     </div>

@@ -12,7 +12,7 @@
   --text-2xs: 0.625rem;
   --text-2xs--line-height: 0.875rem;
 
-  --font-sans: "Ubuntu Sans Variable", ui-sans-serif, system-ui, sans-serif,
+  --font-sans: "Open Sans Variable", ui-sans-serif, system-ui, sans-serif,
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   --font-mono: "Cascadia Code", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
     "Liberation Mono", "Courier New", monospace;
@@ -28,8 +28,8 @@
   --breakpoint-3xl: 112.5em; /*  (min-width: 1800px) */
 
   --color-slate-*: initial;
-  /* --color-gray-*: initial; */
-  --color-zinc-*: initial;
+  --color-gray-*: initial;
+  /* --color-zinc-*: initial; */
   --color-neutral-*: initial;
   --color-stone-*: initial;
   --color-red-*: initial;
@@ -68,6 +68,6 @@
   &:hover::before {
     content: "";
     mask-image: var(--linked);
-    @apply absolute top-1/2 -left-5 size-4 -translate-y-1/2 bg-gray-500 sm:block;
+    @apply absolute top-1/2 -left-5 size-4 -translate-y-1/2 bg-zinc-500 sm:block;
   }
 }

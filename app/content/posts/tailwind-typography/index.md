@@ -39,7 +39,7 @@ It adds a new `prose` class that you can slap on any block of vanilla HTML conte
 </article>
 ```
 
-```js
+```js showLineNumbers
 // src/routes/blog/[slug]/$asset[.jpg]
 export const loader = async ({ request }) => {
   const url = new URL(request.url);
