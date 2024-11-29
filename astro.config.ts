@@ -16,7 +16,7 @@ export default defineConfig({
   site: envVars.PUBLIC_SITE_URL,
   env: { validateSecrets: true, schema: envSchema },
   experimental: {
-    svg: { mode: "sprite" },
+    // svg: { mode: "sprite" },
     responsiveImages: true,
     contentIntellisense: true,
   },

@@ -31,9 +31,6 @@
   "tailwindCSS.experimental.classRegex": [
     ["tv\\((([^()]*|\\([^()]*\\))*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"]
   ],
-  "tailwindCSS.includeLanguages": {
-    "xslt": "html"
-  },
   "typescript.enablePromptUseWorkspaceTsdk": true,
   "typescript.tsdk": "node_modules/typescript/lib",
   "window.autoDetectColorScheme": true,
@@ -108,5 +105,6 @@
   "evenBetterToml.formatter.reorderArrays": true,
   "evenBetterToml.formatter.reorderKeys": true,
   "evenBetterToml.formatter.trailingNewline": true,
-  "evenBetterToml.semanticTokens": true
+  "evenBetterToml.semanticTokens": true,
+  "tailwindCSS.classAttributes": ["class", "className", "ngClass", "class:list", "tw"]
 }

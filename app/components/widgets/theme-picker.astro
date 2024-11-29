@@ -1,16 +1,16 @@
-<astro-theme class="flex items-center justify-center">
+<theme-picker class="contents">
   <button
     type="button"
     title="Toggle Theme"
-    class="relative text-2xl text-gray-600 transition-transform delay-200 duration-200 ease-in"
+    class="relative bg-zinc-600 text-2xl text-white transition-transform delay-200 duration-200 ease-in"
   >
     <span class="sr-only">Toggle theme</span>
   </button>
-</astro-theme>
+</theme-picker>
 
 {/* Inlined to avoid FOUC. Uses global scope from `theme-provider.astro` */}
 <script is:inline>
-  window.ThemeProvider.updateWidget();
+  window.ThemeProvider.updatePicker();
 </script>
 
 <script>
@@ -25,18 +25,21 @@
 
   /** Yield the next theme, looping back to the first after reaching the end. */
   const themeGenerator = (function* () {
-    let index = 1;
+    let index = 0;
     while (true) {
       yield themes[index];
       index = (index + 1) % themes.length;
     }
   })();
 
-  /** Get the preferred system color scheme. */
   const getPreferredColorScheme = (): Theme => (mql.matches ? "light" : "dark");
+
+  const parseTheme = (theme: unknown): Theme =>
+    theme === "auto" || theme === "dark" || theme === "light" ? theme : "auto";
   const loadTheme = (): Theme =>
     parseTheme(typeof localStorage !== "undefined" && localStorage.getItem(storageKey));
-  function storeTheme(theme: Theme): void {
+
+  function storeTheme(theme: Theme) {
     if (typeof localStorage !== "undefined") {
       localStorage.setItem(
         storageKey,
@@ -45,23 +48,15 @@
     }
   }
 
-  const parseTheme = (theme: unknown): Theme =>
-    theme === "auto" || theme === "dark" || theme === "light" ? theme : "auto";
-
   /** Update theme widget, document theme, and local storage state. */
-  function onThemeChange(theme: Theme): void {
-    window.ThemeProvider.updateWidget(theme);
-    document.documentElement.dataset.theme =
+  function onThemeChange(theme: Theme) {
+    window.ThemeProvider.updatePicker(theme);
+    document.documentElement.dataset.mode =
       theme === "auto" ? getPreferredColorScheme() : theme;
-    document.documentElement.dataset.readerTheme =
+    document.documentElement.dataset.theme =
       theme === "auto"
-        ? getPreferredColorScheme() === "light"
-          ? "github-light-default"
-          : "github-dark-default"
-        : theme === "light"
-          ? "github-light-default"
-          : "github-dark-default";
-
+        ? `github-${getPreferredColorScheme()}-default`
+        : `github-${theme}-default`;
     storeTheme(theme);
   }
 
@@ -70,18 +65,31 @@
     if (loadTheme() === "auto") onThemeChange("auto");
   });
 
-  class ThemeWidget extends HTMLElement {
+  class AstroThemePicker extends HTMLElement {
+    btn: HTMLButtonElement;
+    handleClick: (e: MouseEvent) => void;
     constructor() {
       super();
-      onThemeChange(loadTheme());
-      const btn = getElement("button", HTMLButtonElement, this);
+      this.btn = getElement("button", HTMLButtonElement, this);
+      this.handleClick = this.#handleThemeChange.bind(this);
+    }
 
-      btn.addEventListener("click", (e) => {
-        if (e.currentTarget instanceof HTMLButtonElement) {
-          onThemeChange(parseTheme(themeGenerator.next().value));
-        }
-      });
+    connectedCallback() {
+      console.log("Init Theme Picker");
+      onThemeChange(loadTheme());
+      this.btn.addEventListener("click", this.handleClick);
+    }
+
+    #handleThemeChange(e: MouseEvent) {
+      if (e.currentTarget instanceof HTMLButtonElement) {
+        onThemeChange(parseTheme(themeGenerator.next().value));
+      }
+    }
+
+    disconnectedCallback() {
+      console.log("Unmount Theme Picker");
+      this.btn.removeEventListener("click", this.handleClick);
     }
   }
-  create_custom_el("astro-theme", ThemeWidget);
+  create_custom_el("theme-picker", AstroThemePicker);
 </script>

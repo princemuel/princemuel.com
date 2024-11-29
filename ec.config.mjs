@@ -6,14 +6,15 @@ import { fonts } from "./config/fonts.mjs";
 
 export default defineEcConfig({
   themes: ["github-dark-default", "github-light-default"],
-  styleOverrides: {
-    codeFontFamily: fonts.mono.join(","),
-    uiFontFamily: fonts.sans.join(","),
-  },
   plugins: [pluginCollapsibleSections(), pluginLineNumbers()],
   useThemedSelectionColors: false,
   useThemedScrollbars: true,
   cascadeLayer: "code",
   defaultProps: { showLineNumbers: false },
   emitExternalStylesheet: false,
+  styleOverrides: {
+    codeFontFamily: fonts.mono.join(","),
+    uiFontFamily: fonts.sans.join(","),
+    borderWidth: "1px",
+  },
 });

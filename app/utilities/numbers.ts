@@ -8,12 +8,12 @@ export function approximate(num = 0, fractionDigits = 2) {
 }
 
 /** Safely parses a value to a number and guards against NaN and negative zero. */
-export const number_guard = (value: unknown, defaultValue = 0) => {
-  const parsed = Number(value);
-  return Number.isNaN(parsed) || Object.is(parsed, -0) ? defaultValue : parsed;
+export const toSafeNumber = (input: unknown, defaultValue = 0) => {
+  const value = Number(input);
+  return Number.isNaN(value) || Object.is(value, -0) ? defaultValue : value;
 };
 
-export function format_num(num: number, digits?: number | undefined) {
+export function formatNumber(num: number, digits = 1) {
   if (!num) return "0";
 
   const LOOKUP = [
@@ -28,11 +28,10 @@ export function format_num(num: number, digits?: number | undefined) {
 
   const TRAILING_ZERO_REGEX = /\.0+$|(\.[0-9]*[1-9])0+$/;
 
-  const { value, symbol } = LOOKUP.slice()
+  const match = LOOKUP.slice()
     .reverse()
-    .find((item) => num >= item.value) ?? { value: 1, symbol: "" };
+    .find((item) => num >= item.value) || { value: 1, symbol: "" };
 
-  const validDigits = digits ? Math.abs(digits) : 1;
-
-  return (num / value).toFixed(validDigits).replace(TRAILING_ZERO_REGEX, "$1") + symbol;
+  const scaledNum = (num / match.value).toFixed(Math.abs(digits));
+  return scaledNum.replace(TRAILING_ZERO_REGEX, "$1") + match.symbol;
 }

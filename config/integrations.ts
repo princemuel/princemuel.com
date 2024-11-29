@@ -1,5 +1,5 @@
 import mdx from "@astrojs/mdx";
-import partytown from "@astrojs/partytown";
+// import partytown from "@astrojs/partytown";
 import sitemap from "@astrojs/sitemap";
 import pwa from "@vite-pwa/astro";
 import auto_import from "astro-auto-import";
@@ -67,5 +67,5 @@ export const integrations = [
   mdx({ gfm: true, extendMarkdownConfig: true }),
   sitemap(sitemap_options),
   pwa(pwa_options),
-  partytown(),
+  // partytown(),
 ] as AstroIntegration[];

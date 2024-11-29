@@ -18,7 +18,7 @@ declare namespace App {
 }
 
 interface Window {
-  ThemeProvider: { updateWidget(theme?: string): void };
+  ThemeProvider: { updatePicker(theme?: string): void };
 }
 
 interface globalThis {

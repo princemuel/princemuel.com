@@ -13,7 +13,18 @@ export function range(start: number, stop: number, step: number) {
 
 export const unique = <T>(array: T[]) => [...new Set(array)];
 
-export const difference = <T>(a: T[], b: T[]) => a.filter((item) => !b.includes(item));
+// Difference: Elements in `a` but not in `b`
+export const difference = <T>(a: T[], b: T[]) => {
+  if (!Reflect.has(Set.prototype, "difference")) {
+    return a.filter((item) => !b.includes(item));
+  }
+  return [...new Set(a).difference(new Set(b))];
+};
 
-export const intersection = <T>(arr: T[], ...args: T[][]) =>
-  arr.filter((item) => args.every((value) => value.includes(item)));
+// Intersection: Elements common to all arrays
+export const intersection = <T>(arr: T[], ...args: T[][]) => {
+  if (!Reflect.has(Set.prototype, "intersection")) {
+    return arr.filter((item) => args.every((value) => value.includes(item)));
+  }
+  return [...new Set(arr).intersection(new Set(...args))];
+};
