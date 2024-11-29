@@ -19,12 +19,12 @@ jobs:
         with:
           node-version-file: ".nvmrc"
 
-      # - name: install pnpm
-      #   run: |
-      #     curl -fsSL https://get.pnpm.io/install.sh | sh -
+      - name: enable pnpm
+        run: |
+          corepack enable pnpm
 
       - name: install dependencies
-        run: npm install
+        run: corepack use pnpm@latest
 
       - name: apply all pending migrations to the database
         run: npx prisma migrate deploy

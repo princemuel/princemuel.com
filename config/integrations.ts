@@ -2,11 +2,9 @@ import mdx from "@astrojs/mdx";
 import partytown from "@astrojs/partytown";
 import sitemap from "@astrojs/sitemap";
 import pwa from "@vite-pwa/astro";
-import auto_import from "astro-auto-import";
 import ec_code from "astro-expressive-code";
 import icon from "astro-icon";
 
-import { import_options } from "./components";
 import icons from "./icons.json";
 import manifest from "./manifest.json";
 
@@ -63,7 +61,6 @@ const code_options: CodeOptions = {
 export const integrations = [
   icon(icon_options),
   ec_code(code_options),
-  auto_import(import_options),
   mdx({ gfm: true, extendMarkdownConfig: true }),
   sitemap(sitemap_options),
   pwa(pwa_options),
