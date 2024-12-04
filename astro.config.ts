@@ -1,5 +1,4 @@
 import netlify from "@astrojs/netlify";
-import tw from "@tailwindcss/vite";
 import { defineConfig } from "astro/config";
 import { loadEnv } from "vite";
 
@@ -34,6 +33,6 @@ export default defineConfig({
       { protocol: "https", hostname: "**.github.com" },
     ],
   },
-  vite: { plugins: [tw()], define: { __BUILD_DATE__: JSON.stringify(new Date()) } },
+  vite: { define: { __BUILD_DATE__: JSON.stringify(new Date()) } },
   adapter: netlify({ cacheOnDemandPages: true }),
 });
