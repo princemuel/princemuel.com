@@ -1,13 +1,20 @@
-import { octokit } from "@/config/clients.ts";
-import { md_processor } from "./processor";
+import { log_in_dev } from "@/helpers/log-in-dev";
+import { octokit } from "@/lib/clients";
 
-import { RequestError as GithubError } from "octokit";
+import { createMarkdownProcessor } from "@astrojs/markdown-remark";
+import matter from "gray-matter";
+import { RequestError as GhRequestError } from "octokit";
+import slugify from "slugify";
 
-import { log_in_dev } from "@/helpers/log-in-dev.ts";
 import type { Loader } from "astro/loaders";
 
-type LoaderOptions =
-  `owner:${string};repo:${string};branch:${string};directory:${string}`;
+import type { z } from "astro:schema";
+
+type LoaderOptions<T> = {
+  schema?: T;
+  git_config: `owner:${string};repo:${string};branch:${string};directory:${string}`;
+  incremental: boolean;
+};
 
 type GitConfig = {
   owner: string;
@@ -16,82 +23,111 @@ type GitConfig = {
   directory: string;
 };
 
-export function loader(options: LoaderOptions): Loader {
-  return {
-    name: "astro-loader-github",
-    load: async (ctx) => {
-      const git = Object.fromEntries(
-        options.split(";").map((pair) => pair.split(":")),
-      ) as GitConfig;
+// biome-ignore lint/suspicious/noExplicitAny: <explanation>
+export default function gh_loader<T extends z.ZodType<any, z.ZodTypeDef, any>>(
+  options: LoaderOptions<T>,
+): Loader {
+  const git = Object.fromEntries(
+    options.git_config.split(";").map((pair) => pair.split(":")),
+  ) as GitConfig;
 
-      const request = await octokit.request(
-        "GET /repos/{owner}/{repo}/git/trees/{tree_sha}",
-        {
+  return {
+    name: `${git.directory}-loader`,
+    schema: options.schema,
+    load: async (ctx) => {
+      ctx.logger.info(`fetching content from ${git.directory}...`);
+      const last_modified = ctx.meta.get("last-modified");
+
+      try {
+        // Fetch the content of the git.directory from GitHub
+        const req = await octokit.rest.repos.getContent({
           owner: git.owner,
           repo: git.repo,
-          tree_sha: git.branch,
-          recursive: "true",
-        },
-      );
+          ref: git.branch,
+          path: `/${git.directory}`,
+          headers: { "If-Modified-Since": last_modified ?? "" },
+        });
 
-      const files = request.data.tree
-        .map((file) => file.path)
-        .filter(
-          (p) =>
-            p?.includes(git.directory) && (p.endsWith(".md") || p.endsWith(".mdx")),
-        )
-        .filter(Boolean);
+        if (last_modified && req.headers["last-modified"] === last_modified) {
+          ctx.logger.info(`No changes found in ${git.directory}`);
+          return;
+        }
 
-      log_in_dev("FILES", files);
+        const updated = new Date(req.headers["last-modified"] ?? new Date());
 
-      const requests = files.map(async (fileName) => {
-        try {
-          const response = await octokit.request(
-            "GET /repos/{owner}/{repo}/contents/{path}",
-            {
-              path: fileName,
+        ctx.meta.set("last-modified", updated.toISOString());
+
+        if (!Array.isArray(req.data)) {
+          ctx.logger.info(`This folder '${git.directory}' does not exist in the repo`);
+          return;
+        }
+
+        const requests = req.data.map(async (file) => {
+          const fileName = file.name;
+          try {
+            const { data } = await octokit.rest.repos.getContent({
               owner: git.owner,
               repo: git.repo,
               ref: git.branch,
-              headers: { accept: "application/vnd.github.v3.raw" },
-            },
-          );
+              path: `/${git.directory}/${fileName}`,
+            });
 
-          const id =
-            fileName.split(`${git.directory}/`)[1]?.replace(/\.mdx?$/, "") ?? "";
-
-          return { id, body: response.data as unknown as string };
-        } catch (e) {
-          if (!(e instanceof GithubError)) return null;
-          log_in_dev(`Error fetching ${fileName}:`, e);
-          return null;
-        }
-      });
-
-      const response = await Promise.all(requests);
-
-      const entries = response.filter(Boolean);
-
-      ctx.logger.info(`Processing ${entries.length} entries`);
-      ctx.store.clear();
-
-      const processor = await md_processor(ctx.config);
-
-      for (const item of entries) {
-        const { entry, metadata, body } = await processor.process(item);
-        const data = await ctx.parseData({ id: item.id, data: entry });
-        const digest = ctx.generateDigest(data);
-
-        ctx.store.set({
-          id: entry.id,
-          data,
-          digest,
-          body,
-          rendered: { html: entry.body, metadata },
+            return {
+              id: fileName.replace(/\.mdx?$/, ""),
+              body:
+                "content" in data
+                  ? Buffer.from(data.content, "base64").toString("utf-8")
+                  : "",
+            };
+          } catch (e) {
+            if (!(e instanceof GhRequestError)) return null;
+            log_in_dev(`Error fetching ${fileName}:`, e);
+            return null;
+          }
         });
-      }
 
-      console.log(JSON.stringify(ctx.store.entries()));
+        const response = await Promise.all(requests);
+
+        const entries = response.filter(Boolean);
+
+        ctx.logger.info(`Processing ${entries.length} entries`);
+        ctx.store.clear();
+
+        const processor = await createMarkdownProcessor(ctx.config.markdown);
+
+        for (const item of entries) {
+          const { data: frontmatter, content } = matter(item.body);
+          const parsed = await ctx.parseData({ id: item.id, data: frontmatter });
+
+          const { code, metadata } = await processor.render(content);
+
+          // const data = {
+          //   ...metadata,
+          //   frontmatter: { ...metadata.frontmatter, ...frontmatter },
+          // };
+
+          // log_in_dev("METADATA>>>>", metadata);
+          // log_in_dev("FRONTMATTER>>>>", frontmatter);
+          // log_in_dev("DATA>>>>", data);
+
+          ctx.store.set({
+            id: slugify(frontmatter.title, { lower: true, trim: true }),
+            data: parsed,
+            body: content,
+            rendered: {
+              html: code,
+              metadata: {
+                ...metadata,
+                frontmatter: { ...metadata.frontmatter, ...frontmatter },
+              },
+            },
+            digest: ctx.generateDigest(content),
+          });
+        }
+      } catch (error) {
+        ctx.logger.error(`Error loading ${git.directory}`);
+        throw error;
+      }
     },
   };
 }
