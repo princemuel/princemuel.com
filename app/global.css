@@ -4,6 +4,7 @@
 @source "../../layouts/**/*.astro";
 @source "../../components/**/*.astro";
 @source "../../content/**/*.{md,mdx,json}";
+@source "../../assets/**/*.svg";
 
 @plugin "@tailwindcss/typography";
 @plugin "@tailwindcss/forms";
@@ -56,7 +57,7 @@
     pointer;
 }
 
-@variant dark (&:where([data-mode="dark"], [data-mode="dark"] *));
+/* @variant dark (&:where([data-mode="dark"], [data-mode="dark"] *)); */
 
 :is(a, button, label, option, details) {
   @apply cursor-pointer;
