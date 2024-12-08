@@ -1,5 +1,5 @@
-import { resend } from "@/config/clients";
 import { checkIfRateLimited } from "@/helpers/rate-limit";
+import { resend } from "@/lib/clients";
 
 import { ActionError, defineAction } from "astro:actions";
 import { RESEND_AUDIENCE } from "astro:env/server";

@@ -1,5 +1,5 @@
-import { ratelimit } from "@/config/clients";
 import { hash } from "@/helpers/create-hash";
+import { ratelimit } from "@/lib/clients";
 
 import { invariant } from "outvariant";
 

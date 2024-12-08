@@ -1,3 +1,4 @@
+export { default as Dot } from "./icons/dot.svg";
 export { default as linked } from "./icons/linked.svg";
 export { default as blog_cover_5 } from "./images/blog-placeholder-5.jpg";
 export { default as pattern } from "./images/pattern.png";
