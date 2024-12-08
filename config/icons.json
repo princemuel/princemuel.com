@@ -10,17 +10,16 @@
     "home",
     "library",
     "mail-plus",
-    "moon-star",
     "move-right",
     "notebook-pen",
     "notepad-text",
+    "palette",
     "pen-line",
     "rotate-ccw",
     "rss",
     "settings",
     "square-user",
-    "sun",
-    "zap"
+    "monitor-cog"
   ],
   "ri": ["quill-pen-fill"]
 }

@@ -35,7 +35,7 @@ const pwa_options: PwaOptions = {
   devOptions: { enabled: false, suppressWarnings: true, type: "module" },
   workbox: {
     cleanupOutdatedCaches: true,
-    clientsClaim: true,
+    // clientsClaim: true,
     // navigateFallback: "/offline",
     // globPatterns: [
     //   "**/*.{css,js,jpg,jpeg,png,gif,webp,svg,ico,woff,woff2,ttf,eot}",

@@ -8,7 +8,6 @@
 
 <script>
   import { getElement } from "@/helpers/dom";
-
   import { registerSW } from "virtual:pwa-register";
 
   const period = 1.5 * 24 * 60 * 60 * 1000; // check for updates every day
@@ -17,9 +16,9 @@
     let swActivated = false;
 
     const pwaToast = getElement("#pwa-toast", HTMLDivElement);
-    const pwaToastMessage = getElement("#toast-message", HTMLSpanElement);
-    const pwaCloseBtn = getElement("#pwa-close", HTMLButtonElement);
-    const pwaRefreshBtn = getElement("#pwa-refresh", HTMLButtonElement);
+    const pwaToastMessage = getElement("#toast-message", HTMLDivElement, pwaToast);
+    const pwaCloseBtn = getElement("#pwa-close", HTMLButtonElement, pwaToast);
+    const pwaRefreshBtn = getElement("#pwa-refresh", HTMLButtonElement, pwaToast);
 
     let refreshSW: ((reloadPage?: boolean) => Promise<void>) | undefined;
 
@@ -84,7 +83,7 @@
     if (period <= 0) return;
 
     setInterval(async () => {
-      if ("onLine" in navigator && !navigator.onLine) return;
+      if ("connection" in navigator && !navigator.onLine) return;
 
       const response = await fetch(url, {
         cache: "no-store",

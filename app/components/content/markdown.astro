@@ -8,7 +8,7 @@ type Props = HTMLAttributes<"article">;
 const { class: className, ...attrs } = Astro.props;
 ---
 
-<article id="article" class="prose xl:prose-lg dark:prose-invert" {...attrs}>
+<article id="article" class="prose xl:prose-lg" {...attrs}>
   <slot />
 </article>
 
