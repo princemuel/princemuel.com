@@ -20,7 +20,7 @@ export const baseSchema = z.object({
 
 export const MediaObject = (image: SchemaContext["image"]) =>
   z.object({
-    cover: z
+    image: z
       .string()
       .url()
       .regex(/^https:.*/)
@@ -36,6 +36,4 @@ export const MediaObject = (image: SchemaContext["image"]) =>
       .or(image())
       .optional(),
     alt: z.string(),
-    audio: z.string().url().optional(),
-    video: z.string().url().optional(),
   });

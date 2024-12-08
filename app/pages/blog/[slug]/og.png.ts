@@ -22,7 +22,7 @@ export async function getStaticPaths() {
 
   return entries.map((entry) => ({
     props: { entry },
-    params: { slug: entry.id },
+    params: { slug: decodeURI(entry.id) },
   }));
 }
 
@@ -32,7 +32,7 @@ export const GET = handler<Props>(async (ctx) => {
   const entry = ctx.props.entry;
 
   const generated = (async () => {
-    const image_src = entry.data.media?.cover?.src || blog_cover_5;
+    const image_src = entry.data.media?.image?.src || blog_cover_5;
     return getImage({ src: image_src, format: "png", width: 1200, height: 630 });
   })();
 

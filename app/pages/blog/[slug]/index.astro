@@ -32,7 +32,7 @@ export async function getStaticPaths() {
 
   return entries.map((entry) => ({
     props: { entry },
-    params: { slug: entry.id },
+    params: { slug: decodeURI(entry.id) },
   }));
 }
 
@@ -43,12 +43,12 @@ const [markdown, author] = await Promise.all([
   getEntry(entry.data.author),
 ]);
 
-const { Content, remarkPluginFrontmatter } = markdown;
+const { Content, remarkPluginFrontmatter: frontmatter } = markdown;
 
 // update the collection schema with plugin data
-entry.data.updatedAt = new Date(remarkPluginFrontmatter.updatedAt);
-entry.data.duration = remarkPluginFrontmatter.duration;
-entry.data.words = remarkPluginFrontmatter.words;
+entry.data.updatedAt = new Date(frontmatter.updatedAt);
+entry.data.duration = frontmatter.duration;
+entry.data.words = frontmatter.words;
 
 const article_ld = {
   "@context": "https://schema.org",
@@ -64,7 +64,7 @@ const article_ld = {
   datePublished: entry.data.publishedAt.toISOString(),
   dateModified: entry.data.updatedAt.toISOString(),
   mainEntityOfPage: { "@id": withBaseUrl(`/blog/${entry.id}`).toString() },
-  wordCount: remarkPluginFrontmatter.words,
+  wordCount: frontmatter.words,
   commentCount: 0,
   publisher: { "@id": withBaseUrl("/about-me").toString() },
   image: { "@id": withBaseUrl(`/blog/${entry.id}/og.png`).toString() },

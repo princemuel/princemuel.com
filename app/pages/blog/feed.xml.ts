@@ -20,8 +20,8 @@ export const GET = handler(async (ctx) => {
   const results = (collection ?? []).map(async (item) => {
     const [author, img] = await Promise.all([
       getEntry(item.data.author),
-      item?.data?.media?.cover &&
-        getImage({ src: item?.data?.media?.cover?.src, format: "png" }),
+      item?.data?.media?.image &&
+        getImage({ src: item?.data?.media?.image?.src, format: "png" }),
     ]);
 
     return {

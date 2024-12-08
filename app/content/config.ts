@@ -1,8 +1,10 @@
+import gh_loader from "@/lib/loaders/github/loader";
 import { MediaObject, baseSchema } from "@/schema/content";
 
 import { file, glob } from "astro/loaders";
 
 import { defineCollection, reference, z } from "astro:content";
+import { OCTOKIT_USERNAME } from "astro:env/server";
 
 import type { Icon } from "virtual:astro-icon";
 
@@ -80,6 +82,14 @@ const journal = defineCollection({
   }),
 });
 
+const tests = defineCollection({
+  loader: gh_loader({
+    git_config: `owner:${OCTOKIT_USERNAME};repo:metadata;branch:main;directory:testing`,
+    incremental: false,
+  }),
+  schema: z.object({ title: z.string().min(2) }),
+});
+
 const changelog = defineCollection({
   loader: glob({
     base: "app/content/changelog",
@@ -151,4 +161,5 @@ export const collections = {
   posts,
   projects,
   changelog,
+  tests,
 };

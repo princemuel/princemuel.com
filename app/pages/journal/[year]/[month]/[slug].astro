@@ -24,7 +24,7 @@ const { entry } = Astro.props;
 const { Content, remarkPluginFrontmatter } = await render(entry);
 
 // update the collection schema with plugin data
-entry.data.updatedAt = new Date(remarkPluginFrontmatter.updatedAt);
+entry.data.updatedAt = new Date(remarkPluginFrontmatter.updatedAt ?? Date.now());
 entry.data.duration = remarkPluginFrontmatter.duration;
 entry.data.words = remarkPluginFrontmatter.words;
 
