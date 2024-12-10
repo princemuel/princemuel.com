@@ -35,13 +35,16 @@ const {
 <html
   lang={language}
   dir="ltr"
-  data-theme="github-light-default"
-  data-mode="light"
-  class="antialiased scheme-light motion-safe:scroll-smooth"
+  data-syntax-theme="github-light-default"
+  data-theme="light"
+  class:list={[
+    "scheme-light data-[theme=auto]:scheme-light-dark dark:scheme-dark",
+    "antialiased motion-safe:scroll-smooth",
+  ]}
 >
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="referrer" content="origin-when-cross-origin" />
     <meta name="color-scheme" content="dark light" />
     <Meta
@@ -55,6 +58,7 @@ const {
       updatedAt={updatedAt}
       canonical={canonical}
     />
+    <ThemeProvider />
   </head>
   <body
     class:list={[
@@ -67,7 +71,6 @@ const {
         <SiteStatus />
       </Fragment>
       <Fragment slot="site-status-live">
-        <ThemeProvider />
         <SkipLink />
         <Layout>
           <slot />
