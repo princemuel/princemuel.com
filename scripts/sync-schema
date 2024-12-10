@@ -1,0 +1,69 @@
+#!/usr/bin/env bash
+
+# Default paths
+DEFAULT_SOURCE_DIR="$HOME/Workspace/Repos/princemuel.com/.astro/collections/"
+DEFAULT_DEST_DIR="$HOME/Workspace/Repos/metadata/schemas/"
+
+# Use environment variables or defaults
+SOURCE_DIR="${SOURCE_DIR:-$DEFAULT_SOURCE_DIR}"
+DEST_DIR="${DEST_DIR:-$DEFAULT_DEST_DIR}"
+
+# Initialize verbosity
+VERBOSE=false
+ADDITIONAL_ARGS="" # Ensure it's initialized
+
+# Parse CLI arguments
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --verbose)
+      VERBOSE=true
+      shift
+      ;;
+    *)
+      if [ "$SOURCE_DIR" = "$DEFAULT_SOURCE_DIR" ]; then
+        SOURCE_DIR="$1"
+      elif [ "$DEST_DIR" = "$DEFAULT_DEST_DIR" ]; then
+        DEST_DIR="$1"
+      else
+        ADDITIONAL_ARGS="$ADDITIONAL_ARGS $1"
+      fi
+      shift
+      ;;
+  esac
+done
+
+# Debugging information
+if $VERBOSE; then
+  echo "Using the following configuration:"
+  echo "SOURCE_DIR: $SOURCE_DIR"
+  echo "DEST_DIR: $DEST_DIR"
+  echo "Additional Arguments for rsync: $ADDITIONAL_ARGS"
+fi
+
+# Ensure directories are valid
+if [ -z "$SOURCE_DIR" ] || [ -z "$DEST_DIR" ]; then
+  echo "Error: Both SOURCE_DIR and DEST_DIR must be provided"
+  exit 1
+fi
+
+if [ ! -d "$SOURCE_DIR" ]; then
+  echo "Error: Source directory '$SOURCE_DIR' does not exist"
+  exit 1
+fi
+
+if [ ! -d "$DEST_DIR" ]; then
+  if $VERBOSE; then
+    echo "Destination directory '$DEST_DIR' does not exist. Creating it..."
+  fi
+  mkdir -p "$DEST_DIR"
+fi
+
+# Sync files with rsync
+rsync -av --delete "$SOURCE_DIR" "$DEST_DIR" $ADDITIONAL_ARGS
+
+# Log success message
+if [ "$VERBOSE" = true ]; then
+  echo "Sync completed successfully from '$SOURCE_DIR' to '$DEST_DIR'"
+else
+  echo "Sync completed"
+fi
