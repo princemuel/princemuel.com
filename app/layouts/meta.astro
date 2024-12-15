@@ -12,13 +12,13 @@ import { pwaInfo } from "virtual:pwa-info";
 
 import { avatar } from "@/assets";
 
-import italic from "@fontsource-variable/open-sans/files/open-sans-latin-wght-italic.woff2";
-import normal from "@fontsource-variable/open-sans/files/open-sans-latin-wght-normal.woff2";
+import italic from "@fontsource-variable/noto-sans/files/noto-sans-latin-wght-italic.woff2";
+import normal from "@fontsource-variable/noto-sans/files/noto-sans-latin-wght-normal.woff2";
 import mono from "/static/fonts/cascadia.woff2";
 
 // import "@/assets/styles/debug.css"; // uncomment this to debug your styles
 import "@/assets/styles/fonts.css";
-import "@/global.css";
+import "@/assets/styles/global.css";
 
 type Props = Meta & { og?: OpenGraph; twitter?: Twitter };
 
@@ -30,7 +30,8 @@ const {
   canonical,
   publishedAt,
   updatedAt,
-  directives = {},
+  robots = {},
+  includeOg,
 } = Astro.props;
 
 const og = {
@@ -67,9 +68,9 @@ const htmlTitle = ((title, delimiter, absolute) => {
   return template.replace("%s", title);
 })(title[0], delimiter, title[1]);
 
-const { noindex, nofollow, nosnippet } = directives;
+const { noindex, nofollow, nosnippet } = robots;
 
-const directive = [
+const directives = [
   noindex ? "noindex" : "index",
   nofollow ? "nofollow" : "follow",
 ].join(",");
@@ -78,24 +79,35 @@ const img = await generated;
 ---
 
 {/* Primary Meta Tags */}
+<title>{htmlTitle}</title>
+<meta name="title" content={htmlTitle} />
+<meta name="description" content={description} />
+
 <meta name="application-name" content={application_name} />
 <meta name="generator" content={Astro.generator} />
 <meta name="keywords" content={seoKeywords.join(",")} />
 <meta name="creator" content={author} />
 <meta name="publisher" content={author} />
+<meta name="fediverse:creator" content="@princemuel@mastodon.online" />
 
-<title>{htmlTitle}</title>
-<meta name="title" content={htmlTitle} />
-<meta name="description" content={description} />
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#fafafa" />
+<meta
+  name="theme-color"
+  media="(prefers-color-scheme: dark)"
+  content={pwaAssetsHead.themeColor?.content}
+/>
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="mobile-web-app-status-bar-style" content="black-translucent" />
 
 {/*  Favicons / Manifest / Robots  */}
 <Fragment set:html={pwaInfo?.webManifest.linkTag} />
 {pwaAssetsHead.links.map((link) => <link {...link} />)}
-<meta name="robots" content={directive} />
+<meta name="msapplication-TileColor" content="#fafafa" />
+<meta name="robots" content={directives} />
 <meta
   name="googlebot"
   content={[
-    directive,
+    directives,
     nosnippet ? "nosippet" : "max-snippet:160",
     "max-image-preview:large",
     "max-video-preview:-1",
@@ -115,54 +127,42 @@ const img = await generated;
     <link
       rel="alternate"
       type="application/rss+xml"
-      title="Master RSS Feed"
+      title="Princemuel.com Master RSS Feed"
       href={new URL("/rss.xml", Astro.site)}
     />
   )
 }
 
-{/* Open Graph / Facebook */}
-<meta property="og:type" content={og.type} />
-<meta property="og:locale" content={locale} />
-<meta property="og:site_name" content={application_name} />
-<meta property="og:title" content={htmlTitle} />
-<meta property="og:url" content={linkCanonical} />
-<meta property="og:description" content={description} />
-<meta property="og:image" content={new URL(img.src, Astro.site)} />
-<meta property="og:image:type" content={img.options.format} />
-<meta property="og:image:width" content={img.attributes.width} />
-<meta property="og:image:height" content={img.attributes.height} />
-<meta property="og:image:alt" content={htmlTitle} />
+{
+  includeOg && (
+    <Fragment>
+      {/* Open Graph / Facebook */}
+      <meta property="og:type" content={og.type} />
+      <meta property="og:locale" content={locale} />
+      <meta property="og:site_name" content={application_name} />
+      <meta property="og:title" content={htmlTitle} />
+      <meta property="og:url" content={linkCanonical} />
+      <meta property="og:description" content={description} />
+      <meta property="og:image" content={new URL(img.src, Astro.site)} />
+      <meta property="og:image:type" content={img.options.format} />
+      <meta property="og:image:width" content={img.attributes.width} />
+      <meta property="og:image:height" content={img.attributes.height} />
+      <meta property="og:image:alt" content={htmlTitle} />
 
-{/* Twitter */}
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:creator" content={twitter.handle} />
-<meta name="twitter:title" content={htmlTitle} />
-<meta name="twitter:url" content={linkCanonical} />
-<meta name="twitter:description" content={description} />
-<meta name="twitter:image" content={new URL(img.src, Astro.site)} />
-<meta name="twitter:image:type" content={img.options.format} />
-<meta name="twitter:image:width" content={img.attributes.width} />
-<meta name="twitter:image:height" content={img.attributes.height} />
-<meta name="twitter:image:alt" content={htmlTitle} />
-
-<meta name="fediverse:creator" content="@princemuel@mastodon.online" />
-
-{/* Widgets */}
-<meta name="theme-color" media="(prefers-color-scheme: light)" content="#fafafa" />
-<meta
-  name="theme-color"
-  media="(prefers-color-scheme: dark)"
-  content={pwaAssetsHead.themeColor?.content}
-/>
-<meta name="msapplication-TileColor" content="#fafafa" />
-<meta name="mobile-web-app-capable" content="yes" />
-<meta name="mobile-web-app-status-bar-style" content="black-translucent" />
-
-<meta name="twitter:dnt" content="on" />
-<meta name="twitter:widgets:csp" content="on" />
-<meta name="twitter:widgets:autoload" content="off" />
-<meta name="twitter:widgets:theme" content="light" />
+      {/* Twitter */}
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:creator" content={twitter.handle} />
+      <meta name="twitter:title" content={htmlTitle} />
+      <meta name="twitter:url" content={linkCanonical} />
+      <meta name="twitter:description" content={description} />
+      <meta name="twitter:image" content={new URL(img.src, Astro.site)} />
+      <meta name="twitter:image:type" content={img.options.format} />
+      <meta name="twitter:image:width" content={img.attributes.width} />
+      <meta name="twitter:image:height" content={img.attributes.height} />
+      <meta name="twitter:image:alt" content={htmlTitle} />
+    </Fragment>
+  )
+}
 
 {
   og.type === "article" && (
@@ -199,25 +199,24 @@ const img = await generated;
 }
 
 {/* Font Loaders */}
-<link
-  rel="prefetch"
-  as="font"
-  type="font/woff2"
-  href={normal}
-  crossorigin="anonymous"
-/>
-<link
-  rel="prefetch"
-  as="font"
-  type="font/woff2"
-  href={italic}
-  crossorigin="anonymous"
-/>
+<link rel="preload" as="font" type="font/woff2" href={normal} crossorigin="anonymous" />
+<link rel="preload" as="font" type="font/woff2" href={italic} crossorigin="anonymous" />
 <link rel="prefetch" as="font" type="font/woff2" href={mono} crossorigin="anonymous" />
 
 {/* Webmentions */}
-<link rel="webmention" href="https://webmention.io/princemuel.netlify.app/webmention" />
-<link rel="pingback" href="https://webmention.io/princemuel.netlify.app/xmlrpc" />
+{
+  /*
+<link rel="webmention" href="https://webmention.io/princemuel.netlify.app/webmention" />*/
+}
+{
+  /* <link rel="pingback" href="https://webmention.io/princemuel.netlify.app/xmlrpc" />*/
+}
+
+{/* Widgets */}
+<meta name="twitter:dnt" content="on" />
+<meta name="twitter:widgets:csp" content="on" />
+<meta name="twitter:widgets:autoload" content="off" />
+<meta name="twitter:widgets:theme" content="light" />
 
 {/* <meta name="format-detection" content="telephone=no, address=no, email=no" /> */}
 {/* <meta name="google-site-verification" content="google" /> */}
@@ -226,6 +225,4 @@ const img = await generated;
 {/* <meta name="bing" content="msvalidate.01=0" /> */}
 {/* <meta name="me" content="vansomecsam@gmail.com" /> */}
 {/* <meta name="me" content="my-link" />  */}
-
 <ClientRouter />
-<slot name="head" />
