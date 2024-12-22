@@ -4,25 +4,15 @@
 /// <reference types="vite-plugin-pwa/pwa-assets" />
 /// <reference types="../.astro/icon.d.ts" />
 
-interface ImportMetaEnv {
-  [key: string]: string;
-}
+type ImportMetaEnv = Record<string, string>;
+type NetlifyLocals = import("@astrojs/netlify").NetlifyLocals;
 
 interface ImportMeta {
   readonly env: ImportMetaEnv;
 }
 
 declare namespace App {
-  type NetlifyLocals = import("@astrojs/netlify").NetlifyLocals;
   interface Locals extends NetlifyLocals {}
-}
-
-interface Window {
-  ThemeProvider: { updatePicker(theme?: string): void };
-}
-
-interface globalThis {
-  __singletons: Map<string, unknown>;
 }
 
 declare const __BUILD_DATE__: string;
