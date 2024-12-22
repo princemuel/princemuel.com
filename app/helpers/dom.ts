@@ -1,11 +1,11 @@
-import { raise } from "@/utilities/error";
+import { raise } from "@/helpers/error";
 
 /**
  * Find a DOM element and validate its type.
  * @example
- * const button = getElement("button", HTMLButtonElement)
+ * const button = $("button", HTMLButtonElement)
  */
-export function getElement<E extends Element>(
+export function $<E extends Element>(
   selector: string,
   Constructor: new (...args: unknown[]) => E,
   parent: ParentNode = document,
@@ -21,9 +21,9 @@ export function getElement<E extends Element>(
 /**
  * Find DOM elements and validate their types.
  * @example
- * const button = getElement("button", HTMLButtonElement)
+ * const buttons = $$("button", HTMLButtonElement)
  */
-export function getElements<E extends Element>(
+export function $$<E extends Element>(
   selector: string,
   Constructor: new (...args: unknown[]) => E,
   parent: ParentNode = document,

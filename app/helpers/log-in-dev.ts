@@ -1,5 +1,5 @@
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
-export const log_in_dev = (message?: any, ...optionalParams: any[]) => {
+export const log_in_dev = (message?: unknown, ...optionalParams: unknown[]) => {
   if (!import.meta.env.DEV) return;
-  console.log(message, ...optionalParams);
+  // eslint-disable-next-line no-console
+  console.info(message, ...optionalParams);
 };

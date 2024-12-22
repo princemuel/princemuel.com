@@ -1,27 +1,52 @@
 import { getSiteSettings } from "@/config/settings";
-import { isServer } from "@/utilities/guards";
+import { isServer } from "@/helpers/guards";
 
-type DateParams = ConstructorParameters<typeof Intl.DateTimeFormat>;
+import { Temporal } from "temporal-polyfill";
 
-const createDateFormatter = (...args: DateParams) => {
-  const [locales, options] = args;
-  const defaultLanguage = getSiteSettings().language;
+type DatetimeParams = Partial<Intl.DateTimeFormatOptions> & {
+  locales?: string;
+};
 
-  const language: Intl.LocalesArgument =
+export const createDateFormatter = (params: DatetimeParams = {}) => {
+  const { locales = "en-US", ...options } = params;
+  const defaultLocale = getSiteSettings().language;
+
+  const locale: Intl.LocalesArgument =
     locales ||
     (isServer ||
     typeof navigator === "undefined" ||
     typeof navigator.language !== "string"
-      ? defaultLanguage
+      ? defaultLocale
       : navigator.language);
 
-  return new Intl.DateTimeFormat(language, {
-    timeZone: "UTC",
-    year: "numeric", // Year (2023)
-    month: "long", // Full month name (January)
-    day: "2-digit", // Day of the month (3)
-    ...options,
-  });
+  const format = (isoString: string | Temporal.ZonedDateTimeLike) => {
+    const zonedDateTime =
+      typeof isoString === "string"
+        ? Temporal.Instant.from(isoString).toZonedDateTimeISO(
+            Temporal.Now.timeZoneId(),
+          )
+        : Temporal.ZonedDateTime.from(isoString);
+
+    return zonedDateTime.toLocaleString(locale, {
+      year: "numeric", // Year (2023)
+      month: "long", // Full month name (January)
+      day: "2-digit", // Day of the month (3),
+      ...options,
+    });
+  };
+
+  const toISOString = (isoString: string | Temporal.ZonedDateTimeLike) => {
+    const zonedDateTime =
+      typeof isoString === "string"
+        ? Temporal.Instant.from(isoString).toZonedDateTimeISO(
+            Temporal.Now.timeZoneId(),
+          )
+        : Temporal.ZonedDateTime.from(isoString);
+
+    return zonedDateTime.withTimeZone("UTC").toString({ timeZoneName: "never" });
+  };
+
+  return { format, toISOString };
 };
 
-export const dfmt = createDateFormatter("en-US");
+export const dfmt = createDateFormatter();

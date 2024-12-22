@@ -7,14 +7,6 @@ export function serialize<T>(data: T) {
   return JSON.parse(JSON.stringify(data)) as NonNullable<T>;
 }
 
-export function singleton<T>(name: string, callback: () => T) {
-  const g = globalThis as unknown as globalThis;
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-  g.__singletons ??= new Map<string, T>();
-  if (!g.__singletons.has(name)) g.__singletons.set(name, callback());
-  return g.__singletons.get(name) as NonNullable<T>;
-}
-
 export function remove_key<T>(k: string, data: T): T {
   if (Array.isArray(data)) {
     return data.map((item) => remove_key(k, item)) as unknown as T;
