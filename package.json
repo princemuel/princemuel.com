@@ -34,7 +34,7 @@
   },
   "dependencies": {
     "@libsql/client": "^0.14.0",
-    "@netlify/blobs": "^8.1.0",
+    "@netlify/blobs": "^8.1.1",
     "@netlify/functions": "^2.8.2",
     "@prisma/adapter-libsql": "^5.22.0",
     "@prisma/client": "^5.22.0",
