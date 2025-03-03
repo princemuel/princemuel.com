@@ -1,57 +1,43 @@
 {
+  "search.exclude": {
+    "**/.yarn": true,
+    "**/.pnp.*": true
+  },
+  "eslint.nodePath": ".yarn/sdks",
+  "prettier.prettierPath": ".yarn/sdks/prettier/index.cjs",
+  "typescript.tsdk": ".yarn/sdks/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true,
   "dotenv.enableAutocloaking": false,
   "editor.bracketPairColorization.independentColorPoolPerBracketType": true,
+  "editor.wordWrap": "bounded",
+  "editor.wordWrapColumn": 84,
+  "editor.inlineSuggest.enabled": true,
   "editor.fontFamily": "'Cascadia Code', 'Droid Sans Mono', 'monospace', monospace",
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.codeActionsOnSave": {
-    "quickFix.biome": "explicit",
     "source.fixAll.oxc": "explicit",
-    "source.organizeImports.biome": "explicit",
+    "source.organizeImports": "explicit",
     "source.addMissingImports": "explicit"
   },
-  "editor.defaultFormatter": "biomejs.biome",
-  "editor.formatOnSave": true,
-  "editor.formatOnSaveMode": "file",
-  "editor.inlineSuggest.enabled": true,
-  "editor.tabSize": 2,
-  "editor.wordWrap": "bounded",
-  "editor.wordWrapColumn": 88,
-  "emmet.includeLanguages": {
-    "typescriptreact": "html"
+  "files.associations": {
+    "*.css": "tailwindcss"
+  },
+  "editor.quickSuggestions": {
+    "strings": "on"
   },
   "emmet.preferences": {
     "output.selfClosingStyle": "xhtml"
   },
-  "biome.enabled": true,
   "oxc.enable": true,
   "eslint.enable": false,
-  "eslint.validate": ["javascript", "astro", "typescript"],
+  "oxlint.validate": [
+    "javascript",
+    "javascriptreact",
+    "astro", // Enable .astro
+    "typescript", // Enable .ts
+    "typescriptreact" // Enable .tsx
+  ],
   "json.validate.enable": true,
-  "markdown.extension.syntax.plainTheme": true,
-  "material-icon-theme.activeIconPack": "react_redux",
-  "material-icon-theme.folders.theme": "specific",
-  "npm-intellisense.packageSubfoldersIntellisense": true,
-  "tailwindCSS.emmetCompletions": true,
-  "tailwindCSS.experimental.classRegex": [
-    ["tv\\((([^()]*|\\([^()]*\\))*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"]
-  ],
-  "tailwindCSS.classAttributes": [
-    "class",
-    "className",
-    "class:list",
-    "tw",
-    "ngClass"
-  ],
-  "typescript.enablePromptUseWorkspaceTsdk": true,
-  "typescript.tsdk": "node_modules/typescript/lib",
-  "window.autoDetectColorScheme": true,
-  "workbench.tree.indent": 8,
-  "astro.content-intellisense": true,
-  "prettier.documentSelectors": ["**/*.astro"],
-  "prettier.experimentalTernaries": false,
-  "material-icon-theme.files.associations": {
-    "**.mdoc": "mdx"
-  },
-
   "mdx.server.enable": true,
   "mdx.validate.validateDuplicateLinkDefinitions": "warning",
   "mdx.validate.validateFileLinks": "warning",
@@ -59,24 +45,30 @@
   "mdx.validate.validateMarkdownFileLinkFragments": "warning",
   "mdx.validate.validateReferences": "warning",
   "mdx.validate.validateUnusedLinkDefinitions": "warning",
-
+  "astro.content-intellisense": true,
+  "npm-intellisense.packageSubfoldersIntellisense": true,
+  "prettier.documentSelectors": ["**/*.astro"],
+  "auto-close-tag.activationOnLanguage": ["mdx"],
+  "[astro]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
   "evenBetterToml.formatter.alignComments": true,
   "evenBetterToml.formatter.alignEntries": true,
   "evenBetterToml.formatter.arrayAutoCollapse": true,
   "evenBetterToml.formatter.arrayAutoExpand": true,
   "evenBetterToml.formatter.arrayTrailingComma": true,
-  "evenBetterToml.formatter.columnWidth": 88,
+  "evenBetterToml.formatter.columnWidth": 84,
   "evenBetterToml.formatter.reorderArrays": true,
   "evenBetterToml.formatter.reorderKeys": true,
   "evenBetterToml.formatter.trailingNewline": true,
-  "evenBetterToml.semanticTokens": true,
-  "[astro]": {
-    "editor.defaultFormatter": "astro-build.astro-vscode"
-  },
-  "[typescript]": {
-    "editor.defaultFormatter": "biomejs.biome"
-  },
-  "[tailwindcss]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  "tailwindCSS.emmetCompletions": true,
+  "tailwindCSS.classAttributes": ["class", "className", "class:list", "tw"],
+  "tailwindCSS.experimental.configFile": "app/styles/global.css",
+  "tailwindCSS.experimental.classRegex": [
+    ["tv\\((([^()]*|\\([^()]*\\))*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"]
+  ],
+  "workbench.tree.indent": 12,
+  "material-icon-theme.files.associations": {
+    "**.mdoc": "mdx"
   }
 }
