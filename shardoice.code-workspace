@@ -1,0 +1,35 @@
+{
+  "folders": [
+    {
+      "path": ".",
+    },
+  ],
+  "settings": {
+    "typescript.tsdk": ".yarn/sdks/typescript/lib",
+    "typescript.enablePromptUseWorkspaceTsdk": true,
+    "files.associations": {
+      "*.css": "tailwindcss",
+    },
+    "emmet.preferences": {
+      "output.selfClosingStyle": "xhtml",
+    },
+    "oxc.enable": true,
+    "json.validate.enable": true,
+    "mdx.server.enable": true,
+    "mdx.validate.validateDuplicateLinkDefinitions": "warning",
+    "mdx.validate.validateFileLinks": "warning",
+    "mdx.validate.validateFragmentLinks": "warning",
+    "mdx.validate.validateMarkdownFileLinkFragments": "warning",
+    "mdx.validate.validateReferences": "warning",
+    "mdx.validate.validateUnusedLinkDefinitions": "warning",
+    "npm-intellisense.packageSubfoldersIntellisense": true,
+    "prettier.documentSelectors": ["**/*.astro"],
+    "tailwindCSS.emmetCompletions": true,
+    "tailwindCSS.classAttributes": ["class", "className", "class:list", "tw"],
+    "tailwindCSS.experimental.configFile": "app/styles/global.css",
+    "workbench.tree.indent": 12,
+    "material-icon-theme.files.associations": {
+      "**.mdoc": "mdx",
+    },
+  },
+}

@@ -29,13 +29,12 @@
     "output.selfClosingStyle": "xhtml"
   },
   "oxc.enable": true,
-  "eslint.enable": false,
-  "oxlint.validate": [
+  "eslint.enable": true,
+  "eslint.useFlatConfig": true,
+  "eslint.validate": [
     "javascript",
-    "javascriptreact",
-    "astro", // Enable .astro
-    "typescript", // Enable .ts
-    "typescriptreact" // Enable .tsx
+    "astro",
+    "typescript"
   ],
   "json.validate.enable": true,
   "mdx.server.enable": true,
@@ -47,8 +46,12 @@
   "mdx.validate.validateUnusedLinkDefinitions": "warning",
   "astro.content-intellisense": true,
   "npm-intellisense.packageSubfoldersIntellisense": true,
-  "prettier.documentSelectors": ["**/*.astro"],
-  "auto-close-tag.activationOnLanguage": ["mdx"],
+  "prettier.documentSelectors": [
+    "**/*.astro"
+  ],
+  "auto-close-tag.activationOnLanguage": [
+    "mdx"
+  ],
   "[astro]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
@@ -62,10 +65,18 @@
   "evenBetterToml.formatter.reorderKeys": true,
   "evenBetterToml.formatter.trailingNewline": true,
   "tailwindCSS.emmetCompletions": true,
-  "tailwindCSS.classAttributes": ["class", "className", "class:list", "tw"],
+  "tailwindCSS.classAttributes": [
+    "class",
+    "className",
+    "class:list",
+    "tw"
+  ],
   "tailwindCSS.experimental.configFile": "app/styles/global.css",
   "tailwindCSS.experimental.classRegex": [
-    ["tv\\((([^()]*|\\([^()]*\\))*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"]
+    [
+      "tv\\((([^()]*|\\([^()]*\\))*)\\)",
+      "[\"'`]([^\"'`]*).*?[\"'`]"
+    ]
   ],
   "workbench.tree.indent": 12,
   "material-icon-theme.files.associations": {
