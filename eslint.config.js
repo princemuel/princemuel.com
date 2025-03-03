@@ -1,13 +1,21 @@
 // @ts-check
 
-import eslint from "@eslint/js";
-import eslintPluginAstro from "eslint-plugin-astro";
-import prettier_recommended from "eslint-plugin-prettier/recommended";
-import tseslint from "typescript-eslint";
+import js from "@eslint/js";
+import ts from "typescript-eslint";
 
-export default tseslint.config(
-  eslint.configs.recommended,
-  tseslint.configs.recommended,
-  ...eslintPluginAstro.configs.recommended,
+import oxlint from "eslint-plugin-oxlint";
+import prettier_recommended from "eslint-plugin-prettier/recommended";
+
+import astro from "eslint-plugin-astro";
+
+const config = ts.config(
+  js.configs.recommended,
+  ts.configs.strict,
+  ts.configs.stylistic,
+  ...oxlint.buildFromOxlintConfigFile(".oxlintrc.json"),
+  ...astro.configs.recommended,
+  ...astro.configs["jsx-a11y-strict"],
   prettier_recommended,
 );
+
+export default config;

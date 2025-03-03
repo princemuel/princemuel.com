@@ -1,11 +1,8 @@
 {
   "search.exclude": {
-    "**/.yarn": true,
-    "**/.pnp.*": true
+    "**/.node_modules": true,
+    "**/pnpm.*": true
   },
-  "eslint.nodePath": ".yarn/sdks",
-  "prettier.prettierPath": ".yarn/sdks/prettier/index.cjs",
-  "typescript.tsdk": ".yarn/sdks/typescript/lib",
   "typescript.enablePromptUseWorkspaceTsdk": true,
   "dotenv.enableAutocloaking": false,
   "editor.bracketPairColorization.independentColorPoolPerBracketType": true,
@@ -31,11 +28,7 @@
   "oxc.enable": true,
   "eslint.enable": true,
   "eslint.useFlatConfig": true,
-  "eslint.validate": [
-    "javascript",
-    "astro",
-    "typescript"
-  ],
+  "eslint.validate": ["javascript", "astro", "typescript"],
   "json.validate.enable": true,
   "mdx.server.enable": true,
   "mdx.validate.validateDuplicateLinkDefinitions": "warning",
@@ -46,12 +39,8 @@
   "mdx.validate.validateUnusedLinkDefinitions": "warning",
   "astro.content-intellisense": true,
   "npm-intellisense.packageSubfoldersIntellisense": true,
-  "prettier.documentSelectors": [
-    "**/*.astro"
-  ],
-  "auto-close-tag.activationOnLanguage": [
-    "mdx"
-  ],
+  "prettier.documentSelectors": ["**/*.astro"],
+  "auto-close-tag.activationOnLanguage": ["mdx"],
   "[astro]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
@@ -65,18 +54,10 @@
   "evenBetterToml.formatter.reorderKeys": true,
   "evenBetterToml.formatter.trailingNewline": true,
   "tailwindCSS.emmetCompletions": true,
-  "tailwindCSS.classAttributes": [
-    "class",
-    "className",
-    "class:list",
-    "tw"
-  ],
+  "tailwindCSS.classAttributes": ["class", "className", "class:list", "tw"],
   "tailwindCSS.experimental.configFile": "app/styles/global.css",
   "tailwindCSS.experimental.classRegex": [
-    [
-      "tv\\((([^()]*|\\([^()]*\\))*)\\)",
-      "[\"'`]([^\"'`]*).*?[\"'`]"
-    ]
+    ["tv\\((([^()]*|\\([^()]*\\))*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"]
   ],
   "workbench.tree.indent": 12,
   "material-icon-theme.files.associations": {

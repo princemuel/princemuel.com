@@ -1,7 +1,7 @@
 import "astro/astro-jsx";
 
 declare global {
-  namespace JSX {
+  namespace astroHTML.JSX {
     type Element = HTMLElement;
   }
 }

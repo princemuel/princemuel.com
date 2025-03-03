@@ -10,7 +10,7 @@
     "jsx-a11y"
   ],
   "env": {
-    "es2022": true,
+    "es2023": true,
     "browser": true,
     "node": true,
     "shared-node-browser": true
@@ -25,18 +25,14 @@
     "suspicious": "warn"
   },
   "rules": {
-    "@typescript-eslint/explicit-function-return-type": "off",
-    "@typescript-eslint/no-explicit-any": "off",
-    "@typescript-eslint/consistent-type-imports": "off",
-    "eslint/sort-keys": "off",
-    "eslint/sort-imports": "off",
-    "eslint/no-ternary": "off",
-    "eslint/no-magic-numbers": "off",
-    "import/unambiguous": "off",
-    // "import/max-dependencies": "allow",
-    "import/sort": "off"
+    "sort-imports": "off",
+    "sort-keys": "off"
   },
   "settings": {
-    "jsx-a11y": { "components": { "Link": "a" } }
+    "jsx-a11y": {
+      "components": {
+        "Link": "a"
+      }
+    }
   }
 }
