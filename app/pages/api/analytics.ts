@@ -38,6 +38,7 @@ export const POST = handler(async ({ request }) => {
 });
 
 export const ALL = handler(
+  // eslint-disable-next-line require-await
   async ({ request }) =>
     new Response(`HTTP method ${request.method} not allowed`, {
       status: 405,

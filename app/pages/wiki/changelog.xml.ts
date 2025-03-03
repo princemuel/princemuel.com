@@ -1,7 +1,7 @@
 import { published_date } from "@/config/settings";
 import { handler } from "@/helpers/api-handler";
-import { normalize } from "@/utilities/strings";
-import { timeToUnits } from "@/utilities/time";
+import { timeToUnits } from "@/helpers/time";
+import { normalize } from "@/utils/strings";
 
 import { getCollection, getEntry } from "astro:content";
 

@@ -1,7 +1,6 @@
 ---
 import Markdown from "@/components/content/markdown.astro";
-import Article from "@/components/layout/article.astro";
-import Container from "@/components/layout/container.astro";
+import Wrapper from "@/components/layout/wrapper.astro";
 import Root from "@/layouts/root.astro";
 
 import { Content } from "@/content/pages/about-me.md";
@@ -11,7 +10,7 @@ import { avatar } from "@/assets";
 import { published_date } from "@/config/settings";
 import { withBaseUrl } from "@/helpers/with-base-url";
 import { profile_ld } from "@/schema/jsonld";
-import { remove_key } from "@/utilities/objects";
+import { remove_key } from "@/utils/objects";
 
 import type {
   BreadcrumbList,
@@ -79,29 +78,30 @@ const jsonld = {
   "@context": "https://schema.org",
   "@graph": remove_key("@context", [page_ld, image_ld, breadcrumb_ld, profile_ld]),
 } satisfies Graph;
+
+const meta = {
+  title: ["Whoami"],
+  description: "Frontend Engineer, Coding Instructor, Musician",
+  robots: { noindex: true, nofollow: true, nosnippet: true },
+  type: "profile",
+} satisfies Meta;
 ---
 
-<Root
-  title={["Whoami"]}
-  description="Frontend Engineer, Coding Instructor, Musician"
-  type="profile"
->
+<Root meta={meta}>
   <script
     is:inline
     type="application/ld+json"
     slot="head"
     set:html={JSON.stringify(jsonld)}
   />
-  <Container class="mt-12">
-    <div class="grid grid-cols-1 gap-4 md:gap-6 lg:grid-cols-[5rem_1fr] lg:gap-12">
-      <Article class="flex flex-col gap-2 lg:col-start-2">
-        <h1 id="headline" class="text-3xl font-extrabold text-slate-800">
-          Who the hell am I?
-        </h1>
-        <Markdown>
-          <Content />
-        </Markdown>
-      </Article>
+  <Wrapper>
+    <div class="flex flex-col gap-4">
+      <h1 id="headline" class="text-3xl font-extrabold text-slate-800 lg:text-5xl">
+        Who the hell am I?
+      </h1>
+      <Markdown>
+        <Content />
+      </Markdown>
     </div>
-  </Container>
+  </Wrapper>
 </Root>

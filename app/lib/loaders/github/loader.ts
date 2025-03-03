@@ -4,7 +4,6 @@ import { octokit } from "@/lib/clients";
 import { createMarkdownProcessor } from "@astrojs/markdown-remark";
 import matter from "gray-matter";
 import { RequestError as GhRequestError } from "octokit";
-import slugify from "slugify";
 
 import type { Loader } from "astro/loaders";
 
@@ -23,16 +22,15 @@ type GitConfig = {
   directory: string;
 };
 
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
-export default function gh_loader<T extends z.ZodType<any, z.ZodTypeDef, any>>(
-  options: LoaderOptions<T>,
-): Loader {
+export default function gh_loader<
+  T extends z.ZodType<unknown, z.ZodTypeDef, unknown>,
+>(options: LoaderOptions<T>): Loader {
   const git = Object.fromEntries(
-    options.git_config.split(";").map((pair) => pair.split(":")),
+    options.git_config.split(";").map((v) => v.split(":")),
   ) as GitConfig;
 
   return {
-    name: `${git.directory}-loader`,
+    name: `gh-${git.directory}-loader`,
     schema: options.schema,
     load: async (ctx) => {
       ctx.logger.info(`fetching content from ${git.directory}...`);
@@ -58,19 +56,23 @@ export default function gh_loader<T extends z.ZodType<any, z.ZodTypeDef, any>>(
         ctx.meta.set("last-modified", updated.toISOString());
 
         if (!Array.isArray(req.data)) {
-          ctx.logger.info(`This folder '${git.directory}' does not exist in the repo`);
+          ctx.logger.info(
+            `This folder '${git.directory}' does not exist in the repo`,
+          );
           return;
         }
 
         const requests = req.data.map(async (file) => {
           const fileName = file.name;
           try {
-            const { data } = await octokit.rest.repos.getContent({
+            const response = await octokit.rest.repos.getContent({
               owner: git.owner,
               repo: git.repo,
               ref: git.branch,
               path: `/${git.directory}/${fileName}`,
             });
+
+            const data = response.data;
 
             return {
               id: fileName.replace(/\.mdx?$/, ""),
@@ -78,6 +80,7 @@ export default function gh_loader<T extends z.ZodType<any, z.ZodTypeDef, any>>(
                 "content" in data
                   ? Buffer.from(data.content, "base64").toString("utf-8")
                   : "",
+              updatedAt: new Date(response.headers["last-modified"] ?? new Date()),
             };
           } catch (e) {
             if (!(e instanceof GhRequestError)) return null;
@@ -97,28 +100,26 @@ export default function gh_loader<T extends z.ZodType<any, z.ZodTypeDef, any>>(
 
         for (const item of entries) {
           const { data: frontmatter, content } = matter(item.body);
-          const parsed = await ctx.parseData({ id: item.id, data: frontmatter });
+          const parsed = await ctx.parseData({
+            id: item.id,
+            data: { ...frontmatter, updatedAt: item.updatedAt },
+          });
 
           const { code, metadata } = await processor.render(content);
 
-          // const data = {
-          //   ...metadata,
-          //   frontmatter: { ...metadata.frontmatter, ...frontmatter },
-          // };
-
-          // log_in_dev("METADATA>>>>", metadata);
-          // log_in_dev("FRONTMATTER>>>>", frontmatter);
-          // log_in_dev("DATA>>>>", data);
-
           ctx.store.set({
-            id: slugify(frontmatter.title, { lower: true, trim: true }),
+            id: item.id,
             data: parsed,
             body: content,
             rendered: {
               html: code,
               metadata: {
                 ...metadata,
-                frontmatter: { ...metadata.frontmatter, ...frontmatter },
+                frontmatter: {
+                  ...metadata.frontmatter,
+                  ...frontmatter,
+                  updatedAt: item.updatedAt,
+                },
               },
             },
             digest: ctx.generateDigest(content),

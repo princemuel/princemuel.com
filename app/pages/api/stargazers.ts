@@ -14,13 +14,16 @@ export const GET = handler(async () => {
       owner: OCTOKIT_USERNAME,
       repo: "princemuel.com",
     });
-    return Response.json({ payload: response.data.stargazers_count }, { status: 200 });
-  } catch (e) {
-    if (!(e instanceof GithubError)) throw e;
+    return Response.json(
+      { payload: response.data.stargazers_count },
+      { status: 200 },
+    );
+  } catch (error) {
+    if (!(error instanceof GithubError)) throw error;
     throw new RequestError(
-      get_code_from_status(e.status),
-      e.message,
-      new Error(e.message, { cause: e.cause }),
+      get_code_from_status(error.status),
+      error.message,
+      new Error(error.message, { cause: error.cause }),
     );
   }
 });

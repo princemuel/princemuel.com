@@ -1,33 +1,36 @@
 ---
 import ContentSlot from "@/components/layout/content-slot.astro";
+import Layout from "@/components/layout/layout.astro";
 import SiteStatus from "@/components/layout/site-status.astro";
+import Gradient from "@/components/shared/gradient.astro";
 import SkipLink from "@/components/shared/skip-link.astro";
 import ReloadPrompt from "@/components/widgets/reload-prompt.astro";
-import Layout from "@/layouts/layout.astro";
-import Meta from "@/layouts/meta.astro";
+import HeadMeta from "@/layouts/meta.astro";
 
-import ThemeProvider from "@/components/widgets/theme-provider.astro";
+import ThemeManager from "@/components/widgets/theme-provider.astro";
 import { getSiteSettings } from "@/config/settings";
 
-type Props = Meta & {
-  type?: OpenGraph["type"];
+type Props = {
+  meta: Meta;
   className?: string;
-  language?: "en" | "fr" | "es";
 };
 
 const settings = getSiteSettings();
 
 const {
-  title,
-  image,
-  keywords,
-  type = "website",
-  canonical,
-  description,
-  publishedAt,
-  updatedAt,
-  directives = {},
-  language = settings.language,
+  meta: {
+    title,
+    image,
+    keywords,
+    type = "website",
+    canonical,
+    description,
+    publishedAt,
+    updatedAt,
+    includeOg,
+    robots = {},
+    language = settings.language,
+  },
 } = Astro.props;
 ---
 
@@ -47,34 +50,33 @@ const {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="referrer" content="origin-when-cross-origin" />
     <meta name="color-scheme" content="dark light" />
-    <Meta
+    <HeadMeta
       title={title}
       description={description}
       image={image}
       og={{ type }}
       keywords={keywords}
-      directives={directives}
+      robots={robots}
       publishedAt={publishedAt}
       updatedAt={updatedAt}
       canonical={canonical}
+      includeOg={includeOg}
     />
-    <ThemeProvider />
+    <slot name="meta" />
+    <ThemeManager />
   </head>
-  <body
-    class:list={[
-      "relative min-h-screen supports-[min-height:1svh]:min-h-svh",
-      "bg-white font-sans font-normal text-pretty",
-    ]}
-  >
+  <body class="relative min-h-svh bg-white font-sans text-base font-normal">
     <ContentSlot>
       <Fragment slot="site-status-down">
         <SiteStatus />
       </Fragment>
       <Fragment slot="site-status-live">
         <SkipLink />
+        <Gradient position="top" />
         <Layout>
           <slot />
         </Layout>
+        <Gradient position="bottom" />
         <ReloadPrompt />
       </Fragment>
     </ContentSlot>

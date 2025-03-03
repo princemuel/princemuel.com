@@ -1,22 +1,42 @@
 ---
-import { Image } from "astro:assets";
+import { Image as AstroImage, getImage } from "astro:assets";
 
 import type { ComponentProps } from "astro/types";
 
-type Props = ComponentProps<typeof Image> & { caption: string };
+type Props = Prettify<ComponentProps<typeof AstroImage>>;
 
-const { src, alt, width, height, caption } = Astro.props;
+let { src, alt, width, height, title } = Astro.props;
+if (typeof src === "string") {
+  const inferRemoteSize = await import("astro:assets").then(
+    (r) => r.inferRemoteSize,
+  );
+  const { format, width: w, height: h } = await inferRemoteSize(src);
+
+  const remote_img = await getImage({ src, format, width: w, height: h });
+  src = remote_img.src;
+  width = remote_img.options.width;
+  height = remote_img.options.height;
+}
 ---
 
-<figure class:list={[""]}>
+<figure>
+  {/* @ts-expect-error */}
+  <AstroImage src={src} alt={alt} width={width} height={height} class="" />
   {
-    width && height ? (
-      // @ts-expect-error
-      <Image src={src} alt={alt} width={width} height={height} class="" />
-    ) : (
-      // @ts-expect-error
-      <Image src={src} alt={alt} inferSize class="" />
+    title && (
+      <Fragment>
+        <figcaption class="text-center">{title}</figcaption>
+      </Fragment>
     )
   }
-  {caption && <figcaption>{caption}</figcaption>}
 </figure>
+
+<!-- {
+        width && height ? (
+          // @ts-expect-error
+          <AstroImage src={src} alt={alt} width={width} height={height} class="" />
+        ) : (
+          // @ts-expect-error
+          <AstroImage src={src} alt={alt} class="" />
+        )
+      } -->

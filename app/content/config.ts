@@ -1,10 +1,8 @@
-import gh_loader from "@/lib/loaders/github/loader";
 import { MediaObject, baseSchema } from "@/schema/content";
 
 import { file, glob } from "astro/loaders";
 
 import { defineCollection, reference, z } from "astro:content";
-import { OCTOKIT_USERNAME } from "astro:env/server";
 
 import type { Icon } from "virtual:astro-icon";
 
@@ -19,7 +17,7 @@ const posts = defineCollection({
       contributors: z.array(reference("authors")).default([]),
       media: MediaObject(image).optional(),
       // publication: reference("publications").optional(),
-      others: z.array(reference("posts")).default([]),
+      related: z.array(reference("posts")).default([]),
     }),
 });
 
@@ -53,7 +51,7 @@ const projects = defineCollection({
       tools: z.array(z.string()).default([]),
       media: MediaObject(image).optional(),
       status: z
-        .enum(["planned", "in-progress", "completed", "archived"])
+        .enum(["concept", "planned", "in-progress", "completed", "archived"])
         .default("planned"),
       link: z
         .object({
@@ -65,6 +63,10 @@ const projects = defineCollection({
 });
 
 const journal = defineCollection({
+  // loader: gh_loader({
+  //   git_config: `owner:${OCTOKIT_USERNAME};repo:metadata;branch:main;directory:journal`,
+  //   incremental: false,
+  // }),
   loader: glob({
     base: "app/content/journal",
     pattern: "**/[^_]*.{md,mdx}",
@@ -80,14 +82,6 @@ const journal = defineCollection({
     language: z.enum(["en", "es", "fr"]).default("en"),
     permalink: z.string().url().optional(),
   }),
-});
-
-const tests = defineCollection({
-  loader: gh_loader({
-    git_config: `owner:${OCTOKIT_USERNAME};repo:metadata;branch:main;directory:testing`,
-    incremental: false,
-  }),
-  schema: z.object({ title: z.string().min(2) }),
 });
 
 const changelog = defineCollection({
@@ -161,5 +155,4 @@ export const collections = {
   posts,
   projects,
   changelog,
-  tests,
 };

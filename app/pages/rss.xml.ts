@@ -1,6 +1,6 @@
 import { published_date } from "@/config/settings";
 import { handler } from "@/helpers/api-handler";
-import { timeToUnits } from "@/utilities/time";
+import { timeToUnits } from "@/helpers/time";
 
 import { getImage } from "astro:assets";
 import { getCollection, getEntry } from "astro:content";

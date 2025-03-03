@@ -1,0 +1,42 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": [
+    "import",
+    "typescript",
+    "unicorn",
+    "promise",
+    "node",
+    "oxc",
+    "jsx-a11y"
+  ],
+  "env": {
+    "es2022": true,
+    "browser": true,
+    "node": true,
+    "shared-node-browser": true
+  },
+  "categories": {
+    "correctness": "error",
+    "nursery": "error",
+    "pedantic": "warn",
+    "perf": "warn",
+    "restriction": "off",
+    "style": "warn",
+    "suspicious": "warn"
+  },
+  "rules": {
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/consistent-type-imports": "off",
+    "eslint/sort-keys": "off",
+    "eslint/sort-imports": "off",
+    "eslint/no-ternary": "off",
+    "eslint/no-magic-numbers": "off",
+    "import/unambiguous": "off",
+    // "import/max-dependencies": "allow",
+    "import/sort": "off"
+  },
+  "settings": {
+    "jsx-a11y": { "components": { "Link": "a" } }
+  }
+}

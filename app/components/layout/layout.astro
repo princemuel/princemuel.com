@@ -1,0 +1,13 @@
+---
+import Article from "@/components/layout/article.astro";
+import Footer from "@/components/layout/footer.astro";
+import Header from "@/components/layout/header.astro";
+---
+
+<div class="flex min-h-svh flex-col gap-16">
+  <Header />
+  <Article class="flex-1">
+    <slot />
+  </Article>
+  <Footer />
+</div>

@@ -1,0 +1,64 @@
+---
+import Markdown from "@/components/content/markdown.astro";
+import Wrapper from "@/components/layout/wrapper.astro";
+import Time from "@/components/primitives/time.astro";
+import Root from "@/layouts/root.astro";
+
+import { getCollection, render } from "astro:content";
+
+export async function getStaticPaths() {
+  const entries = await getCollection(
+    "journal",
+    ({ data }) => !(import.meta.env.PROD && data.draft),
+  );
+
+  return entries.map((entry) => {
+    return { params: { slug: entry.id }, props: { entry } };
+  });
+}
+
+const { entry } = Astro.props;
+
+const { Content, remarkPluginFrontmatter: frontmatter } = await render(entry);
+
+// update the collection schema with plugin data
+entry.data.updatedAt ??= new Date(frontmatter.updatedAt);
+entry.data.duration = frontmatter.duration;
+entry.data.words = frontmatter.words;
+
+console.log("VALUE", entry.data.updatedAt);
+
+const { title, description, publishedAt } = entry.data;
+
+Astro.response.headers.set("netlify-cache-tag", entry.id);
+
+const meta = {
+  title: [title, true],
+  description: description,
+  type: "article",
+} satisfies Meta;
+---
+
+<Root meta={meta}>
+  <Fragment slot="head"></Fragment>
+  <Wrapper>
+    <div class="flex flex-col gap-4">
+      <header class="flex flex-col gap-1">
+        <Time
+          datetime={publishedAt.toISOString()}
+          class="text-xs font-bold tracking-wider text-slate-500 uppercase"
+        />
+        <h1
+          id="headline"
+          class="text-3xl font-extrabold text-slate-800 lg:text-5xl"
+        >
+          {title}
+        </h1>
+      </header>
+
+      <Markdown>
+        <Content />
+      </Markdown>
+    </div>
+  </Wrapper>
+</Root>

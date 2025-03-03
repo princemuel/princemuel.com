@@ -1,15 +1,15 @@
 ---
-import Container from "@/components/layout/container.astro";
+import Wrapper from "@/components/layout/wrapper.astro";
 import Link from "@/components/primitives/link.astro";
 import Time from "@/components/primitives/time.astro";
 
 import { Icon } from "astro-icon/components";
 
-import { getSiteSettings } from "@/config/settings";
+import { createDateFormatter } from "@/helpers/date-format";
 
 const buildDate = new Date(__BUILD_DATE__);
 
-const formatter = new Intl.DateTimeFormat(getSiteSettings().language, {
+const formatter = createDateFormatter({
   weekday: "short",
   year: "numeric",
   month: "short",
@@ -17,9 +17,11 @@ const formatter = new Intl.DateTimeFormat(getSiteSettings().language, {
 });
 ---
 
-<div class="absolute bottom-0 w-full bg-slate-100">
-  <Container class="flex items-center justify-center py-1">
-    <p class="flex flex-wrap items-center justify-center gap-1 text-xs text-slate-800">
+<div class="bg-slate-100">
+  <Wrapper class="flex items-center justify-center py-1">
+    <p
+      class="flex flex-wrap items-center justify-center gap-1 text-xs text-slate-800"
+    >
       <span>Built with </span>
       <Icon name="astro-icon" />
       <Link href="https://docs.astro.build/en/concepts/why-astro/">
@@ -27,8 +29,8 @@ const formatter = new Intl.DateTimeFormat(getSiteSettings().language, {
       </Link>
       <span>on</span>
       <Time datetime={buildDate.toISOString()}>
-        {formatter.format(buildDate)}
+        {formatter.format(buildDate.toISOString())}
       </Time>
     </p>
-  </Container>
+  </Wrapper>
 </div>

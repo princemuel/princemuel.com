@@ -11,8 +11,9 @@ import manifest from "./manifest.json";
 import type { SitemapOptions } from "@astrojs/sitemap";
 import type { PwaOptions } from "@vite-pwa/astro";
 import type { AstroIntegration } from "astro";
+// eslint-disable-next-line max-dependencies
 import type { AstroExpressiveCodeOptions as CodeOptions } from "astro-expressive-code";
-import { fonts } from "./fonts.mjs";
+
 type TIconOptions = NonNullable<Parameters<typeof icon>[0]>;
 
 const icon_options: TIconOptions = {
@@ -53,10 +54,7 @@ const pwa_options: PwaOptions = {
 };
 
 const code_options: CodeOptions = {
-  styleOverrides: {
-    codeFontFamily: fonts.mono.join(","),
-    uiFontFamily: fonts.sans.join(","),
-  },
+  styleOverrides: {},
 };
 export const integrations = [
   icon(icon_options),

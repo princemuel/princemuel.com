@@ -1,7 +1,6 @@
 ---
 import Markdown from "@/components/content/markdown.astro";
-import Article from "@/components/layout/article.astro";
-import Container from "@/components/layout/container.astro";
+import Wrapper from "@/components/layout/wrapper.astro";
 import Link from "@/components/primitives/link.astro";
 import Root from "@/layouts/root.astro";
 
@@ -17,44 +16,47 @@ const collection = await getCollection(
 const entries = collection.sort((a, b) => {
   return Number(b.data.publishedAt) - Number(a.data.publishedAt);
 });
+
+const meta = {
+  title: ["Blog"],
+  description:
+    "A space where I talk about web development and other programming related (or not) things",
+} satisfies Meta;
 ---
 
-<Root
-  title={["Blog"]}
-  description="A space where I talk about web development and other programming related (or not) things."
->
-  <Container class="mt-12">
-    <div class="grid grid-cols-1 gap-4 md:gap-6 lg:grid-cols-[5rem_1fr] lg:gap-12">
-      <Article class="flex flex-col gap-4 lg:col-start-2">
-        <h1 id="headline" class="text-3xl font-extrabold text-slate-800">Blog</h1>
-        <Markdown>
-          <Content />
-        </Markdown>
+<Root meta={meta}>
+  <Wrapper>
+    <div class="flex flex-col gap-4">
+      <h1 id="headline" class="text-3xl font-extrabold text-slate-800 lg:text-5xl">
+        Blog
+      </h1>
+      <Markdown>
+        <Content />
+      </Markdown>
 
-        <section class="mt-8 flex flex-col gap-8">
-          {
-            entries.map(({ id, data }) => (
-              <article class="flex flex-col gap-1">
-                <h3>
-                  <Link
-                    href={`/blog/${id}`}
-                    class="hocus:underline text-lg font-bold text-slate-800"
-                  >
-                    {data.title}
-                  </Link>
-                </h3>
-                <p class="text-base text-slate-600">{data.summary}</p>
+      <section class="mt-8 flex flex-col gap-8">
+        {
+          entries.map(({ id, data }) => (
+            <article class="flex flex-col gap-1">
+              <h3>
                 <Link
                   href={`/blog/${id}`}
-                  class="hocus:text-slate-700 hocus:underline mt-2 flex text-sm text-slate-500"
+                  class="hocus:underline text-lg font-bold text-slate-800"
                 >
-                  Read this article &RightArrow;
+                  {data.title}
                 </Link>
-              </article>
-            ))
-          }
-        </section>
-      </Article>
+              </h3>
+              <p class="text-base text-slate-600">{data.summary}</p>
+              <Link
+                href={`/blog/${id}`}
+                class="hocus:text-slate-700 hocus:underline mt-2 flex text-sm text-slate-500"
+              >
+                Read this article &RightArrow;
+              </Link>
+            </article>
+          ))
+        }
+      </section>
     </div>
-  </Container>
+  </Wrapper>
 </Root>

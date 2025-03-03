@@ -10,11 +10,11 @@ export default defineEcConfig({
   useThemedSelectionColors: false,
   useThemedScrollbars: true,
   cascadeLayer: "code",
+  themeCssSelector: (theme) => `[data-syntax-theme='${theme.name}']`,
   defaultProps: { showLineNumbers: false },
-  emitExternalStylesheet: false,
   styleOverrides: {
     codeFontFamily: fonts.mono.join(","),
     uiFontFamily: fonts.sans.join(","),
-    borderWidth: "1px",
+    // borderWidth: "1px",
   },
 });

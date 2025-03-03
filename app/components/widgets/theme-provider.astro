@@ -4,26 +4,26 @@ import { Icon } from "astro-icon/components";
 
 <template id="x-icons">
   <Icon
-    name="lucide:palette"
+    class="transition-colors"
     id="x-light-dark"
+    name="lucide:palette"
     role="presentation"
-    class="rotate-90 transition-transform duration-200"
   />
   <Icon
-    name="lucide:monitor-cog"
+    class="transition-colors"
     id="x-auto"
+    name="lucide:monitor-cog"
     role="presentation"
-    class="rotate-90 transition-transform duration-200"
   />
 </template>
 
 {/* This is intentionally inlined to avoid FOUC. */}
 <script is:inline>
-  if (!window.ThemeProvider)
-    window.ThemeProvider = (function () {
+  if (!globalThis.themeManager)
+    globalThis.themeManager = (function () {
       const storedTheme =
         typeof localStorage !== "undefined" && localStorage.getItem("x-theme");
-      const mql = window.matchMedia("(prefers-color-scheme: light)");
+      const mql = globalThis.matchMedia("(prefers-color-scheme: light)");
       const theme = storedTheme || (mql.matches ? "light" : "dark");
 
       document.documentElement.dataset.mode = theme;

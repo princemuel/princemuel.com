@@ -1,5 +1,4 @@
 {
-  "fa": ["github", "instagram", "linkedin", "youtube", "twitter"],
   "lucide": [
     "badge-check",
     "bar-chart",
@@ -21,5 +20,12 @@
     "square-user",
     "monitor-cog"
   ],
-  "ri": ["quill-pen-fill"]
+  "ri": ["quill-pen-fill"],
+  "ion": [
+    "logo-github",
+    "logo-instagram",
+    "logo-linkedin",
+    "logo-youtube",
+    "logo-twitter"
+  ]
 }

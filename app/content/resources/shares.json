@@ -1,0 +1,32 @@
+[
+  {
+    "id": "WhatsApp",
+    "href": "https://wa.me/?text=",
+    "text": "Share this post via WhatsApp"
+  },
+  {
+    "id": "Facebook",
+    "href": "https://www.facebook.com/sharer.php?u=",
+    "text": "Share this post on Facebook"
+  },
+  {
+    "id": "Twitter",
+    "href": "https://x.com/intent/tweet?url=",
+    "text": "Tweet this post"
+  },
+  {
+    "id": "Telegram",
+    "href": "https://t.me/share/url?url=",
+    "text": "Share this post via Telegram"
+  },
+  {
+    "id": "Pinterest",
+    "href": "https://pinterest.com/pin/create/button/?url=",
+    "text": "Share this post on Pinterest"
+  },
+  {
+    "id": "Mail",
+    "href": "mailto:?subject=See%20this%20post&body=",
+    "text": "Share this post via email"
+  }
+]

@@ -1,7 +1,6 @@
 ---
 import Markdown from "@/components/content/markdown.astro";
-import Article from "@/components/layout/article.astro";
-import Container from "@/components/layout/container.astro";
+import Wrapper from "@/components/layout/wrapper.astro";
 import Root from "@/layouts/root.astro";
 
 import { getCollection, getEntry, render } from "astro:content";
@@ -32,18 +31,24 @@ entry.data.words = remarkPluginFrontmatter.words;
 const { title, description } = entry.data;
 
 Astro.response.headers.set("netlify-cache-tag", entry.id);
+
+const meta = {
+  title: [title, true],
+  description: description,
+  type: "article",
+} satisfies Meta;
 ---
 
-<Root title={[title, true]} description={description}>
+<Root meta={meta}>
   <Fragment slot="head"> </Fragment>
-  <Container class="mt-12">
-    <div class="grid grid-cols-1 gap-4 md:gap-6 lg:grid-cols-[5rem_1fr] lg:gap-12">
-      <Article class="flex flex-col gap-4 lg:col-start-2">
-        <h1 id="headline" class="text-3xl font-extrabold text-slate-800">{title}</h1>
-        <Markdown>
-          <Content />
-        </Markdown>
-      </Article>
+  <Wrapper>
+    <div class="flex flex-col gap-4">
+      <h1 id="headline" class="text-3xl font-extrabold text-slate-800 lg:text-5xl">
+        {title}
+      </h1>
+      <Markdown>
+        <Content />
+      </Markdown>
     </div>
-  </Container>
+  </Wrapper>
 </Root>

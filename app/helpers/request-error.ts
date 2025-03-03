@@ -97,14 +97,13 @@ export class RequestError extends Error {
       configurable: true,
     });
 
-    // fix the prototype chain
     if (Object.setPrototypeOf === undefined)
-      //@ts-expect-error
+      //@ts-expect-error // fix the prototype chain
       this.__proto__ = RequestError.prototype;
     else Object.setPrototypeOf(this, RequestError.prototype);
 
     // Maintains proper stack trace (only available on V8)
-    if (typeof Error.captureStackTrace === "function") {
+    if ("function" === typeof Error.captureStackTrace) {
       Error.captureStackTrace(this, this.constructor);
     }
   }

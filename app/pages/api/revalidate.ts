@@ -20,7 +20,8 @@ export const POST = handler(async ({ request }) => {
   }
 
   const parsed = schema.safeParse(await request.json());
-  if (!parsed.success) throw RequestError.failedPrecondition("Invalid data received");
+  if (!parsed.success)
+    throw RequestError.failedPrecondition("Invalid data received");
   const result = parsed.data;
 
   await purgeCache({ tags: [result.id] });
@@ -31,6 +32,7 @@ export const POST = handler(async ({ request }) => {
 });
 
 export const ALL = handler(
+  // eslint-disable-next-line require-await
   async ({ request }) =>
     new Response(`HTTP method ${request.method} not allowed`, {
       status: 405,

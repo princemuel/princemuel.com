@@ -14,14 +14,14 @@ export const createDateFormatter = (params: DatetimeParams = {}) => {
   const locale: Intl.LocalesArgument =
     locales ||
     (isServer ||
-    typeof navigator === "undefined" ||
-    typeof navigator.language !== "string"
+    "undefined" === typeof navigator ||
+    "string" !== typeof navigator.language
       ? defaultLocale
       : navigator.language);
 
   const format = (isoString: string | Temporal.ZonedDateTimeLike) => {
     const zonedDateTime =
-      typeof isoString === "string"
+      "string" === typeof isoString
         ? Temporal.Instant.from(isoString).toZonedDateTimeISO(
             Temporal.Now.timeZoneId(),
           )
@@ -37,7 +37,7 @@ export const createDateFormatter = (params: DatetimeParams = {}) => {
 
   const toISOString = (isoString: string | Temporal.ZonedDateTimeLike) => {
     const zonedDateTime =
-      typeof isoString === "string"
+      "string" === typeof isoString
         ? Temporal.Instant.from(isoString).toZonedDateTimeISO(
             Temporal.Now.timeZoneId(),
           )

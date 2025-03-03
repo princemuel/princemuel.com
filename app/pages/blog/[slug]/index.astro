@@ -1,13 +1,12 @@
 ---
 import Markdown from "@/components/content/markdown.astro";
-import Article from "@/components/layout/article.astro";
-import Container from "@/components/layout/container.astro";
+import Wrapper from "@/components/layout/wrapper.astro";
 import Root from "@/layouts/root.astro";
 
 import { log_in_dev } from "@/helpers/log-in-dev";
 import { withBaseUrl } from "@/helpers/with-base-url";
 import { blog_ld, profile_ld } from "@/schema/jsonld";
-import { remove_key } from "@/utilities/objects";
+import { remove_key } from "@/utils/objects";
 
 import { getCollection, getEntry, render } from "astro:content";
 import { OCTOKIT_USERNAME } from "astro:env/server";
@@ -46,7 +45,7 @@ const [markdown, author] = await Promise.all([
 const { Content, remarkPluginFrontmatter: frontmatter } = markdown;
 
 // update the collection schema with plugin data
-entry.data.updatedAt = new Date(frontmatter.updatedAt);
+entry.data.updatedAt ??= new Date(frontmatter.updatedAt);
 entry.data.duration = frontmatter.duration;
 entry.data.words = frontmatter.words;
 
@@ -199,9 +198,15 @@ const github_links = (() => {
 console.log(JSON.stringify(github_links));
 
 Astro.response.headers.set("netlify-cache-tag", entry.id);
+
+const meta = {
+  title: [title, true],
+  description: description,
+  type: "article",
+} satisfies Meta;
 ---
 
-<Root title={[title, true]} description={description}>
+<Root meta={meta}>
   <Fragment slot="head">
     <script
       is:inline
@@ -210,15 +215,14 @@ Astro.response.headers.set("netlify-cache-tag", entry.id);
       set:html={JSON.stringify(jsonld)}
     />
   </Fragment>
-  <Container class="mt-12">
-    <div class="grid grid-cols-1 gap-4 md:gap-6 lg:grid-cols-[5rem_1fr] lg:gap-12">
-      <Article class="flex flex-col gap-4 lg:col-start-2">
-        <h1 id="headline" class="text-3xl font-extrabold text-slate-800">{title}</h1>
-
-        <Markdown>
-          <Content />
-        </Markdown>
-      </Article>
+  <Wrapper>
+    <div class="flex flex-col gap-4">
+      <h1 id="headline" class="text-3xl font-extrabold text-slate-800 lg:text-5xl">
+        {title}
+      </h1>
+      <Markdown>
+        <Content />
+      </Markdown>
     </div>
-  </Container>
+  </Wrapper>
 </Root>

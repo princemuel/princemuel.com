@@ -15,13 +15,13 @@ import {
   UPSTASH_LIMIT_WINDOW,
 } from "astro:env/server";
 
-import { singleton } from "@/utilities/objects";
+import { remember } from "@/helpers/singleton";
 
 // https://github.com/octokit/octokit.js/#readme
 export const octokit = new Octokit({ auth: OCTOKIT_TOKEN });
 export const resend = new Resend(RESEND_TOKEN);
 
-export const db = singleton("__prisma__", () => {
+export const db = remember("__prisma__", () => {
   const libsql = createClient({
     url: DATABASE_URL,
     authToken: DATABASE_TOKEN,
@@ -42,14 +42,16 @@ export const db = singleton("__prisma__", () => {
 // });
 
 const tokens = UPSTASH_LIMIT_TOKEN;
-const duration = UPSTASH_LIMIT_WINDOW as Parameters<typeof Ratelimit.slidingWindow>[1];
+const duration = UPSTASH_LIMIT_WINDOW as Parameters<
+  typeof Ratelimit.slidingWindow
+>["1"];
 
 export const ratelimit = new Ratelimit({
   redis: Redis.fromEnv() as unknown as ConstructorParameters<
     typeof Ratelimit
-  >[0]["redis"],
+  >["0"]["redis"],
   analytics: true,
   limiter: Ratelimit.slidingWindow(tokens, duration),
   prefix: "@upstash/ratelimit",
-  ephemeralCache: singleton("__rl_cache__", () => new Map<string, number>()),
+  ephemeralCache: remember("__rl_cache__", () => new Map<string, number>()),
 });

@@ -1,3 +1,5 @@
+// eslint-disable prefer-await-to-then
+// eslint-disable require-await
 import { handler } from "@/helpers/api-handler";
 
 import { DARK_VISITORS_TOKEN } from "astro:env/server";

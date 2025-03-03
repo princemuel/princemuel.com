@@ -6,6 +6,7 @@
     "editorconfig.editorconfig",
     "unifiedjs.vscode-mdx",
     "tamasfe.even-better-toml",
+    "oxc.oxc-vscode",
     "biomejs.biome"
   ],
   "unwantedRecommendations": []

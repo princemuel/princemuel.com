@@ -28,12 +28,12 @@ It adds a new `prose` class that you can slap on any block of vanilla HTML conte
   <h1>Garlic bread with cheese: What the science tells us</h1>
   <p>
     For years parents have espoused the health benefits of eating garlic bread with
-    cheese to their children, with the food earning such an iconic status in our culture
-    that kids will often dress up as warm, cheesy loaf for Halloween.
+    cheese to their children, with the food earning such an iconic status in our
+    culture that kids will often dress up as warm, cheesy loaf for Halloween.
   </p>
   <p>
-    But a recent study shows that the celebrated appetizer may be linked to a series of
-    rabies cases springing up around the country.
+    But a recent study shows that the celebrated appetizer may be linked to a series
+    of rabies cases springing up around the country.
   </p>
   <!-- ... -->
 </article>
@@ -77,11 +77,11 @@ Something a wise person once told me about typography is:
 > Typography is pretty important if you don't want your stuff to look like trash. Make it good then it won't be bad.
 > It's probably important that images look okay here by default as well:
 
-<Figure
+<img
   src="https://images.unsplash.com/photo-1556740758-90de374c12ad"
   alt="Lorem Ipsum"
-  width={1200}
-  height={800}
+  width='1200'
+  height='800'
   caption="Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old."
 />
 
@@ -215,3 +215,46 @@ Phew, with any luck we have styled the headings above this text and they look pr
 Let's add a closing paragraph here so things end with a decently sized block of text. I can't explain why I want things to end that way but I have to assume it's because I think things will look weird or unbalanced if there is a heading too close to the end of the document.
 
 What I've written here is probably long enough, but adding this final sentence can't hurt.
+
+Here's a simple footnote,[^1] and here's a longer one.[^bignote]
+
+A footnote can also have multiple lines[^2].
+
+[^1]: My reference.
+
+[^2]:
+    To add line breaks within a footnote, prefix new lines with 2 spaces.
+    This is a second line.
+
+[^bignote]: Here's one with multiple paragraphs and code.
+
+    Indent paragraphs to include them in the footnote.
+
+    `{ my code }`
+
+    Add as many paragraphs as you like.
+
+...in the study.^[Smith, John. _Title of the Work_. (Publisher, 2020), 15-16.]
+
+First Term
+: This is the definition of the first term.
+
+Second Term
+: This is one definition of the second term.
+: This is another definition of the second term.
+
+~~The world is flat.~~ We now know that the world is round.
+
+- [x] Write the press release
+- [ ] Update the website
+- [ ] Contact the media
+
+Gone camping! :tent: Be back soon.
+
+That is so funny! :joy:
+
+I need to highlight these ==very important words==.
+
+H~2~O
+
+X^2^

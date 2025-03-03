@@ -1,47 +1,38 @@
 ---
-import Container from "@/components/layout/container.astro";
-import RoutesMenu from "@/components/layout/routes.astro";
+import Wrapper from "@/components/layout/wrapper.astro";
 import Link from "@/components/primitives/link.astro";
-// import ThemePicker from "@/components/widgets/theme-picker.astro";
+import RoutesMenu from "@/components/widgets/routes-menu.astro";
+import ThemePicker from "@/components/widgets/theme-picker.astro";
 
-import { Picture } from "astro:assets";
+import { Image } from "astro:assets";
 
 import { avatar } from "@/assets";
 ---
 
-<header class="pt-8 lg:pt-16">
-  <Container class="mt-2">
-    <div class="grid grid-cols-1 gap-4 md:gap-6 lg:grid-cols-[5rem_1fr] lg:gap-12">
-      <Link
-        href="/"
-        class="flex size-10 items-center justify-center overflow-hidden rounded-full md:size-12 lg:size-20"
-      >
-        <Picture
-          width={80}
-          height={80}
-          alt="Prince Muel"
-          src={avatar}
-          formats={["avif", "webp"]}
-          loading="eager"
-        />
-      </Link>
+<header class="transition-colors ease-in-out">
+  <Wrapper>
+    <div class="py-8">
+      <div class="flex items-center justify-between">
+        <Link
+          href="/"
+          class="flex size-10 items-center justify-center overflow-hidden rounded-full"
+        >
+          <Image
+            width={40}
+            height={40}
+            alt="Prince Muel"
+            src={avatar}
+            loading="lazy"
+          />
+        </Link>
 
-      <div class="grid items-center gap-3">
-        <div class="flex max-w-prose items-center justify-between">
-          <Link
-            href="/"
-            class="block text-xl font-extrabold text-slate-800 lg:text-3xl"
-          >
-            Samuel Chukwuzube
-          </Link>
-
-          <!-- <ThemePicker /> -->
-        </div>
-
-        <div class:list={[""]}>
+        <div
+          class="fixed inset-x-0 bottom-[5vh] z-50 mx-auto grid w-full place-content-center md:contents"
+        >
           <RoutesMenu />
         </div>
+        <ThemePicker />
       </div>
     </div>
-  </Container>
+  </Wrapper>
 </header>

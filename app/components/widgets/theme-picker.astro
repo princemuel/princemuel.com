@@ -1,8 +1,8 @@
 <theme-picker class="contents">
   <button
-    type="button"
-    title="Toggle Theme"
     class="relative bg-slate-600 text-2xl text-white transition-transform delay-200 duration-200 ease-in"
+    title="Toggle Theme"
+    type="button"
   >
     <span class="sr-only">Toggle theme</span>
   </button>
@@ -10,12 +10,12 @@
 
 {/* Inlined to avoid FOUC. Uses global scope from `theme-provider.astro` */}
 <script is:inline>
-  window.ThemeProvider.updatePicker();
+  globalThis.themeManager.updatePicker();
 </script>
 
 <script>
   import { create_custom_el } from "@/helpers/custom-elements";
-  import { getElement } from "@/helpers/dom";
+  import { $ } from "@/helpers/dom";
 
   type Theme = (typeof themes)[number];
 
@@ -37,7 +37,9 @@
   const parseTheme = (theme: unknown): Theme =>
     theme === "auto" || theme === "dark" || theme === "light" ? theme : "auto";
   const loadTheme = (): Theme =>
-    parseTheme(typeof localStorage !== "undefined" && localStorage.getItem(storageKey));
+    parseTheme(
+      typeof localStorage !== "undefined" && localStorage.getItem(storageKey),
+    );
 
   function storeTheme(theme: Theme) {
     if (typeof localStorage !== "undefined") {
@@ -50,7 +52,7 @@
 
   /** Update theme widget, document theme, and local storage state. */
   function onThemeChange(theme: Theme) {
-    window.ThemeProvider.updatePicker(theme);
+    globalThis.themeManager.updatePicker(theme);
     document.documentElement.dataset.mode =
       theme === "auto" ? getPreferredColorScheme() : theme;
     document.documentElement.dataset.theme =
@@ -70,7 +72,7 @@
     handleClick: (e: MouseEvent) => void;
     constructor() {
       super();
-      this.btn = getElement("button", HTMLButtonElement, this);
+      this.btn = $("button", HTMLButtonElement, this);
       this.handleClick = this.#handleThemeChange.bind(this);
     }
 
