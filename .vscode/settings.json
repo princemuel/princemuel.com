@@ -30,6 +30,7 @@
   "eslint.useFlatConfig": true,
   "eslint.validate": ["javascript", "astro", "typescript"],
   "json.validate.enable": true,
+
   "mdx.server.enable": true,
   "mdx.validate.validateDuplicateLinkDefinitions": "warning",
   "mdx.validate.validateFileLinks": "warning",
@@ -37,6 +38,7 @@
   "mdx.validate.validateMarkdownFileLinkFragments": "warning",
   "mdx.validate.validateReferences": "warning",
   "mdx.validate.validateUnusedLinkDefinitions": "warning",
+
   "astro.content-intellisense": true,
   "npm-intellisense.packageSubfoldersIntellisense": true,
   "prettier.documentSelectors": ["**/*.astro"],
@@ -44,6 +46,7 @@
   "[astro]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
+
   "evenBetterToml.formatter.alignComments": true,
   "evenBetterToml.formatter.alignEntries": true,
   "evenBetterToml.formatter.arrayAutoCollapse": true,
@@ -53,14 +56,12 @@
   "evenBetterToml.formatter.reorderArrays": true,
   "evenBetterToml.formatter.reorderKeys": true,
   "evenBetterToml.formatter.trailingNewline": true,
+
   "tailwindCSS.emmetCompletions": true,
   "tailwindCSS.classAttributes": ["class", "className", "class:list", "tw"],
-  "tailwindCSS.experimental.configFile": "app/styles/global.css",
+  "tailwindCSS.experimental.configFile": "app/global.css",
   "tailwindCSS.experimental.classRegex": [
     ["tv\\((([^()]*|\\([^()]*\\))*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"]
   ],
-  "workbench.tree.indent": 12,
-  "material-icon-theme.files.associations": {
-    "**.mdoc": "mdx"
-  }
+  "workbench.tree.indent": 12
 }
