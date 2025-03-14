@@ -1,0 +1,18 @@
+- id: princemuel
+  name: Samuel Chukwuzube
+  nickname: princemuel
+  email: vansomecsam@gmail.com
+  role: "Frontend Engineer"
+  bio: "Short biography text that gives a brief introduction"
+  image: https://github.com/princemuel.png
+  links:
+    - label: website
+      url: https://princemuel.dev/about
+      icon: globe
+    - label: github
+      url: https://github.com/princemuel
+      icon: github
+    - label: twitter
+      url: https://twitter.com/iamprincemuel
+      icon: twitter
+  location: "Lagos, NG"
