@@ -1,27 +1,27 @@
 - id: demo
   text: Demo
-  icon: lucide:home
+  icon: "lucide:home"
 
 - id: docs
   text: Docs
-  icon: lucide:home
+  icon: "lucide:home"
 
 - id: website
   text: Website
-  icon: lucide:home
+  icon: "lucide:home"
 
 - id: repo
   text: Repository
-  icon: lucide:home
+  icon: "lucide:home"
 
 - id: github
   text: GitHub
-  icon: lucide:home
+  icon: "lucide:home"
 
 - id: github
   text: GitHub
-  icon: lucide:home
+  icon: "lucide:home"
 
 - id: meeting
   text: Meeting Notes
-  icon: lucide:home
+  icon: "lucide:home"

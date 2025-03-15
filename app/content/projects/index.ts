@@ -31,7 +31,7 @@ export default defineCollection({
   schema: ({ image }) =>
     baseSchema.extend({
       genre: z.enum(ps).default("app"),
-      image: img(image).optional(),
+      image: img(image).nullish(),
       author: reference("authors"),
       technologies: z.array(z.string()).default([]),
       contributors: z.array(reference("authors")).default([]),

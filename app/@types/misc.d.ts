@@ -56,15 +56,13 @@ type DeepRequired<T> = T extends BrowserNativeObject | Blob
       [K in keyof T]-?: NonNullable<DeepRequired<T[K]>>;
     };
 
-type DeepPartial<T> =
-  // biome-ignore lint/complexity/noBannedTypes: <explanation>
-  T extends Function
-    ? T
-    : T extends (infer A)[]
-      ? DeepPartialArray<A>
-      : T extends object
-        ? DeepPartialObject<T>
-        : T | undefined;
+type DeepPartial<T> = T extends Function
+  ? T
+  : T extends (infer A)[]
+    ? DeepPartialArray<A>
+    : T extends object
+      ? DeepPartialObject<T>
+      : T | undefined;
 
 type DeepPartialObject<T> = {
   [K in keyof T]?: DeepPartial<T[K]>;
