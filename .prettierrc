@@ -2,7 +2,7 @@
   "semi": true,
   "singleQuote": false,
   "trailingComma": "all",
-  "tailwindFunctions": ["tw", "cn", "tv"],
+  "tailwindFunctions": ["tw", "tv"],
   "tailwindAttributes": ["tw"],
   "plugins": [
     "prettier-plugin-astro",

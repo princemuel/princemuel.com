@@ -1,9 +1,15 @@
-import type { AstroUserConfig } from "astro";
 import { envField } from "astro/config";
+import { loadEnv } from "vite";
+
+import type { AstroUserConfig } from "astro";
 
 type AstroConfig = NonNullable<NonNullable<AstroUserConfig["env"]>["schema"]>;
 
 const z = envField;
+
+const mode = process.env.NODE_ENV ?? "production";
+
+export const envVars = loadEnv(mode, process.cwd(), "");
 
 export default {
   ASTRO_KEY: z.string({ context: "server", access: "secret" }),

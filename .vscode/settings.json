@@ -3,6 +3,7 @@
     "**/.node_modules": true,
     "**/pnpm.*": true
   },
+  "typescript.tsdk": "node_modules/typescript/lib",
   "typescript.enablePromptUseWorkspaceTsdk": true,
   "dotenv.enableAutocloaking": false,
   "editor.bracketPairColorization.independentColorPoolPerBracketType": true,
@@ -25,10 +26,19 @@
   "emmet.preferences": {
     "output.selfClosingStyle": "xhtml"
   },
+  // "emmet.includeLanguages": {
+  //   "typescriptreact": "html"
+  // },
   "oxc.enable": true,
   "eslint.enable": true,
   "eslint.useFlatConfig": true,
-  "eslint.validate": ["javascript", "astro", "typescript"],
+  "eslint.validate": [
+    "astro",
+    "javascript",
+    "markdown",
+    "typescript",
+    "typescriptreact"
+  ],
   "json.validate.enable": true,
 
   "mdx.server.enable": true,
@@ -60,8 +70,11 @@
   "tailwindCSS.emmetCompletions": true,
   "tailwindCSS.classAttributes": ["class", "className", "class:list", "tw"],
   "tailwindCSS.experimental.configFile": "app/global.css",
+  "tailwindCSS.includeLanguages": {
+    "xslt": "html"
+  },
   "tailwindCSS.experimental.classRegex": [
-    ["tv\\((([^()]*|\\([^()]*\\))*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"]
+    ["([\"'`][^\"'`]*.*?[\"'`])", "[\"'`]([^\"'`]*).*?[\"'`]"]
   ],
   "workbench.tree.indent": 12
 }

@@ -25,10 +25,13 @@
     "suspicious": "warn"
   },
   "rules": {
+    "curly": "off",
     "sort-imports": "off",
     "sort-keys": "off",
     "no-magic-numbers": "off",
-    "no-ternary": "off"
+    "no-ternary": "off",
+    "no-anonymous-default-export": "off",
+    "import/no-namespace": "off"
   },
   "settings": {
     "jsx-a11y": {
