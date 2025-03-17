@@ -7,8 +7,9 @@
     "noErrorTruncation": true,
     "exactOptionalPropertyTypes": false,
     "baseUrl": ".",
-    "paths": {
-      "@/*": ["./app/*"]
-    }
-  }
+    "paths": { "@/*": ["./app/*"] },
+    "jsx": "react-jsx",
+    "jsxImportSource": "preact"
+  },
+  "mdx": { "checkMdx": true }
 }

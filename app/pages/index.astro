@@ -1,39 +1,31 @@
 ---
-import Markdown from "@/components/content/markdown.astro";
-import Article from "@/components/layout/article.astro";
-import Container from "@/components/layout/container.astro";
-import Root from "@/layouts/root.astro";
+import { getCollection } from "astro:content";
 
-import { Content } from "@/content/pages/home.md";
+import "@/global.css";
+import "@fontsource-variable/inconsolata";
+import "@fontsource-variable/noto-sans";
 
-import { home_ld } from "@/schema/jsonld";
-import { remove_key } from "@/utilities/objects";
+import Navlink from "@/components/primitives/navlink.astro";
 
-import type { Graph } from "schema-dts";
-
-const jsonld = {
-  "@context": "https://schema.org",
-  "@graph": remove_key("@context", [home_ld]),
-} satisfies Graph;
+const routes = await getCollection("routes");
 ---
 
-<Root title={["Prince Muel", true]} description="Home">
-  <script
-    is:inline
-    type="application/ld+json"
-    slot="head"
-    set:html={JSON.stringify(jsonld)}
-  />
-  <Container class="mt-12">
-    <div class="grid grid-cols-1 gap-4 md:gap-6 lg:grid-cols-[5rem,1fr] lg:gap-12">
-      <Article class="flex flex-col gap-2 lg:col-start-2">
-        <h1 id="headline" class="text-3xl font-extrabold text-gray-800">
-          Hey there! 👋
-        </h1>
-        <Markdown>
-          <Content />
-        </Markdown>
-      </Article>
-    </div>
-  </Container>
-</Root>
+<!doctype html>
+<html lang="en" data-reader-mode="dynamic" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>princemuel.com</title>
+  </head>
+  <body class="font-sans">
+    {
+      routes.map((r) => (
+        <Fragment>
+          <Navlink href={r.data.href}>{r.data.text}</Navlink>
+        </Fragment>
+      ))
+    }
+  </body>
+</html>

@@ -6,8 +6,8 @@
 pre-push:
   commands:
     js-lint:
-      glob: "*.{js,ts,mjs,jsx,tsx,json}"
-      run: npx @biomejs/biome check --write --unsafe --no-errors-on-unmatched --use-editorconfig=true --files-ignore-unknown=true --colors=off {push_files}
+      glob: "**/*"
+      run: corepack pnpm oxlint --fix --fix-suggestions -A all {push_files}
 
     rust-lint:
       glob: "*.rs"
@@ -25,12 +25,13 @@ pre-commit:
   parallel: true
   commands:
     js-lint:
-      glob: "*.{js,ts,mjs,jsx,tsx,json,astro}"
-      run: npx @biomejs/biome check --fix --unsafe --assists-enabled=true --no-errors-on-unmatched --use-editorconfig=true --files-ignore-unknown=true --colors=off {staged_files}
+      glob: "**/*"
+      run: corepack pnpm oxlint --fix --fix-suggestions -A all {staged_files}
+      stage_fixed: true
 
-    js-format:
-      glob: "*.{astro,md,mdx,mdoc,prisma,yml,yaml}"
-      run: npx prettier {staged_files} -w -u --no-error-on-unmatched-pattern --config ./.prettierrc.json --cache
+    js-fmt:
+      glob: "**/*"
+      run: corepack pnpm prettier {staged_files} -w -u --no-error-on-unmatched-pattern --config ./.prettierrc --cache
       stage_fixed: true
 
     rust-lint:
@@ -41,12 +42,12 @@ pre-commit:
       glob: "*.rs"
       run: cargo fix --allow-dirty --allow-staged # Automatically fixes Rust issues
 
-    rust-format:
+    rust-fmt:
       glob: "*.rs"
       run: cargo fmt --all # Formats Rust code to keep style consistent
       stage_fixed: true
 
 post-merge:
   commands:
-    js-install-deps:
-      run: npx @instajs/biomell
+    install-packages:
+      run: corepack pnpm install

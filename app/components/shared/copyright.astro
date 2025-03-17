@@ -1,15 +1,13 @@
 ---
 import type { HTMLAttributes } from "astro/types";
 
-interface Props extends Omit<HTMLAttributes<"time">, "datetime"> {
-  datetime?: ConstructorParameters<typeof Date>[0] | null;
-}
+type Props = HTMLAttributes<"time">;
 
 const { datetime, ...attrs } = Astro.props;
 
-const date = new Date(datetime ?? new Date());
+const date = new Date(datetime ?? Date.now());
 ---
 
 <time datetime={date.toISOString()} {...attrs}>
-  &copy; {date.getFullYear()}
+  {date.getFullYear()} &copy;
 </time>

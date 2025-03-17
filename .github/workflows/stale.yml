@@ -19,9 +19,9 @@ jobs:
       - uses: actions/stale@v9
         with:
           stale-issue-label: "Status: Stale"
-          days-before-issue-stale: 30
+          days-before-issue-stale: 60
           days-before-issue-close: -1
-          stale-issue-message: "This issue is stale because it has had no activity for the last 30 days."
+          stale-issue-message: "This issue is stale because it has had no activity for the last 60 days."
           close-issue-message: "This issue was closed because it has been inactive for 14 days since being marked as stale."
           days-before-pr-stale: -1
           days-before-pr-close: -1

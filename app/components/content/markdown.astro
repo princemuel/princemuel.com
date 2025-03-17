@@ -1,15 +1,19 @@
 ---
-import { linked } from "@/assets";
-
 import type { HTMLAttributes } from "astro/types";
 
 type Props = HTMLAttributes<"article">;
 
-const { class: className, ...attrs } = Astro.props;
+const { ...attrs } = Astro.props;
 ---
 
-<article id="article" class="prose xl:prose-lg dark:prose-invert" {...attrs}>
+<article
+  id="article"
+  aria-labelledby="headline"
+  class:list={[
+    "prose 2xl:prose-lg 3xl:prose-xl dark:prose-invert",
+    "**:[.expressive-code_+_.expressive-code]:mt-12",
+  ]}
+  {...attrs}
+>
   <slot />
 </article>
-
-<style define:vars={{ linked: `url(${linked.src})` }}></style>

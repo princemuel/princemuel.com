@@ -1,1 +1,1 @@
-echo $(head -n1 $1) | npx commitlint --color
+head -n1 "$1" | corepack pnpm commitlint --color
