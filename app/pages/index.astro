@@ -1,11 +1,31 @@
 ---
-import Welcome from "@/components/Welcome.astro";
-import Layout from "../layouts/Layout.astro";
+import { getCollection } from "astro:content";
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import "@/global.css";
+import "@fontsource-variable/inconsolata";
+import "@fontsource-variable/noto-sans";
+
+import Navlink from "@/components/primitives/navlink.astro";
+
+const routes = await getCollection("routes");
 ---
 
-<Layout>
-  <Welcome />
-</Layout>
+<!doctype html>
+<html lang="en" data-reader-mode="dynamic" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>princemuel.com</title>
+  </head>
+  <body class="font-sans">
+    {
+      routes.map((r) => (
+        <Fragment>
+          <Navlink href={r.data.href}>{r.data.text}</Navlink>
+        </Fragment>
+      ))
+    }
+  </body>
+</html>

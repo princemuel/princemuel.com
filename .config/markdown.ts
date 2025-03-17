@@ -56,9 +56,6 @@ export default {
   ],
   rehypePlugins: [
     // [rehypeHeadingIds, { experimentalHeadingIdCompat: true }],
-    [
-      rehypeExternalLinks,
-      { rel: ["noopener", "noreferrer", "external"], target: "_blank" },
-    ],
+    [rehypeExternalLinks, { rel: ["noopener", "noreferrer", "external"], target: "_blank" }],
   ],
 } satisfies AstroConfig;

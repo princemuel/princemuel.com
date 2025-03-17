@@ -1,6 +1,8 @@
 {
   "semi": true,
   "singleQuote": false,
+  "printWidth": 96,
+  "tabWidth": 2,
   "trailingComma": "all",
   "tailwindFunctions": ["tw", "tv"],
   "tailwindAttributes": ["tw"],
@@ -15,7 +17,7 @@
       "options": { "trailingComma": "es5" }
     },
     {
-      "files": "*.astro",
+      "files": ["**/*.astro"],
       "options": { "parser": "astro" }
     }
   ]

@@ -1,24 +1,24 @@
 - id: home
   text: home
-  href: "/"
-  icon: "lucide:home"
+  href: /
+  icon: lucide:home
 
 - id: about
   text: about me
-  href: "/about"
-  icon: "lucide:square-user"
+  href: /about
+  icon: lucide:square-user
 
 - id: projects
   text: projects
   href: /projects
-  icon: "lucide:briefcase-business"
+  icon: lucide:briefcase-business
 
 - id: journal
   text: journal
   href: /journal
-  icon: "ri:quill-pen-fill"
+  icon: ri:quill-pen-fill
 
 - id: wiki
   text: wiki
   href: /wiki
-  icon: "lucide:library"
+  icon: lucide:library

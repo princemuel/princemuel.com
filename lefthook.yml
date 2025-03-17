@@ -26,7 +26,7 @@ pre-commit:
   commands:
     js-lint:
       glob: "**/*"
-      run: corepack pnpm oxlint --fix --fix-suggestions --fix-dangerously -A all {staged_files}
+      run: corepack pnpm oxlint --fix --fix-suggestions -A all {staged_files}
       stage_fixed: true
 
     js-fmt:

@@ -21,12 +21,6 @@
     "monitor-cog"
   ],
   "ri": ["quill-pen-fill"],
-  "ion": [
-    "logo-github",
-    "logo-instagram",
-    "logo-linkedin",
-    "logo-youtube",
-    "logo-twitter"
-  ],
+  "ion": ["logo-github", "logo-instagram", "logo-linkedin", "logo-youtube", "logo-twitter"],
   "tabler": ["brand-github", "brand-linkedin"]
 }

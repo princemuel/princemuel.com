@@ -1,9 +1,11 @@
 ---
-import Content from "@/content/routes/404.md";
+import Link from "@/components/primitives/link.astro";
+
+// https://iconify.design/docs/icon-components/ 404 page
 ---
 
 <!doctype html>
-<html lang="en" data-darkreader-mode="dynamic" data-darkreader-scheme="dark">
+<html lang="en" data-reader-mode="dynamic" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -12,6 +14,18 @@ import Content from "@/content/routes/404.md";
     <title>404 Not Found</title>
   </head>
   <body>
-    <Content />
+    <main>
+      <div>
+        <p>404</p>
+        <h1>PAGE NOT FOUND</h1>
+        <hr />
+        <blockquote>
+          But if you don't change your direction, and if you keep looking, you may end up where
+          you are heading.
+        </blockquote>
+
+        <Link href="/" aria-label="go to home">Take me home</Link>
+      </div>
+    </main>
   </body>
 </html>

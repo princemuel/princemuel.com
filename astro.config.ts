@@ -14,13 +14,13 @@ import plugins from "./.config/plugins";
 export default defineConfig({
   srcDir: "./app",
   site: envVars.PUBLIC_SITE_URL,
-  prefetch: true,
   env: { validateSecrets: true, schema: dotenv },
   experimental: flags,
+  server: { host: true },
   integrations: integrations,
   session: { driver: "netlifyBlobs" },
   markdown: markdown,
   vite: plugins,
   image: images,
-  adapter: netlify({ cacheOnDemandPages: true, imageCDN: true }),
+  adapter: netlify({ cacheOnDemandPages: true }),
 });

@@ -8,14 +8,16 @@
   "dotenv.enableAutocloaking": false,
   "editor.bracketPairColorization.independentColorPoolPerBracketType": true,
   "editor.wordWrap": "bounded",
-  "editor.wordWrapColumn": 84,
+  "editor.wordWrapColumn": 96,
   "editor.inlineSuggest.enabled": true,
   "editor.fontFamily": "'Cascadia Code', 'Droid Sans Mono', 'monospace', monospace",
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.codeActionsOnSave": {
-    "source.fixAll.oxc": "explicit",
+    "source.fixAll": "explicit",
     "source.organizeImports": "explicit",
     "source.addMissingImports": "explicit"
+    // "source.fixAll.oxc": "explicit",
+    // "source.fixAll.markdownlint": "explicit",
   },
   "files.associations": {
     "*.css": "tailwindcss"
@@ -32,13 +34,7 @@
   "oxc.enable": true,
   "eslint.enable": true,
   "eslint.useFlatConfig": true,
-  "eslint.validate": [
-    "astro",
-    "javascript",
-    "markdown",
-    "typescript",
-    "typescriptreact"
-  ],
+  "eslint.validate": ["astro", "javascript", "markdown", "typescript", "typescriptreact"],
   "json.validate.enable": true,
 
   "mdx.server.enable": true,
@@ -62,13 +58,13 @@
   "evenBetterToml.formatter.arrayAutoCollapse": true,
   "evenBetterToml.formatter.arrayAutoExpand": true,
   "evenBetterToml.formatter.arrayTrailingComma": true,
-  "evenBetterToml.formatter.columnWidth": 84,
+  "evenBetterToml.formatter.columnWidth": 96,
   "evenBetterToml.formatter.reorderArrays": true,
   "evenBetterToml.formatter.reorderKeys": true,
   "evenBetterToml.formatter.trailingNewline": true,
 
   "tailwindCSS.emmetCompletions": true,
-  "tailwindCSS.classAttributes": ["class", "className", "class:list", "tw"],
+  "tailwindCSS.classAttributes": ["class", "class:list", "tw"],
   "tailwindCSS.experimental.configFile": "app/global.css",
   "tailwindCSS.includeLanguages": {
     "xslt": "html"

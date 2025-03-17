@@ -9,6 +9,7 @@ import prettier_recommended from "eslint-plugin-prettier/recommended";
 import astro from "eslint-plugin-astro";
 
 const config = ts.config(
+  { ignores: ["dist", ".astro", ".netlify", "**/ignored/*", "**/local/*"] },
   js.configs.recommended,
   ts.configs.strict,
   ts.configs.stylistic,

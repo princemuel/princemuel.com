@@ -1,14 +1,6 @@
 {
   "$schema": "https://raw.githubusercontent.com/oxc-project/oxc/main/npm/oxlint/configuration_schema.json",
-  "plugins": [
-    "import",
-    "typescript",
-    "unicorn",
-    "promise",
-    "node",
-    "oxc",
-    "jsx-a11y"
-  ],
+  "plugins": ["import", "typescript", "unicorn", "promise", "node", "oxc", "jsx-a11y"],
   "env": {
     "es2023": true,
     "browser": true,
@@ -18,7 +10,7 @@
   "categories": {
     "correctness": "error",
     "nursery": "error",
-    // "pedantic": "warn",
+    "pedantic": "off",
     "perf": "warn",
     "restriction": "off",
     "style": "warn",
@@ -33,6 +25,7 @@
     "no-anonymous-default-export": "off",
     "import/no-namespace": "off"
   },
+  "ignorePatterns": ["dist", ".astro", ".netlify", "**/ignored/*", "**/local/*"],
   "settings": {
     "jsx-a11y": {
       "components": {
