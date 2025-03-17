@@ -16,7 +16,7 @@
     "build": "astro check && astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "sdk:dev": "corepack pnpm netlify dev",
+    "ntl:dev": "netlify dev",
     "postinstall": "node --version"
   },
   "dependencies": {

@@ -13,11 +13,11 @@
   "editor.fontFamily": "'Cascadia Code', 'Droid Sans Mono', 'monospace', monospace",
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.codeActionsOnSave": {
-    "source.fixAll": "explicit",
+    // "source.fixAll": "explicit",
     "source.organizeImports": "explicit",
-    "source.addMissingImports": "explicit"
-    // "source.fixAll.oxc": "explicit",
-    // "source.fixAll.markdownlint": "explicit",
+    "source.addMissingImports": "explicit",
+    "source.fixAll.oxc": "explicit",
+    "source.fixAll.markdownlint": "explicit"
   },
   "files.associations": {
     "*.css": "tailwindcss"
