@@ -1,11 +1,8 @@
-declare module "css-has-pseudo/browser";
-declare module "virtual:astro-icon" {
-  // biome-ignore lint/complexity/noBannedTypes: <explanation>
-  export type Icon = string | {};
-}
-
-declare global {
+/* eslint-disable no-var */
+declare namespace globalThis {
   interface ObjectConstructor {
-    entries<T extends NonNullable<unknown>>(object: T): ReadonlyArray<Entry<T>>;
+    entries<T extends NonNullable<unknown>>(object: T): readonly Entry<T>[];
   }
+  var __singletons__: Map<string, unknown> | undefined;
+  var theme: { pick(theme?: string): void };
 }

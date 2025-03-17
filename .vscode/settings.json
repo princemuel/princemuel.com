@@ -1,96 +1,42 @@
 {
+  "search.exclude": {
+    "**/.node_modules": true,
+    "**/pnpm.*": true
+  },
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true,
   "dotenv.enableAutocloaking": false,
   "editor.bracketPairColorization.independentColorPoolPerBracketType": true,
-  "editor.fontSize": 13,
-  "editor.fontFamily": "'Cascadia Code', 'Droid Sans Mono', 'monospace', monospace",
-  "editor.codeActionsOnSave": {
-    "quickFix.biome": "explicit",
-    "source.fixAll.biome": "explicit",
-    "source.organizeImports.biome": "explicit",
-    "source.addMissingImports.biome": "explicit"
-  },
-  "editor.defaultFormatter": "biomejs.biome",
-  "editor.formatOnSave": true,
-  "editor.formatOnSaveMode": "file",
-  "editor.inlineSuggest.enabled": true,
-  "editor.tabSize": 2,
   "editor.wordWrap": "bounded",
-  "editor.wordWrapColumn": 88,
-  "emmet.includeLanguages": {
-    "typescriptreact": "html"
+  "editor.wordWrapColumn": 96,
+  "editor.inlineSuggest.enabled": true,
+  "editor.fontFamily": "'Cascadia Code', 'Droid Sans Mono', 'monospace', monospace",
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "explicit",
+    "source.organizeImports": "explicit",
+    "source.addMissingImports": "explicit"
+    // "source.fixAll.oxc": "explicit",
+    // "source.fixAll.markdownlint": "explicit",
+  },
+  "files.associations": {
+    "*.css": "tailwindcss"
+  },
+  "editor.quickSuggestions": {
+    "strings": "on"
   },
   "emmet.preferences": {
     "output.selfClosingStyle": "xhtml"
   },
+  // "emmet.includeLanguages": {
+  //   "typescriptreact": "html"
+  // },
+  "oxc.enable": true,
+  "eslint.enable": true,
+  "eslint.useFlatConfig": true,
+  "eslint.validate": ["astro", "javascript", "markdown", "typescript", "typescriptreact"],
   "json.validate.enable": true,
-  "markdown.extension.syntax.plainTheme": true,
-  "material-icon-theme.activeIconPack": "react_redux",
-  "material-icon-theme.folders.theme": "specific",
-  "npm-intellisense.packageSubfoldersIntellisense": true,
-  "tailwindCSS.emmetCompletions": true,
-  "tailwindCSS.experimental.classRegex": [
-    ["tv\\((([^()]*|\\([^()]*\\))*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"]
-  ],
-  "tailwindCSS.includeLanguages": {
-    "xslt": "html"
-  },
-  "typescript.enablePromptUseWorkspaceTsdk": true,
-  "typescript.tsdk": "node_modules/typescript/lib",
-  "window.autoDetectColorScheme": true,
-  "workbench.tree.indent": 8,
-  "yaml.schemas": {
-    "https://json.schemastore.org/github-issue-config.json": "file:///home/sahara/Workspace/Repos/princemuel.com/.github/ISSUE_TEMPLATE/config.yml",
-    "https://json.schemastore.org/netlify.json": "file:///home/sahara/Workspace/Repos/princemuel/netlify.yaml"
-  },
-  "astro.content-intellisense": true,
-  "prettier.documentSelectors": ["**/*.astro"],
-  "prettier.experimentalTernaries": true,
-  "material-icon-theme.files.associations": {
-    "**.mdoc": "mdx"
-    // "**.mdoc": "markdown"
-  },
-  "[github-actions-workflow]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[tailwindcss]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[yaml]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[sql]": {
-    "editor.defaultFormatter": "mtxr.sqltools"
-  },
-  "[json]": {
-    "editor.defaultFormatter": "biomejs.biome"
-  },
-  "[jsonc]": {
-    "editor.defaultFormatter": "biomejs.biome"
-  },
-  "[javascript]": {
-    "editor.defaultFormatter": "biomejs.biome"
-  },
-  "[typescript]": {
-    "editor.defaultFormatter": "biomejs.biome"
-  },
-  "[javascriptreact]": {
-    "editor.defaultFormatter": "biomejs.biome"
-  },
-  "[typescriptreact]": {
-    "editor.defaultFormatter": "biomejs.biome"
-  },
-  "[astro]": {
-    "editor.defaultFormatter": "biomejs.biome"
-  },
-  "[markdown]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[mdx]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[postcss]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
+
   "mdx.server.enable": true,
   "mdx.validate.validateDuplicateLinkDefinitions": "warning",
   "mdx.validate.validateFileLinks": "warning",
@@ -99,14 +45,32 @@
   "mdx.validate.validateReferences": "warning",
   "mdx.validate.validateUnusedLinkDefinitions": "warning",
 
+  "astro.content-intellisense": true,
+  "npm-intellisense.packageSubfoldersIntellisense": true,
+  "prettier.documentSelectors": ["**/*.astro"],
+  "auto-close-tag.activationOnLanguage": ["mdx"],
+  "[astro]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+
   "evenBetterToml.formatter.alignComments": true,
   "evenBetterToml.formatter.alignEntries": true,
   "evenBetterToml.formatter.arrayAutoCollapse": true,
   "evenBetterToml.formatter.arrayAutoExpand": true,
   "evenBetterToml.formatter.arrayTrailingComma": true,
-  "evenBetterToml.formatter.columnWidth": 88,
+  "evenBetterToml.formatter.columnWidth": 96,
   "evenBetterToml.formatter.reorderArrays": true,
   "evenBetterToml.formatter.reorderKeys": true,
   "evenBetterToml.formatter.trailingNewline": true,
-  "evenBetterToml.semanticTokens": true
+
+  "tailwindCSS.emmetCompletions": true,
+  "tailwindCSS.classAttributes": ["class", "class:list", "tw"],
+  "tailwindCSS.experimental.configFile": "app/global.css",
+  "tailwindCSS.includeLanguages": {
+    "xslt": "html"
+  },
+  "tailwindCSS.experimental.classRegex": [
+    ["([\"'`][^\"'`]*.*?[\"'`])", "[\"'`]([^\"'`]*).*?[\"'`]"]
+  ],
+  "workbench.tree.indent": 12
 }

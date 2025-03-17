@@ -12,7 +12,7 @@ body:
 
         If you have any questions or are unsure about anything, don't be afraid to ask! The maintainers are here to help.
   - type: checkboxes
-    slug: contributing
+    id: contributing
     attributes:
       label: Checks
       description: Please fill out the following checkboxes
@@ -24,7 +24,7 @@ body:
         - label: Would you like to work on this issue?
           required: false
   - type: textarea
-    slug: suggested-changes
+    id: suggested-changes
     attributes:
       label: Describe your suggestion
       description: A description of your suggestion. You can provide screenshots or additional context if relevant
@@ -32,7 +32,7 @@ body:
     validations:
       required: true
   - type: dropdown
-    slug: path
+    id: path
     attributes:
       label: Path
       description: Which path does your suggestion affect?
@@ -45,16 +45,16 @@ body:
     validations:
       required: true
   - type: input
-    slug: resource-url
+    id: resource-url
     attributes:
       label: Resource Url
       description: A link to the relevant resource, or the content that needs to be fixed. If not applicable, describe where to look for your suggestion
-      placeholder: ex. https://www.princemuel.com/blog/just-another-blog-post
+      placeholder: ex. https://www.princemuel.netlify.app/blog/just-another-blog-post
     validations:
       required: true
 
   - type: input
-    slug: contact
+    id: contact
     attributes:
       label: (Optional) Discord Name
       description: Optionally provide your discord name to help coordinate changes there if necessary
@@ -62,7 +62,7 @@ body:
     validations:
       required: false
   - type: textarea
-    slug: additional-comments
+    id: additional-comments
     attributes:
       label: (Optional) Additional Comments
       description: "Anything else you'd like to cover"

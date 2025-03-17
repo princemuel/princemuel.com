@@ -1,0 +1,24 @@
+{
+  "semi": true,
+  "singleQuote": false,
+  "printWidth": 96,
+  "tabWidth": 2,
+  "trailingComma": "all",
+  "tailwindFunctions": ["tw", "tv"],
+  "tailwindAttributes": ["tw"],
+  "plugins": [
+    "prettier-plugin-astro",
+    "prettier-plugin-tailwindcss",
+    "prettier-plugin-organize-imports"
+  ],
+  "overrides": [
+    {
+      "files": ["*.json"],
+      "options": { "trailingComma": "es5" }
+    },
+    {
+      "files": ["**/*.astro"],
+      "options": { "parser": "astro" }
+    }
+  ]
+}

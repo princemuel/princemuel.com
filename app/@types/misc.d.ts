@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/ban-types */
+/* eslint-disable @typescript-eslint/no-unsafe-function-type */
 /*===============================*
           HELPER TYPES
  *===============================*
@@ -8,14 +8,9 @@ type LooseAutocomplete<T extends string> = T | Omit<string, T>;
 
 type Prettify<T> = { [K in keyof T]: T[K] } & NonNullable<unknown>;
 type Lookup<T> = { [K in keyof T]: { key: K } }[keyof T];
-type MapKeys<M extends Map<unknown, unknown>> = Prettify<
-  Array<Parameters<M["get"]>[0]>
->;
-type IterableToArray<T> = T extends Iterable<infer I>
-  ? I[]
-  : T extends ArrayLike<infer A>
-    ? A[]
-    : never;
+type MapKeys<M extends Map<unknown, unknown>> = Prettify<Parameters<M["get"]>[0][]>;
+type IterableToArray<T> =
+  T extends Iterable<infer I> ? I[] : T extends ArrayLike<infer A> ? A[] : never;
 
 type ObjectEntry<T extends NonNullable<unknown>> = T extends object
   ? { [K in keyof T]: [K, Required<T>[K]] }[keyof T] extends infer E
@@ -35,7 +30,7 @@ type TupleEntry<
 
 type Entry<T extends NonNullable<unknown>> = T extends readonly [unknown, ...unknown[]]
   ? TupleEntry<T>
-  : T extends ReadonlyArray<infer U>
+  : T extends readonly (infer U)[]
     ? [`${number}`, U]
     : ObjectEntry<T>;
 
@@ -49,7 +44,7 @@ type Expand<T> = T extends (...args: infer A) => infer R
 
 type RequireSome<T, P extends keyof T> = Omit<T, P> & Required<Pick<T, P>>;
 type RequiredKeys<T> = {
-  [K in keyof T]-?: NonNullable<unknown> extends { [P in K]: T[K] } ? never : K;
+  [K in keyof T]-?: NonNullable<unknown> extends Record<K, T[K]> ? never : K;
 }[keyof T];
 
 type DeepRequired<T> = T extends BrowserNativeObject | Blob
@@ -58,10 +53,9 @@ type DeepRequired<T> = T extends BrowserNativeObject | Blob
       [K in keyof T]-?: NonNullable<DeepRequired<T[K]>>;
     };
 
-// biome-ignore lint/complexity/noBannedTypes: <explanation>
 type DeepPartial<T> = T extends Function
   ? T
-  : T extends Array<infer A>
+  : T extends (infer A)[]
     ? DeepPartialArray<A>
     : T extends object
       ? DeepPartialObject<T>
@@ -70,7 +64,7 @@ type DeepPartial<T> = T extends Function
 type DeepPartialObject<T> = {
   [K in keyof T]?: DeepPartial<T[K]>;
 };
-type DeepPartialArray<T> = Array<DeepPartial<T>>;
+type DeepPartialArray<T> = DeepPartial<T>[];
 
 type KeyValuePair<K extends keyof unknown = string, V = string> = Record<K, V>;
 
@@ -83,21 +77,15 @@ type CSSRuleObject = RecursiveKeyValuePair<string, null | string | string[]>;
 type OptionalUnion<
   U extends Record<string, unknown>,
   A extends keyof U = U extends U ? keyof U : never,
-> = U extends unknown ? { [P in Exclude<A, keyof U>]?: never } & U : never;
+> = U extends unknown ? Partial<Record<Exclude<A, keyof U>, never>> & U : never;
 
-type IfAvailable<T, Fallback = void> = true | false extends (
-  T extends never
-    ? true
-    : false
-)
+type IfAvailable<T, Fallback = void> = true | false extends (T extends never ? true : false)
   ? Fallback
   : keyof T extends never
     ? Fallback
     : T;
 
-type WeakReferences =
-  | IfAvailable<WeakMap<unknown, unknown>>
-  | IfAvailable<WeakSet<unknown>>;
+type WeakReferences = IfAvailable<WeakMap<unknown, unknown>> | IfAvailable<WeakSet<unknown>>;
 /**
  * A type of a function accepting an arbitrary amount of arguments
  */
@@ -135,10 +123,7 @@ type Decompose<
   Arguments extends unknown[] = [],
 > = Functions extends [(arg: infer Arg) => infer Return]
   ? [...Arguments, Arg, Return]
-  : Functions extends [
-        ...infer Rest extends UnaryFunction[],
-        (arg: infer Arg) => unknown,
-      ]
+  : Functions extends [...infer Rest extends UnaryFunction[], (arg: infer Arg) => unknown]
     ? Decompose<Rest, [...Arguments, Arg]>
     : [];
 
@@ -153,20 +138,17 @@ type JSONValue =
 
 type PrimitiveType = string | number | bigint | boolean | symbol | null | undefined;
 
-// biome-ignore lint/complexity/noBannedTypes: <explanation>
 type AtomicObject = Function | RegExp | Promise<unknown> | Date;
 type BrowserNativeObject = Date | FileList | File;
 
 // get method names in an object
 type FunctionPropertyNames<T> = {
-  // biome-ignore lint/complexity/noBannedTypes: <explanation>
   [P in keyof T]: T[P] extends Function ? P : never;
 }[keyof T];
 type FunctionProperties<T> = Pick<T, FunctionPropertyNames<T>>;
 
 // get non method names in an object
 type NonFunctionPropertyNames<T> = {
-  // biome-ignore lint/complexity/noBannedTypes: <explanation>
   [P in keyof T]: T[P] extends Function ? never : P;
 }[keyof T];
 type NonFunctionProperties<T> = Pick<T, NonFunctionPropertyNames<T>>;
@@ -175,8 +157,8 @@ type Immutable<T> = T extends PrimitiveType
   ? T
   : T extends AtomicObject
     ? T
-    : T extends Array<infer A>
-      ? ReadonlyArray<Immutable<A>>
+    : T extends (infer A)[]
+      ? readonly Immutable<A>[]
       : T extends IfAvailable<ReadonlyMap<infer K, infer V>>
         ? ReadonlyMap<Immutable<K>, Immutable<V>>
         : T extends IfAvailable<ReadonlySet<infer S>>

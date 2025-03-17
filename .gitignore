@@ -23,6 +23,19 @@ target
 # Dependency directories
 node_modules/
 jspm_packages/
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+
+# Swap the comments on the following lines if you wish to use zero-installs
+# In that case, don't forget to run `yarn config set enableGlobalCache false`!
+# Documentation here: https://yarnpkg.com/features/caching#zero-installs
+
+!.yarn/cache
+!.pnp.*
 
 # TypeScript v1 declaration files
 typings/
@@ -55,6 +68,8 @@ typings/
 .env
 .env.test
 .env.local
+.env.development
+.env.production
 .env*.local
 .env.development.local
 .env.test.local
@@ -77,7 +92,7 @@ pids
 *.pid.lock
 
 # IDEs and editors
-/.idea
+.idea/
 .project
 .classpath
 .c9/

@@ -1,32 +1,38 @@
 import { handler } from "@/helpers/api-handler";
 
-const defaultAgents = ["User-agent: ChatGPT-User", "User-agent: PerplexityBot"];
-const matcher = /^User-agent:.*/iu;
+import { DARK_VISITORS_TOKEN } from "astro:env/server";
 
 export const GET = handler(async (ctx) => {
-  const text = await fetch("https://darkvisitors.com/robots-txt-builder", {
-    signal: AbortSignal.timeout(5000),
-  })
-    .then((response) => (response.ok ? response.text() : ""))
-    .catch(() => "");
+  const response = await fetch("https://api.darkvisitors.com/robots-txts", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${DARK_VISITORS_TOKEN}`,
+    },
+    signal: AbortSignal.timeout(20_000),
+    body: JSON.stringify({
+      disallow: "/",
+      agent_types: ["AI Data Scraper", "Undocumented AI Agent", "AI Assistant"],
+    }),
+  });
 
-  const agents = [
-    ...new Set([
-      ...defaultAgents,
-      ...text.split("\n").filter((line) => matcher.test(line.trim())),
-    ]),
-  ];
+  const result = response.ok ? await response.text() : "";
 
-  const robotsTxt = [
+  const text = [
     "# I, for one, welcome our new robotic overlords",
     "User-Agent: *\nAllow: /\nDisallow: /api/",
     "# Block AI Bots",
-    `${agents.map((a) => `${a}\nDisallow: /`).join("\n\n")}`,
-    `Sitemap: ${new URL("/", ctx.site).toString()}sitemap-index.html`,
-  ];
+    result,
+    `Sitemap: ${new URL("sitemap-index.html", ctx.site)}`,
+  ]
+    .join("\n\n")
+    .trim();
 
-  return new Response(robotsTxt.join("\n\n").trim(), {
+  return new Response(text, {
     status: 200,
-    headers: { "Content-Type": "text/plain; charset=UTF-8" },
+    headers: {
+      "Content-Type": "text/plain; charset=UTF-8",
+      "Cache-Control": "public, max-age=604800, immutable",
+    },
   });
 });
