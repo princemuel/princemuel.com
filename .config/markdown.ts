@@ -2,6 +2,7 @@
 // eslint-disable curly
 import { execSync } from "node:child_process";
 
+import { rehypeHeadingIds } from "@astrojs/markdown-remark";
 import { toString as parseToString } from "mdast-util-to-string";
 import getReadingTime from "reading-time";
 import rehypeExternalLinks from "rehype-external-links";
@@ -55,7 +56,7 @@ export default {
     [remarkEmoji, { accessible: true, padSpaceAfter: true, emoticon: true }],
   ],
   rehypePlugins: [
-    // [rehypeHeadingIds, { experimentalHeadingIdCompat: true }],
+    [rehypeHeadingIds, { experimentalHeadingIdCompat: true }],
     [rehypeExternalLinks, { rel: ["noopener", "noreferrer", "external"], target: "_blank" }],
   ],
 } satisfies AstroConfig;
