@@ -1,0 +1,39 @@
+- id: discord
+  href: https://discord.gg/vW7dnUVGP9
+  text: Join our Discord server
+  icon: discord
+
+- id: twitter
+  href: https://x.com/intent/follow?screen_name=iamprincemuel
+  text: Follow Me on Twitter/X
+  icon: ion:logo-twitter
+
+- id: instagram
+  href: https://instagram.gg/vW7dnUVGP9
+  text: Follow me on Instagram
+  icon: ion:logo-instagram
+
+- id: youtube
+  href: https://youtube.com/@iamprincemuel
+  text: Subscribe to my YouTube Channel
+  icon: ion:logo-youtube
+
+- id: linkedin
+  href: https://www.linkedin.com/in/princemuel
+  text: Connect with me on LinkedIn
+  icon: ion:logo-linkedin
+
+- id: github
+  href: https://github.com/princemuel
+  text: Check out my projects on GitHub
+  icon: ion:logo-github
+
+- id: email
+  href: mail:to:vansomecsam@gmail.com
+  text: Send me an email message
+  icon: lucide:mail-plus
+
+- id: rss
+  href: /rss.xml
+  text: Subscribe to my rss feed
+  icon: lucide:rss

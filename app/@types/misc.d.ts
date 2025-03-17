@@ -28,10 +28,7 @@ type TupleEntry<
   ? TupleEntry<Tail, [...I, unknown], R | [`${I["length"]}`, Head]>
   : R;
 
-type Entry<T extends NonNullable<unknown>> = T extends readonly [
-  unknown,
-  ...unknown[],
-]
+type Entry<T extends NonNullable<unknown>> = T extends readonly [unknown, ...unknown[]]
   ? TupleEntry<T>
   : T extends readonly (infer U)[]
     ? [`${number}`, U]
@@ -56,15 +53,13 @@ type DeepRequired<T> = T extends BrowserNativeObject | Blob
       [K in keyof T]-?: NonNullable<DeepRequired<T[K]>>;
     };
 
-type DeepPartial<T> =
-  // biome-ignore lint/complexity/noBannedTypes: <explanation>
-  T extends Function
-    ? T
-    : T extends (infer A)[]
-      ? DeepPartialArray<A>
-      : T extends object
-        ? DeepPartialObject<T>
-        : T | undefined;
+type DeepPartial<T> = T extends Function
+  ? T
+  : T extends (infer A)[]
+    ? DeepPartialArray<A>
+    : T extends object
+      ? DeepPartialObject<T>
+      : T | undefined;
 
 type DeepPartialObject<T> = {
   [K in keyof T]?: DeepPartial<T[K]>;
@@ -84,17 +79,13 @@ type OptionalUnion<
   A extends keyof U = U extends U ? keyof U : never,
 > = U extends unknown ? Partial<Record<Exclude<A, keyof U>, never>> & U : never;
 
-type IfAvailable<T, Fallback = void> = true | false extends (
-  T extends never ? true : false
-)
+type IfAvailable<T, Fallback = void> = true | false extends (T extends never ? true : false)
   ? Fallback
   : keyof T extends never
     ? Fallback
     : T;
 
-type WeakReferences =
-  | IfAvailable<WeakMap<unknown, unknown>>
-  | IfAvailable<WeakSet<unknown>>;
+type WeakReferences = IfAvailable<WeakMap<unknown, unknown>> | IfAvailable<WeakSet<unknown>>;
 /**
  * A type of a function accepting an arbitrary amount of arguments
  */
@@ -132,10 +123,7 @@ type Decompose<
   Arguments extends unknown[] = [],
 > = Functions extends [(arg: infer Arg) => infer Return]
   ? [...Arguments, Arg, Return]
-  : Functions extends [
-        ...infer Rest extends UnaryFunction[],
-        (arg: infer Arg) => unknown,
-      ]
+  : Functions extends [...infer Rest extends UnaryFunction[], (arg: infer Arg) => unknown]
     ? Decompose<Rest, [...Arguments, Arg]>
     : [];
 

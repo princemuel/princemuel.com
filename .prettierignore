@@ -1,9 +1,0 @@
-# Ignore common directories that don't need formatting
-node_modules/
-.astro/
-build/
-dist/
-vercel/
-coverage/
-public/
-out/

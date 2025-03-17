@@ -7,7 +7,7 @@ pre-push:
   commands:
     js-lint:
       glob: "**/*"
-      run: pnpm dlx oxlint --fix --fix-suggestions -A all {push_files}
+      run: corepack pnpm oxlint --fix --fix-suggestions -A all {push_files}
 
     rust-lint:
       glob: "*.rs"
@@ -26,12 +26,12 @@ pre-commit:
   commands:
     js-lint:
       glob: "**/*"
-      run: pnpm dlx oxlint --fix --fix-suggestions -A all {staged_files}
+      run: corepack pnpm oxlint --fix --fix-suggestions -A all {staged_files}
       stage_fixed: true
 
     js-fmt:
       glob: "**/*"
-      run: pnpm dlx prettier {staged_files} -w -u --no-error-on-unmatched-pattern --config ./.prettierrc.json --cache
+      run: corepack pnpm prettier {staged_files} -w -u --no-error-on-unmatched-pattern --config ./.prettierrc --cache
       stage_fixed: true
 
     rust-lint:
@@ -50,4 +50,4 @@ pre-commit:
 post-merge:
   commands:
     install-packages:
-      run: pnpm install
+      run: corepack pnpm install

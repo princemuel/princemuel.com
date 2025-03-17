@@ -1,16 +1,8 @@
 {
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": [
-    "import",
-    "typescript",
-    "unicorn",
-    "promise",
-    "node",
-    "oxc",
-    "jsx-a11y"
-  ],
+  "$schema": "https://raw.githubusercontent.com/oxc-project/oxc/main/npm/oxlint/configuration_schema.json",
+  "plugins": ["import", "typescript", "unicorn", "promise", "node", "oxc", "jsx-a11y"],
   "env": {
-    "es2022": true,
+    "es2023": true,
     "browser": true,
     "node": true,
     "shared-node-browser": true
@@ -18,25 +10,27 @@
   "categories": {
     "correctness": "error",
     "nursery": "error",
-    "pedantic": "warn",
+    "pedantic": "off",
     "perf": "warn",
     "restriction": "off",
     "style": "warn",
     "suspicious": "warn"
   },
   "rules": {
-    "@typescript-eslint/explicit-function-return-type": "off",
-    "@typescript-eslint/no-explicit-any": "off",
-    "@typescript-eslint/consistent-type-imports": "off",
-    "eslint/sort-keys": "off",
-    "eslint/sort-imports": "off",
-    "eslint/no-ternary": "off",
-    "eslint/no-magic-numbers": "off",
-    "import/unambiguous": "off",
-    // "import/max-dependencies": "allow",
-    "import/sort": "off"
+    "curly": "off",
+    "sort-imports": "off",
+    "sort-keys": "off",
+    "no-magic-numbers": "off",
+    "no-ternary": "off",
+    "no-anonymous-default-export": "off",
+    "import/no-namespace": "off"
   },
+  "ignorePatterns": ["dist", ".astro", ".netlify", "**/ignored/*", "**/local/*"],
   "settings": {
-    "jsx-a11y": { "components": { "Link": "a" } }
+    "jsx-a11y": {
+      "components": {
+        "Link": "a"
+      }
+    }
   }
 }
