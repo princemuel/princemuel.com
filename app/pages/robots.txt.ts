@@ -1,6 +1,6 @@
-import { handler } from "@/helpers/api-handler";
-
 import { DARK_VISITORS_TOKEN } from "astro:env/server";
+
+import { handler } from "@/helpers/api-handler";
 
 export const GET = handler(async (ctx) => {
   const response = await fetch("https://api.darkvisitors.com/robots-txts", {

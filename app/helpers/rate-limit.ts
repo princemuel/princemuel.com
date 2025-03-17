@@ -1,12 +1,12 @@
 import { invariant } from "outvariant";
 
-import { hasher } from "@/helpers/cross-platform-hash";
+import { hash } from "@/helpers/cross-platform-hash";
 import { ratelimit } from "@/lib/cache";
 
 import type { ActionAPIContext } from "astro:actions";
 
 interface RateLimitResponse extends Awaited<ReturnType<typeof ratelimit.limit>> {
-  throttled: boolean;
+  throttle: boolean;
 }
 
 export const checkRateLimit = async (ctx: ActionAPIContext): Promise<RateLimitResponse> => {
@@ -18,9 +18,8 @@ export const checkRateLimit = async (ctx: ActionAPIContext): Promise<RateLimitRe
     : (ipAddress ?? request.headers.get("x-forwarded-for"));
   invariant(ip, "No rate limiting header found for this address!");
 
-  const address = await hasher(ip);
-
+  const address = await hash(ip);
   const result = await ratelimit.limit(address);
 
-  return { ...result, throttled: !result.success };
+  return { ...result, throttle: !result.success };
 };

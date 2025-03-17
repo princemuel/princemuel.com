@@ -1,9 +1,7 @@
 import { glob } from "astro/loaders";
 import { defineCollection, reference, z } from "astro:content";
 
-import { baseSchema } from "../schema";
-
-import { img } from "../schema";
+import { baseSchema, img } from "../schema";
 
 const genres = [
   "game",
