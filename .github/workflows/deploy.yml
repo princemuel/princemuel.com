@@ -12,21 +12,13 @@ jobs:
     runs-on: ubuntu-latest
     if: false
     steps:
-      - name: checkout repo
-        uses: actions/checkout@v4
-
-      - name: setup nodejs
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version-file: ".nvmrc"
-
-      - name: enable pnpm
-        run: |
-          corepack enable pnpm
-
-      - name: install dependencies
-        run: corepack use pnpm@latest
-
+          cache: pnpm
+          node-version-file: .nvmrc
+      - run: pnpm install
       - name: apply all pending migrations to the database
         run: npx prisma migrate deploy
         env:

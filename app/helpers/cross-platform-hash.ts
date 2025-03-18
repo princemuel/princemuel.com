@@ -6,8 +6,8 @@ import { parseError } from "@/helpers/error";
 
 /**
  * Cross-platform hash function that works in both browser and Node.js environments
- * @param {string} data - The string to hash
- * @returns {Promise<string>} - The hex-encoded hash value
+ * @param data The string to hash
+ * @returns The hex-encoded hash value
  */
 export const hash = async (data: string): Promise<string> => {
   if (isBrowser && window.crypto && window.crypto.subtle) {

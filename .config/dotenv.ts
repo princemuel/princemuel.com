@@ -16,6 +16,7 @@ export default {
   DARK_VISITORS_TOKEN: z.string({ context: "server", access: "secret" }),
   DATABASE_TOKEN: z.string({ context: "server", access: "secret" }),
   DATABASE_URL: z.string({ context: "server", access: "secret" }),
+  DATABASE_ENCRYPTION_KEY: z.string({ context: "server", access: "secret" }),
 
   GOOGLE_DRIVE_TOKEN: z.string({ context: "server", access: "secret" }),
   GOOGLE_DRIVE_FILE_ID: z.string({ context: "server", access: "secret" }),
