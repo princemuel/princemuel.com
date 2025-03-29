@@ -6,6 +6,7 @@
   "private": true,
   "repository": "git@github.com:princemuel/princemuel.com.git",
   "author": "princemuel <vansomecsam@gmail.com>",
+  "license": "GPL-3.0-only",
   "engines": {
     "node": "^22.14.0 || >=24.0.0"
   },
