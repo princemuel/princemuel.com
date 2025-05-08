@@ -1,7 +1,7 @@
 import { glob } from "astro/loaders";
 import { defineCollection, reference, z } from "astro:content";
 
-import { baseSchema, img, MIN_LENGTH } from "../schema";
+import { baseSchema, img, MIN_LENGTH } from "@/content/schema";
 
 const ps = [
   "game",
@@ -31,7 +31,7 @@ export default defineCollection({
   schema: ({ image }) =>
     baseSchema.extend({
       genre: z.enum(ps).default("app"),
-      image: img(image).nullish(),
+      image: img(image).optional(),
       author: reference("authors"),
       technologies: z.array(z.string()).default([]),
       contributors: z.array(reference("authors")).default([]),

@@ -40,6 +40,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "imgur"
+version = "0.1.0"
+dependencies = [
+ "cfg-if 0.1.10",
+ "console_error_panic_hook",
+ "wasm-bindgen",
+ "wasm-bindgen-test",
+ "web-sys",
+]
+
+[[package]]
 name = "js-sys"
 version = "0.3.77"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -81,6 +92,17 @@ name = "once_cell"
 version = "1.21.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d75b0bedcc4fe52caa0e03d9f1151a323e4aa5e2d78ba3580400cd3c9e2bc4bc"
+
+[[package]]
+name = "poly"
+version = "0.1.0"
+dependencies = [
+ "cfg-if 0.1.10",
+ "console_error_panic_hook",
+ "wasm-bindgen",
+ "wasm-bindgen-test",
+ "web-sys",
+]
 
 [[package]]
 name = "proc-macro2"

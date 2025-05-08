@@ -1,0 +1,57 @@
+---
+import { getCollection, getEntry, render } from "astro:content";
+
+import type { InferGetStaticPropsType } from "astro";
+
+import Markdown from "@/components/content/markdown.astro";
+import Layout from "@/layouts/layout.astro";
+
+export async function getStaticPaths() {
+  const entries = await getCollection(
+    "projects",
+    ({ data }) => !(import.meta.env.PROD && data.draft),
+  );
+
+  return entries.map((entry) => ({
+    props: { entry },
+    params: { id: decodeURI(entry.id) },
+  }));
+}
+
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+
+const { entry } = Astro.props;
+
+const [markdown] = await Promise.all([render(entry), getEntry(entry.data.author)]);
+
+const { Content, remarkPluginFrontmatter: remark } = markdown;
+
+// update the collection schema with plugin data
+entry.data.updatedAt ??= new Date(remark.updatedAt);
+entry.data.duration ??= remark.duration;
+entry.data.words ??= remark.words;
+
+const { title, description } = entry.data;
+
+Astro.response.headers.set("netlify-cache-tag", entry.id);
+
+const metadata = {
+  title: [title, true],
+  description: description,
+  medium: "article",
+  // eslint-disable-next-line no-undef
+} satisfies Meta;
+---
+
+<Fragment>
+  <Layout {...metadata}>
+    <Fragment slot="metadata"> </Fragment>
+    <Fragment>
+      <h1>{title}</h1>
+
+      <Markdown>
+        <Content frontmatter={entry.data} />
+      </Markdown>
+    </Fragment>
+  </Layout>
+</Fragment>

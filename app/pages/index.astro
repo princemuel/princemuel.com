@@ -1,31 +1,20 @@
 ---
-import { getCollection } from "astro:content";
+// import Content from "@/content/partials/home.md";
+import { add } from "@libr/imgur";
 
-import "@/global.css";
-import "@fontsource-variable/inconsolata";
-import "@fontsource-variable/noto-sans";
+import Markdown from "@/components/content/markdown.astro";
+import Layout from "@/layouts/layout.astro";
 
-import Navlink from "@/components/primitive/navlink.astro";
-
-const routes = await getCollection("routes");
+const metadata = {
+  title: ["Prince Muel", true],
+  description: "Prince Muel, Software Engineer",
+  // eslint-disable-next-line no-undef
+} satisfies Meta;
 ---
 
-<!doctype html>
-<html lang="en" data-reader-mode="dynamic" data-theme="dark">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="generator" content={Astro.generator} />
-    <title>princemuel.com</title>
-  </head>
-  <body class="font-sans">
-    {
-      routes.map((r) => (
-        <Fragment>
-          <Navlink href={r.data.href}>{r.data.text}</Navlink>
-        </Fragment>
-      ))
-    }
-  </body>
-</html>
+<Layout {...metadata}>
+  <Markdown>
+    <!-- <Content /> -->
+    {add(2, 2)}
+  </Markdown>
+</Layout>

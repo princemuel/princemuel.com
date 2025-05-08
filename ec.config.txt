@@ -1,0 +1,27 @@
+//@ts-check
+import { pluginCollapsibleSections } from "@expressive-code/plugin-collapsible-sections";
+import { pluginLineNumbers } from "@expressive-code/plugin-line-numbers";
+import { defineEcConfig } from "astro-expressive-code";
+import twDefaultTheme from "tailwindcss/defaultTheme.js";
+
+const fonts = {
+  mono: ["Cascadia Code", ...twDefaultTheme.fontFamily.mono],
+  sans: ["Noto Sans Variable", ...twDefaultTheme.fontFamily.sans],
+};
+
+export default defineEcConfig({
+  themes: ["vitesse-dark", "vitesse-light"],
+  plugins: [pluginCollapsibleSections(), pluginLineNumbers()],
+  useThemedSelectionColors: false,
+  useThemedScrollbars: true,
+  cascadeLayer: "shiki",
+  themeCssSelector: (theme) => `[data-mode='${theme.name}']`,
+  defaultProps: { showLineNumbers: true },
+  styleOverrides: {
+    codeFontFamily: fonts.mono.join(","),
+    uiFontFamily: fonts.sans.join(","),
+    // borderWidth: "1px",
+  },
+});
+
+// type BundledLanguage =  'astro' | 'awk' | 'ballerina' | 'bash' | 'bat' | 'batch' | 'bibtex' | 'c' | 'c#' | 'c++' | 'cmake' | 'cmd' | 'cobol' | 'codeowners' | 'console' | 'cpp' | 'cs' | 'csharp' | 'css' | 'csv' | 'dart' | 'dax' | 'desktop' | 'diff' | 'docker' | 'dockerfile' | 'dotenv' | 'edge' |  'fish' | 'git-commit' | 'git-rebase' |  'go' | 'gql' | 'graphql'  | 'html' | 'html-derivative' | 'http'  | 'ini' | 'java' | 'javascript' | 'jinja' | 'js' | 'json' | 'json5' | 'jsonc' | 'jsonl' | 'jsonnet' | 'jssm' | 'jsx' | 'julia' | 'kotlin' | 'latex' | 'less' | 'liquid' | 'lisp' | 'lit' | 'log' | 'logo' | 'lua' | 'luau' | 'make' | 'makefile' | 'markdown'   | 'matlab' | 'md'   | 'mdx'  | 'mermaid'  | 'nginx' | 'nix' | 'nu' | 'nushell' | 'objc' | 'objective-c' | 'objective-cpp' | 'ocaml' | 'pascal' | 'perl' | 'perl6' | 'php' | 'plsql' | 'postcss' | 'powershell' | 'prisma' | 'prolog' | 'properties' | 'proto' | 'protobuf' | 'ps' | 'ps1' | 'pug' | 'puppet' | 'purescript' | 'py' | 'python' | 'r' | 'regex' | 'regexp' | 'rel' | 'riscv' | 'rs' | 'rst' | 'ruby' | 'rust' | 'sas' | 'sass' | 'scala' | 'scheme' | 'scss' | 'sh' | 'shell' | 'shellscript' | 'shellsession' | 'solidity' |  'sql' | 'ssh-config' | 'svelte' | 'swift' | 'toml' | 'ts' | 'tsx'  | 'typ' | 'typescript' | 'vim' | 'vue'  | 'wasm' | 'xml' | 'xsl' | 'yaml' | 'yml' | zsh

@@ -1,19 +1,13 @@
   <!-- I want to setup my homepage to be a hub of (featured) posts,
-  (featured) projects, a short bio with a link to my About page,  -->
+(featured) projects, a short bio with a link to my About page,  -->
 
-I'm [@princemuel](https://x.com/iamprincemuel), a frontend developer
-**(mostly)**, educator, musician, and relentless problem-solver.
+# Hi! I'm Samuel :wave:
 
-I'm passionate about building great software, and I share everything I learn
-along the way—whether through [articles](/blog), videos, courses, or talks.
-I'm here to help developers create smarter, faster, and more maintainable code.
+I'm on a journey to become a frontend web developer. I love building little projects, trying out
+new coding techniques, and sharing what I learn along the way. When I'm not at my desk, you'll
+find me reading, playing my Ibanez guitar _Arabella_, hiking through the mountains, or
+challenging myself on rock-climbing walls.
 
-In 2024, I made the leap to working for myself, so I could focus on
-building tools and resources that help others level up their skills.
-
-These days, I'm focused on Current Project, and I document my journey
-through regular updates in my [work journal](/journal).
-
-Want to see what I'm working with? Check out my [wiki](/wiki) page
-for a curated list of the software, hardware, and resources I rely on
-to get things done.
+I started this blog to document my progress, keep myself accountable, and hopefully inspire
+anyone else who's learning to code. Welcome to my corner of the internet, and thanks for
+stopping by!

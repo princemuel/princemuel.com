@@ -23,6 +23,11 @@
   text: Connect with me on LinkedIn
   icon: ion:logo-linkedin
 
+- id: website
+  href: https://princemuel.dev/about
+  text: Connect with me on LinkedIn
+  icon: ion:logo-linkedin
+
 - id: github
   href: https://github.com/princemuel
   text: Check out my projects on GitHub

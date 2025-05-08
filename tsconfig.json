@@ -10,6 +10,6 @@
     "paths": { "@/*": ["./app/*"] },
     "jsx": "react-jsx",
     "jsxImportSource": "preact"
-  },
-  "mdx": { "checkMdx": true }
+  }
+  // "mdx": { "checkMdx": true }
 }

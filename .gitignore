@@ -24,11 +24,9 @@ target
 node_modules/
 jspm_packages/
 .yarn/*
-!.yarn/patches
-!.yarn/plugins
 !.yarn/releases
+!.yarn/plugins
 !.yarn/sdks
-!.yarn/versions
 
 # Swap the comments on the following lines if you wish to use zero-installs
 # In that case, don't forget to run `yarn config set enableGlobalCache false`!
@@ -65,15 +63,11 @@ typings/
 .yarn-integrity
 
 # dotenv environment variables file
+# Env
 .env
-.env.test
-.env.local
-.env.development
-.env.production
-.env*.local
-.env.development.local
-.env.test.local
-.env.production.local
+.env.*
+!.env.example
+!.env.test
 
 # generated types
 .astro/*
@@ -190,6 +184,18 @@ dist
 # System Files
 .DS_Store
 Thumbs.db
+
+# Vite
+vite.config.js.timestamp-*
+vite.config.ts.timestamp-*
+
+# Output
+.output
+.vercel
+.netlify
+.wrangler
+/.svelte-kit
+/build
 
 # misc
 dist

@@ -1,19 +1,181 @@
 ---
+import { Font, Image } from "astro:assets";
+import { ClientRouter } from "astro:transitions";
+
+import { pwaAssetsHead } from "virtual:pwa-assets/head";
+import { pwaInfo } from "virtual:pwa-info";
+
+import { delimiter } from "@/constants/metadata";
+import { getSiteSettings } from "@/constants/settings";
+
+import { avatar, placeholder } from "@/assets/images";
+
 import "@/global.css";
-import "@fontsource-variable/inconsolata";
-import "@fontsource-variable/noto-sans";
+
+import Frame from "@/components/layout/frame.astro";
+import Link from "@/components/primitive/link.astro";
+import Routes from "@/components/widget/routes.astro";
+
+// eslint-disable-next-line no-undef
+interface Props extends Meta {}
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+
+const { title, description, medium } = Astro.props;
+
+const { name, site_author, language } = getSiteSettings();
+
+const htmlTitle = ((title, delimiter, absolute) => {
+  const defaultTitle = name;
+  const template = `%s ${delimiter} ${name}`;
+  if (absolute) return title || defaultTitle;
+  if (!title) return defaultTitle;
+  return template.replace("%s", title);
+})(title?.[0], delimiter, title?.[1]);
 ---
 
 <!doctype html>
-<html lang="en" data-reader-mode="dynamic" data-theme="dark">
+<html
+  lang={language}
+  dir="auto"
+  data-mode=""
+  data-theme=""
+  class:list={[
+    "scheme-light data-[theme=auto]:scheme-light-dark dark:scheme-dark",
+    "antialiased motion-safe:scroll-smooth",
+  ]}
+>
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="referrer" content="origin-when-cross-origin" />
+    <meta name="color-scheme" content="light dark" />
+
+    {/* Global Metadata */}
+    <meta name="application-name" content=`${name}'s Domain` />
     <meta name="generator" content={Astro.generator} />
-    <title>Astro Basics</title>
+    <slot name="keywords">
+      <meta name="keywords" content={[].join(",")} />
+    </slot>
+    <meta name="creator" content={site_author} />
+    <meta name="publisher" content={site_author} />
+    <meta name="fediverse:creator" content=`@${site_author}@mastodon.online` />
+
+    {/* Primary Meta Tags */}
+    <title>{htmlTitle}</title>
+    <meta name="title" content={htmlTitle} />
+    <meta name="description" content={description} />
+
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#fafafa" />
+    <meta
+      name="theme-color"
+      media="(prefers-color-scheme: dark)"
+      content={pwaAssetsHead.themeColor?.content}
+    />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-status-bar-style" content="black-translucent" />
+
+    {/*  Favicons / Manifest / Robots / Fonts  */}
+    <meta name="msapplication-TileColor" content="#fafafa" />
+    <slot name="favicons">
+      <Fragment set:html={pwaInfo?.webManifest.linkTag} />
+      {pwaAssetsHead.links.map((link) => <link {...link} />)}
+    </slot>
+
+    <slot name="robots">
+      <Fragment set:html={""} />
+    </slot>
+
+    <Font cssVariable="--font-family-sans" preload />
+    <slot name="fonts" />
+
+    {/* Permalink / Sitemap / Feed / Changelog */}
+    <link rel="canonical" href={canonicalURL} />
+    <link
+      rel="sitemap"
+      type="application/xml"
+      href={new URL("sitemap-index.xml", Astro.site)}
+    />
+
+    <slot name="rssfeed">
+      <link
+        rel="alternate"
+        type="application/rss+xml"
+        title="princemuel.com Master RSS Feed"
+        href={new URL("rss.xml", Astro.site)}
+      />
+    </slot>
+
+    {/* Open Graph / Facebook */}
+    <meta property="og:type" content={medium} />
+    <meta property="og:url" content={Astro.url} />
+    <meta property="og:title" content={title?.[0]} />
+    <meta property="og:description" content={description} />
+    <slot name="opengraph" />
+
+    {/* Twitter */}
+    <meta property="twitter:url" content={Astro.url} />
+    <meta property="twitter:title" content={title?.[0]} />
+    <meta property="twitter:description" content={description} />
+    <slot name="twitter">
+      <meta property="twitter:card" content="summary" />
+    </slot>
+
+    <slot name="metadata" />
+    <ClientRouter />
+    <slot name="jsonld" />
   </head>
-  <body>
-    <slot />
+  <body class="font-sans">
+    <Fragment>
+      <header class="sticky top-0 border-b border-gray-200 py-6">
+        <Frame>
+          <div class="flex items-center justify-between">
+            <Link
+              href="/"
+              class="flex size-8 items-center justify-center overflow-hidden rounded-full border-2 border-gray-200"
+            >
+              <Image
+                width={32}
+                height={32}
+                alt="Prince Muel"
+                src={placeholder}
+                loading="eager"
+              />
+              <span class="sr-only">Home</span>
+            </Link>
+
+            <Link
+              href="/"
+              class="flex size-8 items-center justify-center overflow-hidden rounded-full border-2 border-gray-200"
+            >
+              <Image width={32} height={32} alt="Prince Muel" src={avatar} loading="eager" />
+              <span class="sr-only">Home</span>
+            </Link>
+
+            <Link
+              href="/"
+              class="flex size-8 items-center justify-center overflow-hidden rounded-full border-2 border-gray-200"
+            >
+              <Image
+                width={32}
+                height={32}
+                alt="Prince Muel"
+                src={placeholder}
+                loading="eager"
+              />
+              <span class="sr-only">Home</span>
+            </Link>
+          </div>
+        </Frame>
+      </header>
+      <div class="bg-neutral-50 py-1 shadow-2xs">
+        <Frame>
+          <Routes />
+        </Frame>
+      </div>
+      <Frame>
+        <slot />
+      </Frame>
+    </Fragment>
   </body>
 </html>

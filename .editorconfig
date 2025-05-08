@@ -13,7 +13,7 @@ indent_size = 2
 max_line_length = 96
 
 # Specific settings for Rust/Python files
-[{*.rs,*.py}]
+[{*.rs,*.py,*.toml}]
 indent_size = 4
 
 # Specific settings for Markdown files

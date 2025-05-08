@@ -10,14 +10,15 @@
   "editor.wordWrap": "bounded",
   "editor.wordWrapColumn": 96,
   "editor.inlineSuggest.enabled": true,
-  "editor.fontFamily": "'Cascadia Code', 'Droid Sans Mono', 'monospace', monospace",
+  "editor.fontFamily": "'Cascadia Code', 'CaskaydiaMono Nerd Font','JetBrainsMono Nerd Font', 'Droid Sans Mono', 'monospace', monospace",
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.codeActionsOnSave": {
     // "source.fixAll": "explicit",
     "source.organizeImports": "explicit",
     "source.addMissingImports": "explicit",
     "source.fixAll.oxc": "explicit",
-    "source.fixAll.markdownlint": "explicit"
+    "source.fixAll.markdownlint": "explicit",
+    "source.fixAll.rust-analyzer": "explicit"
   },
   "files.associations": {
     "*.css": "tailwindcss"
@@ -48,7 +49,7 @@
   "astro.content-intellisense": true,
   "npm-intellisense.packageSubfoldersIntellisense": true,
   "prettier.documentSelectors": ["**/*.astro"],
-  "auto-close-tag.activationOnLanguage": ["mdx"],
+  "auto-close-tag.activationOnLanguage": ["*"],
   "[astro]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
@@ -72,5 +73,37 @@
   "tailwindCSS.experimental.classRegex": [
     ["([\"'`][^\"'`]*.*?[\"'`])", "[\"'`]([^\"'`]*).*?[\"'`]"]
   ],
-  "workbench.tree.indent": 12
+  "workbench.tree.indent": 12,
+
+  // Rust Analyzer settings
+  "rust-analyzer.cargo.features": "all",
+  "rust-analyzer.check.command": "clippy",
+  "rust-analyzer.checkOnSave": true,
+  // Auto import and organize imports
+  "rust-analyzer.completion.autoimport.enable": true,
+  "rust-analyzer.imports.group.enable": true,
+  "rust-analyzer.imports.granularity.enforce": true,
+  "rust-analyzer.imports.granularity.group": "module",
+  "rust-analyzer.imports.prefix": "crate",
+  "rust-analyzer.imports.merge.glob": true,
+  "rust-analyzer.imports.prefixExternPrelude": true,
+  "rust-analyzer.imports.preferNoStd": true,
+  "rust-analyzer.imports.preferPrelude": true,
+  // Inlay Hints
+  "rust-analyzer.inlayHints.typeHints.enable": false,
+  "rust-analyzer.inlayHints.chainingHints.enable": false,
+  // Formatting with rustfmt
+  "editor.formatOnSave": true,
+  "files.autoSave": "off",
+  "[rust]": {
+    "editor.defaultFormatter": "rust-lang.rust-analyzer",
+    "editor.formatOnSave": true
+  },
+  "rust-analyzer.testExplorer": true,
+  "rust-analyzer.assist.emitMustUse": true,
+  "rust-analyzer.semanticHighlighting.punctuation.enable": true,
+  "material-icon-theme.folders.associations": {
+    "journal": "drafts",
+    "crates": "packages"
+  }
 }

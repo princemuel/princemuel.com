@@ -10,12 +10,11 @@ interface Robots {
 }
 
 interface Meta {
-  title: [value: string, absolute?: boolean];
+  title?: [value: string, absolute?: boolean];
   description: string;
   keywords?: string[];
-  image?: string;
   canonical?: string | URL;
-  type?: OpenGraph["type"];
+  medium?: OpenGraph["type"];
   publishedAt?: ConstructorParameters<typeof Date>[0];
   updatedAt?: ConstructorParameters<typeof Date>[0];
   robots?: Robots;

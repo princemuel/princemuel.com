@@ -1,21 +1,17 @@
 ---
-import { pattern } from "@/assets";
-
 import type { HTMLAttributes } from "astro/types";
+
+import { pattern } from "@/assets/images";
 
 type Props = Omit<HTMLAttributes<"div">, "class:list">;
 
-const { class: className, ...attrs } = Astro.props;
+const { class: cls, ...attrs } = Astro.props;
 const image = `url(${pattern.src})`;
 ---
 
 <div
   {...attrs}
-  class:list={[
-    "bg-solute top-0 bg-repeat",
-    "bg-[image:var(--image)] bg-[length:1.5rem]",
-    className,
-  ]}
+  class:list={["bg-solute top-0 bg-repeat", "bg-[image:var(--image)] bg-[length:1.5rem]", cls]}
 >
 </div>
 

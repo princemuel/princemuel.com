@@ -1,0 +1,22 @@
+[package]
+    edition = "2024"
+    name    = "markd"
+    version = "0.1.0"
+
+[lib]
+    crate-type = ["cdylib", "rlib"]
+
+[features]
+    default = ["console_error_panic_hook"]
+
+[dependencies]
+    cfg-if.workspace         = true
+    console_error_panic_hook = { workspace = true, optional = true }
+    wasm-bindgen.workspace   = true
+    web-sys                  = { workspace = true, features = ["console"] }
+
+[dev-dependencies]
+    wasm-bindgen-test = "0.3"
+
+[lints]
+    workspace = true

@@ -6,14 +6,14 @@ export const capitalize = <S extends string>(str: S) => {
   >;
 };
 
-export const normalize = (str: string) => str.replace(/[^\w]/g, "-");
+export const normalize = (str: string) => str.replaceAll(/[^\w]/g, "-");
 
 export const truncate = (str: string, length: number) => {
   if (!str || "string" !== typeof str || str.length <= length) return str;
   return `${str.slice(0, length)}...`;
 };
 
-export const str_to_bool = (value?: string | null) => JSON.parse(value ?? "false") as boolean;
+export const str_to_bool = (value?: string | null) => JSON.parse(value || "false") as boolean;
 
 export const pluralize = <C extends number, N extends string, P extends string = `${N}s`>(
   count: C,
