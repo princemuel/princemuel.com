@@ -1,6 +1,6 @@
 {
   "$schema": "https://raw.githubusercontent.com/oxc-project/oxc/main/npm/oxlint/configuration_schema.json",
-  "plugins": ["import", "typescript", "unicorn", "promise", "node", "oxc", "jsx-a11y"],
+  "plugins": ["import", "typescript", "unicorn", "promise", "node", "jsdoc", "oxc", "jsx-a11y"],
   "env": {
     "es2023": true,
     "browser": true,
@@ -8,22 +8,47 @@
     "shared-node-browser": true
   },
   "categories": {
-    "correctness": "error",
-    "nursery": "error",
-    "pedantic": "off",
+    "correctness": "deny",
+    "nursery": "deny",
+    "pedantic": "warn",
     "perf": "warn",
-    "restriction": "off",
+    "restriction": "allow",
     "style": "warn",
     "suspicious": "warn"
   },
   "rules": {
-    "curly": "off",
-    "sort-imports": "off",
-    "sort-keys": "off",
-    "no-magic-numbers": "off",
-    "no-ternary": "off",
-    "no-anonymous-default-export": "off",
-    "import/no-namespace": "off"
+    "curly": "allow",
+    "sort-imports": "allow",
+    "sort-keys": "allow",
+    "no-magic-numbers": "allow",
+    "no-ternary": "allow",
+    "no-anonymous-default-export": "allow",
+    "require-await": "allow",
+    "import/no-namespace": "allow",
+    "import/max-dependencies": "allow",
+    "import/exports-last": "allow",
+    "eslint/max-nested-callbacks": ["warn", 10],
+    "eslint/max-depth": "allow",
+    "eslint/max-lines-per-function": [
+      "warn",
+      {
+        "max": 72,
+        "skipBlankLines": false,
+        "skipComments": false,
+        "IIFEs": true
+      }
+    ],
+    "unicorn/filename-case": [
+      "error",
+      {
+        "cases": {
+          "camelCase": false,
+          "pascalCase": false,
+          "snakeCase": false,
+          "kebabCase": true
+        }
+      }
+    ]
   },
   "ignorePatterns": ["dist", ".astro", ".netlify", "**/ignored/*", "**/local/*"],
   "settings": {

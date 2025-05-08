@@ -1,0 +1,35 @@
+---
+import { Icon } from "astro-icon/components";
+
+// import { createDateFormatter } from "@/helpers/date-format";
+
+import Frame from "@/components/layout/frame.astro";
+import Link from "@/components/primitive/link.astro";
+import Time from "@/components/primitive/time.astro";
+
+// eslint-disable-next-line no-undef
+const buildDate = new Date(__BUILD_DATE__);
+
+const formatter = new Intl.DateTimeFormat("en-US", {
+  weekday: "short",
+  year: "numeric",
+  month: "short",
+  day: "2-digit",
+});
+---
+
+<div class="bg-neutral-100">
+  <Frame class="flex items-center justify-center py-1">
+    <p class="flex flex-wrap items-center justify-center gap-1 text-xs text-neutral-800">
+      <span>Built with </span>
+      <Icon name="astro-icon" />
+      <Link href="https://docs.astro.build/en/getting-started/">
+        {Astro.generator}
+      </Link>
+      <span>on</span>
+      <Time datetime={buildDate.toISOString()}>
+        {formatter.format(buildDate)}
+      </Time>
+    </p>
+  </Frame>
+</div>

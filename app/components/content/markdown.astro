@@ -3,14 +3,14 @@ import type { HTMLAttributes } from "astro/types";
 
 type Props = HTMLAttributes<"article">;
 
-const { ...attrs } = Astro.props;
+const attrs = Astro.props;
 ---
 
 <article
   id="article"
   aria-labelledby="headline"
   class:list={[
-    "prose 2xl:prose-lg 3xl:prose-xl dark:prose-invert",
+    "prose prose-neutral 3xl:prose-lg dark:prose-invert",
     "**:[.expressive-code_+_.expressive-code]:mt-12",
   ]}
   {...attrs}

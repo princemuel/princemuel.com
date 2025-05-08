@@ -18,10 +18,10 @@ const google_font = async (font: string, text: string) => {
     },
   }).then((r) => r.text());
 
-  const resource = css.match(/src: url\((.+)\) format\('(opentype|truetype)'\)/);
-  if (!resource || !resource[1]) throw new Error("Failed to download dynamic font");
+  const resource = css.match(/src: url\((.+)\) format\('(opentype|truetype)'\)/)?.[1];
+  if (!resource) throw new Error("Failed to download dynamic font. Invalid font type");
 
-  const response = await fetch(resource[1]);
+  const response = await fetch(resource);
   if (!response.ok)
     throw new Error(`Failed to download dynamic font. Status: ${response.status}`);
 

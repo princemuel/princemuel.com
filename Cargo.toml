@@ -1,0 +1,36 @@
+
+[workspace]
+    members  = ["crates/*"]
+    resolver = "3"
+
+    [workspace.package]
+        authors     = ["Prince Muel <68931805+princemuel@users.noreply.github.com>"]
+        description = "A short description of my package"
+        license     = "GPL-3.0-or-later"
+        publish     = false
+        repository  = "https://github.com/princemuel/princemuel.com"
+        version     = "0.1.0"
+
+    [workspace.dependencies]
+        cfg-if                   = "0.1"
+        console_error_panic_hook = "0.1"
+        wasm-bindgen             = "0.2"
+        web-sys                  = "0.3"
+
+    [workspace.lints.rust]
+        dead_code         = "allow"
+        unsafe_code       = "forbid"
+        unstable_features = "forbid"
+
+    [workspace.lints.clippy]
+        all                = { level = "deny", priority = -1 }
+        disallowed_methods = "allow"
+        empty_loop         = "forbid"
+        infinite_loop      = "deny"
+        mem_forget         = "deny"
+        todo               = "forbid"
+
+[profile.release]
+    lto       = true
+    opt-level = 'z'
+    panic     = "abort"

@@ -4,13 +4,13 @@
 </script>
 
 <theme-picker class="contents">
-  <button class="" title="Toggle Theme" type="button">
+  <button type="button" class="" title="Toggle Theme">
     <span class="sr-only">Toggle theme</span>
   </button>
 </theme-picker>
 
 <script>
-  import { $, register_el } from "@/helpers/dom";
+  import { $, custom_el } from "@/helpers/dom";
 
   type Theme = (typeof themes)[number];
 
@@ -53,16 +53,16 @@
 
   class AstroThemePicker extends HTMLElement {
     btn: HTMLButtonElement;
-    handleClick: (e: MouseEvent) => void;
+    onClick: (e: MouseEvent) => void;
     constructor() {
       super();
       this.btn = $("button", HTMLButtonElement, this);
-      this.handleClick = this.#handleThemeChange.bind(this);
+      this.onClick = this.#handleThemeChange.bind(this);
     }
 
     connectedCallback() {
       onThemeChange(loadTheme());
-      this.btn.addEventListener("click", this.handleClick);
+      this.btn.addEventListener("click", this.onClick);
     }
 
     #handleThemeChange(e: MouseEvent) {
@@ -72,9 +72,9 @@
     }
 
     disconnectedCallback() {
-      this.btn.removeEventListener("click", this.handleClick);
+      this.btn.removeEventListener("click", this.onClick);
     }
   }
 
-  register_el("theme-picker", AstroThemePicker);
+  custom_el("theme-picker", AstroThemePicker);
 </script>

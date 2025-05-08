@@ -1,6 +1,6 @@
-import { handler } from "@/helpers/api-handler";
+import { handleApi } from "@/helpers/handle-api";
 
-export const GET = handler(async (ctx) => {
+export const GET = handleApi(async (ctx) => {
   const updatedAt = new Intl.DateTimeFormat("en-CA").format(new Date()).replaceAll("-", "/");
 
   const text = [

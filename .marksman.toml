@@ -1,0 +1,3 @@
+[core]
+markdown.file_extensions = ["md", "mdoc", "mdx", "markdown"]
+incremental_references = true

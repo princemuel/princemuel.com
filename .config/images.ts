@@ -3,7 +3,7 @@ import type { AstroUserConfig } from "astro";
 type AstroConfig = NonNullable<NonNullable<AstroUserConfig["image"]>>;
 
 export default {
-  experimentalLayout: "responsive",
+  experimentalLayout: "constrained",
   remotePatterns: [
     { protocol: "https", hostname: "**.unsplash.com" },
     { protocol: "https", hostname: "**.github.com" },

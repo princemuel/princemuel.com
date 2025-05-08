@@ -1,0 +1,101 @@
+---
+import { getCollection } from "astro:content";
+
+import { Icon } from "astro-icon/components";
+
+import { createDateFormatter } from "@/helpers/date-format";
+
+import type { HTMLAttributes } from "astro/types";
+
+import Frame from "@/components/layout/frame.astro";
+import Link from "@/components/primitive/link.astro";
+import Time from "@/components/primitive/time.astro";
+import Copyright from "@/components/shared/copyright.astro";
+
+type Props = HTMLAttributes<"footer">;
+
+const { class: cls, ...attrs } = Astro.props;
+
+const socials = await getCollection(
+  "socials",
+  ({ id }) => !new Set(["discord", "email", "rss"]).has(id),
+);
+
+// const _ = {
+//   general: [
+//     { href: "/blog", text: "Blog" },
+//     { href: "/about-me", text: "About Me" },
+//     { href: "/projects", text: "Projects" },
+//     { href: "/articles", text: "Articles" },
+//     { href: "/journal", text: "Journal" },
+//   ],
+//   specifics: [
+//     { href: "/wiki", text: "Wiki" },
+//     { href: "/resume.pdf", text: "Resume" },
+//     { href: "/newsletter", text: "Newsletter" },
+//     { href: "/tweets", text: "Tweets" },
+//     { href: "/say-hello", text: "Contact Me" },
+//   ],
+//   extras: [
+//     { href: "/wiki", text: "Setup" },
+//     { href: "/wiki/license", text: "License" },
+//     { href: "/wiki/accessibility", text: "Accessibility" },
+//     { href: "/legal/privacy-policy", text: "Privacy Policy" },
+//     { href: "/legal/terms-of-service", text: "Terms of Service" },
+//     // { href: "/sponsor-me", text: "Sponsor Me" },
+//   ],
+// };
+
+const formatter = createDateFormatter({
+  weekday: "short",
+  year: "numeric",
+  month: "short",
+  day: "2-digit",
+});
+
+// eslint-disable-next-line no-undef
+const buildDate = new Date(__BUILD_DATE__);
+
+const date = new Date();
+---
+
+<footer {...attrs} class:list={[cls]}>
+  <Frame>
+    <div class="">
+      <div class="flex">
+        {
+          socials.map((link) => (
+            <Link
+              href={link.data.href}
+              class:list={["flex items-center text-2xl text-neutral-800 transition"]}
+            >
+              <Icon name={link.data.icon} />
+              <span class="sr-only">{link.data.text}</span>
+            </Link>
+          ))
+        }
+      </div>
+
+      <Copyright server:defer datetime={date.toISOString()}>
+        <Copyright slot="fallback" datetime={date.toISOString()} />
+      </Copyright>
+
+      <span class="font-bold">Prince Muel.</span>
+      <span>All Rights Reserved</span>
+    </div>
+  </Frame>
+
+  <Frame class="flex items-center justify-center py-1">
+    <p class="flex flex-wrap items-center justify-center gap-1 text-xs text-neutral-800">
+      <span>Built with</span>
+      <Icon name="astro-icon" />
+      <Link href="https://docs.astro.build/en/concepts/why-astro/">
+        {Astro.generator}
+      </Link>
+      <span>on</span>
+      <Time datetime={buildDate.toISOString()}>
+        {formatter.format(buildDate.toISOString())}
+      </Time>
+    </p>
+  </Frame>
+</footer>

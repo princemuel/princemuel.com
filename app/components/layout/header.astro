@@ -1,0 +1,32 @@
+---
+import { Image } from "astro:assets";
+
+import { avatar } from "@/assets/images";
+
+import Frame from "@/components/layout/frame.astro";
+import Link from "@/components/primitive/link.astro";
+import Routes from "@/components/widget/routes.astro";
+import ThemePicker from "@/components/widget/theme-picker.astro";
+---
+
+<header class="transition-colors ease-in-out">
+  <Frame>
+    <div class="py-8">
+      <div class="flex items-center justify-between">
+        <Link
+          href="/"
+          class="flex size-10 items-center justify-center overflow-hidden rounded-full"
+        >
+          <Image width={40} height={40} alt="Prince Muel" src={avatar} loading="lazy" />
+        </Link>
+
+        <div
+          class="fixed inset-x-0 bottom-[5vh] z-50 mx-auto grid w-full place-content-center md:contents"
+        >
+          <Routes />
+        </div>
+        <ThemePicker />
+      </div>
+    </div>
+  </Frame>
+</header>

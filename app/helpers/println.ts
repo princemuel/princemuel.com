@@ -1,4 +1,4 @@
-export const println$ = (message?: unknown, ...optionalParams: unknown[]) => {
+export const println$ = (message?: unknown, ...args: unknown[]) => {
   if (!import.meta.env.DEV) return;
-  console.info(message, ...optionalParams);
+  console.info(message, ...args);
 };

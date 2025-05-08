@@ -1,0 +1,26 @@
+---
+import Markdown from "@/components/content/markdown.astro";
+import Layout from "@/layouts/layout.astro";
+
+import Content from "@/content/partials/projects.md";
+
+const metadata = {
+  title: ["Projects"],
+  description:
+    "A list of projects I've worked on, or am currently working on. Mostly web development",
+  // eslint-disable-next-line no-undef
+} satisfies Meta;
+---
+
+<Fragment>
+  <Layout {...metadata}>
+    <Fragment slot="metadata"></Fragment>
+    <Fragment slot="opengraph"></Fragment>
+    <Fragment>
+      <Markdown>
+        <h1>{metadata.title}</h1>
+        <Content />
+      </Markdown>
+    </Fragment>
+  </Layout>
+</Fragment>

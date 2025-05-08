@@ -1,0 +1,26 @@
+---
+import Markdown from "@/components/content/markdown.astro";
+import Layout from "@/layouts/layout.astro";
+
+import type { MarkdownLayoutProps } from "astro";
+
+type Props = MarkdownLayoutProps<{ title: string; description: string }>;
+
+const { frontmatter } = Astro.props;
+
+const { title, description } = frontmatter;
+
+const metadata = {
+  title: [title, true],
+  description: description,
+  // eslint-disable-next-line no-undef
+  // eslint-disable-next-line no-undef
+} satisfies Meta;
+---
+
+<Layout {...metadata}>
+  <Markdown>
+    <h1 id="headline">{title}</h1>
+    <slot />
+  </Markdown>
+</Layout>

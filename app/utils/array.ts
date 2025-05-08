@@ -1,4 +1,4 @@
-export const hasValues = <T>(value: T[] | undefined): value is NonNullable<T[]> => {
+export const hasValues = <T>(value: T[] | undefined | null): value is NonNullable<T[]> => {
   return Array.isArray(value) && 0 < value.length;
 };
 
