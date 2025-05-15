@@ -74,7 +74,7 @@
     "eslint-plugin-oxlint": "^0.16.9",
     "eslint-plugin-prettier": "^5.4.0",
     "lefthook": "^1.11.12",
-    "netlify-cli": "^21.2.0",
+    "netlify-cli": "^21.4.2",
     "oxlint": "^0.16.9",
     "preact": "^10.26.6",
     "prettier": "^3.5.3",
