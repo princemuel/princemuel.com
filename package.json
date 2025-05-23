@@ -1,11 +1,11 @@
 {
-  "name": "shardoice",
+  "name": "medotdev",
   "type": "module",
   "version": "0.3.0",
   "description": "My personal website built with Astro, Tailwind CSS, MDX, and the Github API",
   "private": true,
-  "repository": "git@github.com:princemuel/princemuel.com.git",
-  "author": "princemuel <vansomecsam@gmail.com>",
+  "repository": "git@github.com:princemuel/medotdev.git",
+  "author": "Prince Muel <68931805+princemuel@users.noreply.github.com>",
   "license": "GPL-3.0-only",
   "engines": {
     "node": "^22 || >=24"
